@@ -17,6 +17,8 @@ export default tseslint.config(
         ignores: [
             // exclude private type definition packages (no tsconfig.json)
             'packages/types-eslint-plugin-*/**',
+            // lint fixtures deliberately contain rule violations
+            'packages/*/fixtures/**',
         ],
     },
     {
