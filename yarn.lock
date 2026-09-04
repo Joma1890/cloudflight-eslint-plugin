@@ -731,8 +731,12 @@ __metadata:
   resolution: "@cloudflight/eslint-plugin-angular@workspace:packages/eslint-plugin-angular"
   dependencies:
     "@cloudflight/eslint-plugin-typescript": "workspace:*"
+    "@typescript-eslint/utils": "npm:8.53.0"
     angular-eslint: "npm:19.6.0"
+    eslint: "npm:9.39.2"
+    tslib: "npm:^2.8.1"
     typescript: "npm:5.8.3"
+    typescript-eslint: "npm:8.53.0"
   peerDependencies:
     eslint: ">=9.0.0 < 10.0.0"
   languageName: unknown
@@ -745,10 +749,14 @@ __metadata:
     "@cloudflight/eslint-plugin-typescript": "workspace:*"
     "@types/eslint-plugin-no-unsanitized": "workspace:*"
     "@types/eslint-plugin-security": "workspace:*"
+    "@typescript-eslint/utils": "npm:8.53.0"
+    eslint: "npm:9.39.2"
     eslint-plugin-n: "npm:17.18.0"
     eslint-plugin-no-unsanitized: "npm:^4.1.4"
     eslint-plugin-security: "npm:^3.0.1"
+    tslib: "npm:^2.8.1"
     typescript: "npm:5.8.3"
+    typescript-eslint: "npm:8.53.0"
   peerDependencies:
     eslint: ">=9.0.0 < 10.0.0"
   languageName: unknown
@@ -760,10 +768,14 @@ __metadata:
   dependencies:
     "@cloudflight/eslint-plugin-typescript": "workspace:*"
     "@types/eslint-plugin-jsx-a11y": "workspace:*"
+    "@typescript-eslint/utils": "npm:8.53.0"
+    eslint: "npm:9.39.2"
     eslint-plugin-jsx-a11y: "npm:^6.10.2"
     eslint-plugin-react: "npm:^7.37.5"
     eslint-plugin-react-hooks: "npm:^7.0.1"
+    tslib: "npm:^2.8.1"
     typescript: "npm:5.8.3"
+    typescript-eslint: "npm:8.53.0"
   peerDependencies:
     eslint: ">=9.0.0 < 10.0.0"
   languageName: unknown
@@ -775,9 +787,12 @@ __metadata:
   dependencies:
     "@eslint/js": "npm:^9.39.2"
     "@stylistic/eslint-plugin": "npm:5.6.1"
+    "@typescript-eslint/utils": "npm:8.53.0"
+    eslint: "npm:9.39.2"
     eslint-import-resolver-typescript: "npm:3.10.1"
     eslint-plugin-import-x: "npm:4.16.1"
     eslint-plugin-perfectionist: "npm:5.3.1"
+    tslib: "npm:^2.8.1"
     typescript: "npm:5.8.3"
     typescript-eslint: "npm:^8.53.0"
   peerDependencies:
@@ -790,8 +805,11 @@ __metadata:
   resolution: "@cloudflight/eslint-plugin-vue@workspace:packages/eslint-plugin-vue"
   dependencies:
     "@cloudflight/eslint-plugin-typescript": "workspace:*"
+    "@typescript-eslint/utils": "npm:8.53.0"
     "@vue/eslint-config-typescript": "npm:^14.6.0"
+    eslint: "npm:9.39.2"
     eslint-plugin-vue: "npm:^10.6.2"
+    tslib: "npm:^2.8.1"
     typescript: "npm:5.8.3"
   peerDependencies:
     eslint: ">=9.0.0 < 10.0.0"
@@ -7569,7 +7587,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^2.1.0, tslib@npm:^2.4.0":
+"tslib@npm:^2.1.0, tslib@npm:^2.4.0, tslib@npm:^2.8.1":
   version: 2.8.1
   resolution: "tslib@npm:2.8.1"
   checksum: 10c0/9c4759110a19c53f992d9aae23aac5ced636e99887b51b9e61def52611732872ff7668757d4e4c61f19691e36f4da981cd9485e869b4a7408d689f6bf1f14e62
