@@ -12,4 +12,10 @@ export default tseslint.config(
     ...cloudflightTypescriptFormatConfig({
         rootDirectory: import.meta.dirname,
     }),
+    {
+        ignores: [
+            // exclude private type definition packages (no tsconfig.json)
+            'packages/types-eslint-plugin-*/**',
+        ],
+    },
 );

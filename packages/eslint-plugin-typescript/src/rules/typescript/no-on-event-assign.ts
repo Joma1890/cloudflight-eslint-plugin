@@ -103,9 +103,8 @@ export const NoOnEventAssign = createRule<[], 'noAssign'>({
     name: NoOnEventAssignName,
     meta: {
         type: 'problem',
-        fixable: 'code',
         docs: {
-            description: 'Enforces that all packages have absolute versions.',
+            description: 'Disallows assigning event handlers to `on*` properties, use `addEventListener` instead.',
         },
         schema: [],
         messages: {
