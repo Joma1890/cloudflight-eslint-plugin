@@ -10,6 +10,10 @@ ruleTester.run(NoOnEventAssignName, NoOnEventAssign, {
         "target.addEventListener('click', () => {})",
         'count = 1',
         'target.title = "no event"',
+        // a variable named like an event does not make the assigned key an event
+        'const onclick = "title"; target[onclick] = 1;',
+        // a template literal with expressions is a dynamic key
+        `target[\`on\${name}\`] = 1`,
     ],
     invalid: [
         {
@@ -22,6 +26,14 @@ ruleTester.run(NoOnEventAssignName, NoOnEventAssign, {
         },
         {
             code: 'target.onclick = undefined',
+            errors: [{type: AST_NODE_TYPES.AssignmentExpression, messageId: 'noAssign'}],
+        },
+        {
+            code: "target['onclick'] = () => {}",
+            errors: [{type: AST_NODE_TYPES.AssignmentExpression, messageId: 'noAssign'}],
+        },
+        {
+            code: 'target[`onclick`] = () => {}',
             errors: [{type: AST_NODE_TYPES.AssignmentExpression, messageId: 'noAssign'}],
         },
     ],

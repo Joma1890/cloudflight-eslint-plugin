@@ -1,3 +1,5 @@
+import type {TSESTree} from '@typescript-eslint/utils';
+
 import {createRule} from '../../util/create-rule';
 
 const disallowedEvents = [
@@ -94,6 +96,24 @@ const disallowedEvents = [
     'onwheel',
 ];
 
+function assignedPropertyName(member: TSESTree.MemberExpression): string | undefined {
+    if (!member.computed && member.property.type === 'Identifier') {
+        return member.property.name;
+    }
+
+    // dynamic keys cannot be resolved statically, only string literals are checked
+    if (member.computed && member.property.type === 'Literal' && typeof member.property.value === 'string') {
+        return member.property.value;
+    }
+
+    // a template literal without expressions is a constant key as well
+    if (member.computed && member.property.type === 'TemplateLiteral' && member.property.expressions.length === 0) {
+        return member.property.quasis[0]?.value.cooked ?? undefined;
+    }
+
+    return undefined;
+}
+
 export const NoOnEventAssignName = 'no-on-event-assign';
 /**
  * Comment needed to prevent type declaration generation, which is broken.
@@ -119,11 +139,9 @@ export const NoOnEventAssign = createRule<[], 'noAssign'>({
                     return;
                 }
 
-                if (node.left.property.type !== 'Identifier') {
-                    return;
-                }
+                const name = assignedPropertyName(node.left);
 
-                if (disallowedEvents.includes(node.left.property.name)) {
+                if (name !== undefined && disallowedEvents.includes(name)) {
                     context.report({node, messageId: 'noAssign'});
                 }
             },
