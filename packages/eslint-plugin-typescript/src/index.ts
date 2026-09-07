@@ -23,7 +23,7 @@ import {cloudflightTypescriptPlugin} from './rules';
 // eslint-disable-next-line @typescript-eslint/no-deprecated -- tseslint.config is deprecated but defineConfig has type incompatibilities with typescript-eslint
 export const cloudflightTypescriptBaseConfig = tseslint.config(
     {
-        files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
+        files: ['**/*.{js,jsx,mjs,cjs,ts,mts,cts,tsx}'],
         plugins: {
             '@cloudflight/typescript': cloudflightTypescriptPlugin,
         },
@@ -49,7 +49,7 @@ export const cloudflightTypescriptBaseConfig = tseslint.config(
 // eslint-disable-next-line @typescript-eslint/no-deprecated -- tseslint.config is deprecated but defineConfig has type incompatibilities with typescript-eslint
 export const cloudflightTypescriptSecurityConfig = tseslint.config(
     {
-        files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
+        files: ['**/*.{js,jsx,mjs,cjs,ts,mts,cts,tsx}'],
         extends: [
             pluginSecurity.configs.recommended,
             pluginNoUnsanitized.configs.recommended,
@@ -68,7 +68,7 @@ export const cloudflightTypescriptSecurityConfig = tseslint.config(
 export function cloudflightTypescriptImportConfig(settings: CloudflightEslintPluginSettings): FlatConfig.ConfigArray {
     // eslint-disable-next-line @typescript-eslint/no-deprecated -- tseslint.config is deprecated but defineConfig has type incompatibilities with typescript-eslint
     return tseslint.config({
-        files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
+        files: ['**/*.{js,jsx,mjs,cjs,ts,mts,cts,tsx}'],
         extends: [
             // https://github.com/typescript-eslint/typescript-eslint/issues/10395
             // typescript-eslint broke backwards compatibility when they added TS 5.7 support.
@@ -96,7 +96,7 @@ export function cloudflightTypescriptImportConfig(settings: CloudflightEslintPlu
  */
 // eslint-disable-next-line @typescript-eslint/no-deprecated -- tseslint.config is deprecated but defineConfig has type incompatibilities with typescript-eslint
 export const cloudflightTypescriptDisableTypeCheckedConfig = tseslint.config({
-    files: ['**/*.{js,mjs,cjs}'],
+    files: ['**/*.{js,jsx,mjs,cjs}'],
     extends: [tseslint.configs.disableTypeChecked],
     name: 'cloudflight/typescript/disable-type-checked-rules',
     rules: {
@@ -120,7 +120,7 @@ export function cloudflightTypescriptFormatConfig(settings: CloudflightEslintPlu
             ignores: ['.yarn/**'],
         },
         {
-            files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
+            files: ['**/*.{js,jsx,mjs,cjs,ts,mts,cts,tsx}'],
             plugins: {
                 '@typescript-eslint': tseslint.plugin,
                 'import-x': pluginImportX,

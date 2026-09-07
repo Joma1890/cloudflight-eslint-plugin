@@ -2,10 +2,8 @@ import type {FlatConfig} from '@typescript-eslint/utils/ts-eslint';
 
 import {
     CloudflightEslintPluginSettings,
-    cloudflightTypescriptBaseConfig,
     cloudflightTypescriptConfig,
     cloudflightTypescriptFormatConfig,
-    cloudflightTypescriptImportConfig,
 } from '@cloudflight/eslint-plugin-typescript';
 import pluginJsxA11y from 'eslint-plugin-jsx-a11y';
 import pluginReact from 'eslint-plugin-react';
@@ -23,10 +21,6 @@ export function cloudflightReactConfig(settings: CloudflightEslintPluginSettings
         {
             files: relevantFiles,
             extends: [
-                // eslint-disable-next-line @typescript-eslint/no-deprecated
-                ...cloudflightTypescriptBaseConfig,
-                // eslint-disable-next-line @typescript-eslint/no-deprecated
-                ...cloudflightTypescriptImportConfig(settings),
                 // type assertion is workaround for incorrect TypeScript types in eslint-plugin-react
                 // see https://github.com/jsx-eslint/eslint-plugin-react/issues/3838
                 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -63,19 +57,8 @@ export function cloudflightReactConfig(settings: CloudflightEslintPluginSettings
 }
 
 export function cloudflightReactFormatConfig(settings: CloudflightEslintPluginSettings): FlatConfig.ConfigArray {
-    const mappedConfigs = cloudflightTypescriptFormatConfig(settings).map((config) => {
-        if (config.files == null) {
-            return config;
-        }
-
-        return {
-            ...config,
-            files: relevantFiles,
-        };
-    });
-
     return [
-        ...mappedConfigs,
+        ...cloudflightTypescriptFormatConfig(settings),
         {
             files: relevantFiles,
             languageOptions: {
