@@ -1,6 +1,6 @@
 import {TSESLint} from '@typescript-eslint/utils';
 
-export const angularEslintRules: TSESLint.Linter.RulesRecord = {
+export const angularRules: TSESLint.Linter.RulesRecord = {
     '@angular-eslint/component-class-suffix': [
         'error',
         {

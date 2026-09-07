@@ -6,7 +6,7 @@ import nounsanitized from 'eslint-plugin-no-unsanitized';
 import pluginSecurity from 'eslint-plugin-security';
 import tseslint from 'typescript-eslint';
 
-import {importEslintRules} from './configs/import';
+import {importRules} from './configs/import';
 import {nodeRules} from './configs/node';
 import {securityRules} from './configs/security';
 
@@ -25,7 +25,7 @@ export function cloudflightNodeConfig(settings: CloudflightEslintPluginSettings)
             rules: {
                 ...nodeRules,
                 ...securityRules,
-                ...importEslintRules,
+                ...importRules,
             },
             languageOptions: {
                 parserOptions: {

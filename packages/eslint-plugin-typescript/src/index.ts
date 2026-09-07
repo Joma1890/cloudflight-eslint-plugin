@@ -1,16 +1,16 @@
 import type {FlatConfig, SharedConfigurationSettings} from '@typescript-eslint/utils/ts-eslint';
 
 import pluginJs from '@eslint/js';
-import stylistic from '@stylistic/eslint-plugin';
-import eslintPluginImportX from 'eslint-plugin-import-x';
-import perfectionist from 'eslint-plugin-perfectionist';
+import pluginStylistic from '@stylistic/eslint-plugin';
+import pluginImportX from 'eslint-plugin-import-x';
+import pluginPerfectionist from 'eslint-plugin-perfectionist';
 import tseslint, {InfiniteDepthConfigWithExtends} from 'typescript-eslint';
 
 import {customRules} from './configs/custom';
 import {eslintRules} from './configs/eslint';
-import {formatEslintRules} from './configs/format';
-import {importEslintRules} from './configs/import';
-import {typescriptEslintRules, typescriptEslintRulesDisableTypeChecked} from './configs/typescript-eslint';
+import {formatRules} from './configs/format';
+import {importRules} from './configs/import';
+import {typescriptEslintDisableTypeCheckedRules, typescriptEslintRules} from './configs/typescript-eslint';
 import {cloudflightTypescriptPlugin} from './rules';
 
 /**
@@ -51,8 +51,8 @@ export function cloudflightTypescriptImportConfig(settings: CloudflightEslintPlu
             // typescript-eslint broke backwards compatibility when they added TS 5.7 support.
             // It is only a type issue here, as the changed value isn't actually used outside the type
             // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-            eslintPluginImportX.flatConfigs.recommended as InfiniteDepthConfigWithExtends,
-            eslintPluginImportX.flatConfigs.typescript,
+            pluginImportX.flatConfigs.recommended as InfiniteDepthConfigWithExtends,
+            pluginImportX.flatConfigs.typescript,
         ],
         languageOptions: {
             parser: tseslint.parser,
@@ -61,7 +61,7 @@ export function cloudflightTypescriptImportConfig(settings: CloudflightEslintPlu
         },
         name: 'cloudflight/typescript/import-rules',
         rules: {
-            ...importEslintRules,
+            ...importRules,
         },
         settings: importXSettings(settings),
     });
@@ -77,7 +77,7 @@ export const cloudflightTypescriptDisableTypeCheckedConfig = tseslint.config({
     extends: [tseslint.configs.disableTypeChecked],
     name: 'cloudflight/typescript/disable-type-checked-rules',
     rules: {
-        ...typescriptEslintRulesDisableTypeChecked,
+        ...typescriptEslintDisableTypeCheckedRules,
     },
 });
 
@@ -92,8 +92,7 @@ export interface CloudflightEslintPluginSettings {
 }
 
 export function cloudflightTypescriptFormatConfig(settings: CloudflightEslintPluginSettings): FlatConfig.ConfigArray {
-    // eslint-disable-next-line @typescript-eslint/no-deprecated -- tseslint.config is deprecated but defineConfig has type incompatibilities with typescript-eslint
-    return tseslint.config(
+    return [
         {
             ignores: ['.yarn/**'],
         },
@@ -101,10 +100,10 @@ export function cloudflightTypescriptFormatConfig(settings: CloudflightEslintPlu
             files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
             plugins: {
                 '@typescript-eslint': tseslint.plugin,
-                'import-x': eslintPluginImportX,
+                'import-x': pluginImportX,
                 '@cloudflight/typescript': cloudflightTypescriptPlugin,
-                '@stylistic': stylistic,
-                perfectionist,
+                '@stylistic': pluginStylistic,
+                'perfectionist': pluginPerfectionist,
             },
             languageOptions: {
                 parser: tseslint.parser,
@@ -116,16 +115,15 @@ export function cloudflightTypescriptFormatConfig(settings: CloudflightEslintPlu
             },
             name: 'cloudflight/typescript/format-rules',
             rules: {
-                ...formatEslintRules,
+                ...formatRules,
             },
             settings: importXSettings(settings),
         },
-    );
+    ];
 }
 
 export function cloudflightTypescriptConfig(settings: CloudflightEslintPluginSettings): FlatConfig.ConfigArray {
-    // eslint-disable-next-line @typescript-eslint/no-deprecated -- tseslint.config is deprecated but defineConfig has type incompatibilities with typescript-eslint
-    return tseslint.config(
+    return [
         // eslint-disable-next-line @typescript-eslint/no-deprecated
         ...cloudflightTypescriptBaseConfig,
         // eslint-disable-next-line @typescript-eslint/no-deprecated
@@ -140,7 +138,7 @@ export function cloudflightTypescriptConfig(settings: CloudflightEslintPluginSet
                 },
             },
         },
-    );
+    ];
 }
 
 function importXSettings(settings: CloudflightEslintPluginSettings): SharedConfigurationSettings {

@@ -7,9 +7,9 @@ import {
     cloudflightTypescriptFormatConfig,
     cloudflightTypescriptImportConfig,
 } from '@cloudflight/eslint-plugin-typescript';
-import jsxA11y from 'eslint-plugin-jsx-a11y';
-import react from 'eslint-plugin-react';
-import * as reactHooks from 'eslint-plugin-react-hooks';
+import pluginJsxA11y from 'eslint-plugin-jsx-a11y';
+import pluginReact from 'eslint-plugin-react';
+import * as pluginReactHooks from 'eslint-plugin-react-hooks';
 import tseslint from 'typescript-eslint';
 
 import {reactRules} from './configs/react';
@@ -30,13 +30,13 @@ export function cloudflightReactConfig(settings: CloudflightEslintPluginSettings
                 // type assertion is workaround for incorrect TypeScript types in eslint-plugin-react
                 // see https://github.com/jsx-eslint/eslint-plugin-react/issues/3838
                 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                react.configs.flat['recommended']!,
+                pluginReact.configs.flat['recommended']!,
                 // type assertion is workaround for incorrect TypeScript types in eslint-plugin-react
                 // see https://github.com/jsx-eslint/eslint-plugin-react/issues/3838
                 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                react.configs.flat['jsx-runtime']!,
-                reactHooks.configs.flat['recommended-latest'],
-                jsxA11y.flatConfigs.recommended,
+                pluginReact.configs.flat['jsx-runtime']!,
+                pluginReactHooks.configs.flat['recommended-latest'],
+                pluginJsxA11y.flatConfigs.recommended,
             ],
             languageOptions: {
                 parser: tseslint.parser,
@@ -74,8 +74,7 @@ export function cloudflightReactFormatConfig(settings: CloudflightEslintPluginSe
         };
     });
 
-    // eslint-disable-next-line @typescript-eslint/no-deprecated -- tseslint.config is deprecated but defineConfig has type incompatibilities with typescript-eslint
-    return tseslint.config(
+    return [
         ...mappedConfigs,
         {
             files: relevantFiles,
@@ -96,5 +95,5 @@ export function cloudflightReactFormatConfig(settings: CloudflightEslintPluginSe
                 },
             },
         },
-    );
+    ];
 }

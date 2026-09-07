@@ -1,6 +1,6 @@
 import {TSESLint} from '@typescript-eslint/utils';
 
-export const angularTemplateEslintRules: TSESLint.Linter.RulesRecord = {
+export const angularTemplateRules: TSESLint.Linter.RulesRecord = {
     '@angular-eslint/template/button-has-type': 'error',
     '@angular-eslint/template/eqeqeq': [
         'off', // disable it for now since it does not work correctly

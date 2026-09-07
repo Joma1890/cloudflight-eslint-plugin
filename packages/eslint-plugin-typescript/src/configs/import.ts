@@ -1,6 +1,6 @@
 import type {TSESLint} from '@typescript-eslint/utils';
 
-export const importEslintRules: TSESLint.Linter.RulesRecord = {
+export const importRules: TSESLint.Linter.RulesRecord = {
     // computationally expensive and checked by typescript already
     'import-x/namespace': 'off',
     'import-x/first': 'error',

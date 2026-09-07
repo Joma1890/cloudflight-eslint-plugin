@@ -42,6 +42,6 @@ export const typescriptEslintRules: TSESLint.Linter.RulesRecord = {
     '@typescript-eslint/switch-exhaustiveness-check': 'error',
 };
 
-export const typescriptEslintRulesDisableTypeChecked: TSESLint.Linter.RulesRecord = {
+export const typescriptEslintDisableTypeCheckedRules: TSESLint.Linter.RulesRecord = {
     '@typescript-eslint/explicit-function-return-type': 'off',
 };
