@@ -28,11 +28,12 @@ describe('cloudflightTypescriptConfig', () => {
         expect(results.flatMap((result) => result.messages)).toEqual([]);
     });
 
-    it('reports violations including type-aware and custom rules', async () => {
+    it('reports violations including type-aware, security and custom rules', async () => {
         const ruleIds = await ruleIdsFor('invalid.ts');
 
         // proves typed linting works: rule needs type information
         expect(ruleIds).toContain('@typescript-eslint/no-floating-promises');
+        expect(ruleIds).toContain('no-unsanitized/property');
         expect(ruleIds).toContain('@cloudflight/typescript/no-on-event-assign');
         expect(ruleIds).toContain('no-var');
     });

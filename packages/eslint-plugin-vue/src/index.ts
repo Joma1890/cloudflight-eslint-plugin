@@ -4,6 +4,7 @@ import {
     CloudflightEslintPluginSettings,
     cloudflightTypescriptBaseConfig,
     cloudflightTypescriptConfig,
+    cloudflightTypescriptSecurityConfig,
 } from '@cloudflight/eslint-plugin-typescript';
 import {TSESLint} from '@typescript-eslint/utils';
 import vueTsEslintConfig from '@vue/eslint-config-typescript';
@@ -24,6 +25,7 @@ export function cloudflightVueConfig(settings: CloudflightEslintPluginSettings):
                 // does not work with vue-eslint-parser properly
                 // eslint-disable-next-line @typescript-eslint/no-deprecated
                 ...cloudflightTypescriptBaseConfig,
+                ...cloudflightTypescriptSecurityConfig,
                 // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
                 ...pluginVue.configs['flat/recommended'] as TSESLint.FlatConfig.ConfigArray,
                 // since it is already working we will not change to the new config setup for now

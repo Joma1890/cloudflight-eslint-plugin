@@ -962,12 +962,10 @@ __metadata:
   resolution: "@cloudflight/eslint-plugin-node@workspace:packages/eslint-plugin-node"
   dependencies:
     "@cloudflight/eslint-plugin-typescript": "workspace:*"
-    "@types/eslint-plugin-no-unsanitized": "workspace:*"
     "@types/eslint-plugin-security": "workspace:*"
     "@typescript-eslint/utils": "npm:8.53.0"
     eslint: "npm:9.39.2"
     eslint-plugin-n: "npm:17.18.0"
-    eslint-plugin-no-unsanitized: "npm:^4.1.4"
     eslint-plugin-security: "npm:^3.0.1"
     tslib: "npm:^2.8.1"
     typescript: "npm:5.8.3"
@@ -1002,11 +1000,15 @@ __metadata:
   dependencies:
     "@eslint/js": "npm:^9.39.2"
     "@stylistic/eslint-plugin": "npm:5.6.1"
+    "@types/eslint-plugin-no-unsanitized": "workspace:*"
+    "@types/eslint-plugin-security": "workspace:*"
     "@typescript-eslint/utils": "npm:8.53.0"
     eslint: "npm:9.39.2"
     eslint-import-resolver-typescript: "npm:3.10.1"
     eslint-plugin-import-x: "npm:4.16.1"
+    eslint-plugin-no-unsanitized: "npm:4.1.4"
     eslint-plugin-perfectionist: "npm:5.3.1"
+    eslint-plugin-security: "npm:3.0.1"
     tslib: "npm:^2.8.1"
     typescript: "npm:5.8.3"
     typescript-eslint: "npm:^8.53.0"
@@ -4470,7 +4472,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-no-unsanitized@npm:4.1.4, eslint-plugin-no-unsanitized@npm:^4.1.4":
+"eslint-plugin-no-unsanitized@npm:4.1.4":
   version: 4.1.4
   resolution: "eslint-plugin-no-unsanitized@npm:4.1.4"
   peerDependencies:

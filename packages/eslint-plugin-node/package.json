@@ -30,7 +30,6 @@
         "@cloudflight/eslint-plugin-typescript": "workspace:*",
         "@typescript-eslint/utils": "8.53.0",
         "eslint-plugin-n": "17.18.0",
-        "eslint-plugin-no-unsanitized": "^4.1.4",
         "eslint-plugin-security": "^3.0.1",
         "tslib": "^2.8.1",
         "typescript-eslint": "8.53.0"
@@ -39,7 +38,6 @@
         "eslint": ">=9.0.0 < 10.0.0"
     },
     "devDependencies": {
-        "@types/eslint-plugin-no-unsanitized": "workspace:*",
         "@types/eslint-plugin-security": "workspace:*",
         "eslint": "9.39.2",
         "typescript": "5.8.3"

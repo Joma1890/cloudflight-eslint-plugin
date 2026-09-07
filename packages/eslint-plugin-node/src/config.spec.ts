@@ -22,6 +22,18 @@ describe('cloudflightNodeConfig', () => {
         expect(results.flatMap((result) => result.messages)).toEqual([]);
     });
 
+    it('escalates the security recommendations to errors', async () => {
+        const results = await createEslint().lintText(
+            'export function get(object: Record<string, string>, key: string): string | undefined {\n    return object[key];\n}\n',
+            {filePath: 'invalid.ts'},
+        );
+        const messages = results.flatMap((result) => result.messages)
+            .filter((message) => message.ruleId === 'security/detect-object-injection');
+
+        // the base config only warns here, the node config turns it into an error
+        expect(messages.map((message) => message.severity)).toEqual([2]);
+    });
+
     it('reports node and type-aware violations', async () => {
         const results = await createEslint().lintFiles(['invalid.ts']);
         const ruleIds = results.flatMap((result) => result.messages).map((message) => message.ruleId);
