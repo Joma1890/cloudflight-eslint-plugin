@@ -1,28 +1,26 @@
 import {TSESLint} from '@typescript-eslint/utils';
 
-const pluginPrefix = '@angular-eslint/template';
-
 export const angularTemplateEslintRules: TSESLint.Linter.RulesRecord = {
-    [`${pluginPrefix}/button-has-type`]: ['error'],
-    [`${pluginPrefix}/eqeqeq`]: [
+    '@angular-eslint/template/button-has-type': 'error',
+    '@angular-eslint/template/eqeqeq': [
         'off', // disable it for now since it does not work correctly
         {
             allowNullOrUndefined: true,
         },
     ],
     // does not work with custom input components
-    [`${pluginPrefix}/label-has-associated-control`]: 'off',
-    [`${pluginPrefix}/no-any`]: ['error'],
+    '@angular-eslint/template/label-has-associated-control': 'off',
+    '@angular-eslint/template/no-any': 'error',
     // disabled as there is no way to allow signals only and is unlikely to ever be supported
     // see: https://github.com/angular-eslint/angular-eslint/issues/1380
-    [`${pluginPrefix}/no-call-expression`]: 'off',
-    [`${pluginPrefix}/no-duplicate-attributes`]: ['error'],
-    [`${pluginPrefix}/no-inline-styles`]: ['error'],
-    [`${pluginPrefix}/no-interpolation-in-attributes`]: ['error'],
-    [`${pluginPrefix}/no-positive-tabindex`]: ['error'],
-    [`${pluginPrefix}/prefer-ngsrc`]: 'error',
+    '@angular-eslint/template/no-call-expression': 'off',
+    '@angular-eslint/template/no-duplicate-attributes': 'error',
+    '@angular-eslint/template/no-inline-styles': 'error',
+    '@angular-eslint/template/no-interpolation-in-attributes': 'error',
+    '@angular-eslint/template/no-positive-tabindex': 'error',
+    '@angular-eslint/template/prefer-ngsrc': 'error',
     // does not provide any value for primitive types
     // it is fine to not have this automated for now
     // since it is a performance improvement and not a bug
-    [`${pluginPrefix}/use-track-by-function`]: 'off',
+    '@angular-eslint/template/use-track-by-function': 'off',
 };

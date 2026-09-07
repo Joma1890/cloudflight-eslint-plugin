@@ -18,5 +18,5 @@ export const reactRules: TSESLint.Linter.RulesRecord = {
             ],
         },
     ],
-    'react/no-array-index-key': ['error'],
+    'react/no-array-index-key': 'error',
 };
