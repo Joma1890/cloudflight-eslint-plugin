@@ -28,11 +28,11 @@
     },
     "dependencies": {
         "@cloudflight/eslint-plugin-typescript": "workspace:*",
-        "@typescript-eslint/utils": "8.53.0",
+        "@typescript-eslint/utils": "^8.70.1",
         "eslint-plugin-n": "17.18.0",
         "eslint-plugin-security": "^3.0.1",
         "tslib": "^2.8.1",
-        "typescript-eslint": "8.53.0"
+        "typescript-eslint": "^8.70.1"
     },
     "peerDependencies": {
         "eslint": ">=9.0.0 < 10.0.0"
