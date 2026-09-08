@@ -1,6 +1,6 @@
 {
     "name": "@types/eslint-plugin-jsx-a11y",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "TypeScript definitions for eslint-plugin-jsx-a11y",
     "homepage": "https://github.com/cloudflightio/cloudflight-eslint-plugin",
     "bugs": {
@@ -14,5 +14,5 @@
     "dependencies": {
         "@types/eslint": "9.6.1"
     },
-    "typeScriptVersion": "5.5"
+    "typeScriptVersion": "5.9.3"
 }

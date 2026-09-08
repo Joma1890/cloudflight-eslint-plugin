@@ -45,6 +45,6 @@
         "@types/eslint-plugin-no-unsanitized": "workspace:*",
         "@types/eslint-plugin-security": "workspace:*",
         "eslint": "9.39.2",
-        "typescript": "5.8.3"
+        "typescript": "5.9.3"
     }
 }
