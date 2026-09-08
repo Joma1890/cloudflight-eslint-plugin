@@ -23,7 +23,6 @@ export function cloudflightVueConfig(settings: CloudflightEslintPluginSettings):
             extends: [
                 // we can only import the base config here because eslint-plugin-import-x
                 // does not work with vue-eslint-parser properly
-                // eslint-disable-next-line @typescript-eslint/no-deprecated
                 ...cloudflightTypescriptBaseConfig,
                 ...cloudflightTypescriptSecurityConfig,
                 // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
