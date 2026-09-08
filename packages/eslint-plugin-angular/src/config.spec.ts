@@ -39,6 +39,7 @@ describe('cloudflightAngularConfig', () => {
 
         expect(ruleIds).toContain('@angular-eslint/template/button-has-type');
         expect(ruleIds).toContain('@angular-eslint/template/no-inline-styles');
+        expect(ruleIds).toContain('@angular-eslint/template/prefer-control-flow');
     });
 
     it('fixes formatting in templates and typescript files with the format config', async () => {

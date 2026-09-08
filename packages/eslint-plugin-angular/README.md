@@ -12,6 +12,10 @@ The following dependencies are required:
 "eslint": ">=9.0.0 < 10.0.0"
 ```
 
+Node.js must satisfy `^22.22.3 || ^24.15.0 || >=26.0.0`.
+
+Angular 22 applications must use TypeScript 6.0.x.
+
 ## Usage
 
 In your `package.json` add the following:
