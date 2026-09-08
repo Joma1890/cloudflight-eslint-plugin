@@ -30,4 +30,12 @@ describe('cloudflightVueConfig', () => {
         // proves typed linting works inside .vue SFCs
         expect(ruleIds).toContain('@typescript-eslint/no-floating-promises');
     });
+
+    it('keeps the no-unsafe rules for typescript files of a vue project', async () => {
+        const results = await createEslint().lintFiles(['unsafe.ts']);
+        const ruleIds = results.flatMap((result) => result.messages).map((message) => message.ruleId);
+
+        expect(ruleIds).toContain('@typescript-eslint/no-unsafe-member-access');
+        expect(ruleIds).toContain('@typescript-eslint/no-unsafe-return');
+    });
 });
