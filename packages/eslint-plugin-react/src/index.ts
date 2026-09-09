@@ -68,6 +68,14 @@ export function cloudflightReactFormatConfig(settings: CloudflightEslintPluginSe
         ...cloudflightTypescriptFormatConfig(settings),
         {
             files: relevantFiles,
+            // registered without rules, so eslint recognizes react, react-hooks and jsx-a11y disable comments
+            // in the format run; the same plugin objects as in the lint config, so both configs can be combined
+            plugins: {
+                // typed as {react: any} upstream, the preset registers 'react-hooks'
+                ...pluginReactHooks.configs.flat['recommended-latest'].plugins,
+                ...pluginJsxA11y.flatConfigs.recommended.plugins,
+                react: pluginReactFixed,
+            },
             languageOptions: {
                 parser: tseslint.parser,
                 ecmaVersion: 'latest',

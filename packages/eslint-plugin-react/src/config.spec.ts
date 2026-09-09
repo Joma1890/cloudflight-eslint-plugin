@@ -40,7 +40,8 @@ describe('cloudflightReactConfig', () => {
             // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
             overrideConfig: cloudflightReactFormatConfig({rootDirectory: fixtureDir}) as Linter.Config[],
         });
-        const [result] = await eslint.lintText('export const value=1', {filePath: 'format.tsx'});
+        // a disable comment for a react rule must be recognized although the format config runs no react rules
+        const [result] = await eslint.lintText('// eslint-disable-next-line react-hooks/exhaustive-deps\nexport const value=1', {filePath: 'format.tsx'});
         // the fixed output must be clean and stable: nothing left to report, and a second pass changes nothing
         const [second] = await eslint.lintText(result?.output ?? '', {filePath: 'format.tsx'});
 
