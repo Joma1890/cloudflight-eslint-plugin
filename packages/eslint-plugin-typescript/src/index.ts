@@ -2,6 +2,7 @@ import type {FlatConfig, SharedConfigurationSettings} from '@typescript-eslint/u
 
 import pluginJs from '@eslint/js';
 import pluginStylistic from '@stylistic/eslint-plugin';
+import {createTypeScriptImportResolver} from 'eslint-import-resolver-typescript';
 import pluginImportX from 'eslint-plugin-import-x';
 import pluginNoUnsanitized from 'eslint-plugin-no-unsanitized';
 import pluginPerfectionist from 'eslint-plugin-perfectionist';
@@ -158,12 +159,15 @@ export function cloudflightTypescriptConfig(settings: CloudflightEslintPluginSet
 
 function importXSettings(settings: CloudflightEslintPluginSettings): SharedConfigurationSettings {
     return {
-        'import-x/resolver': {
-            typescript: {
+        // the resolver is passed as an object: named in the settings, eslint-plugin-import-x loads it
+        // from its own location, which fails when the package manager nests the resolver below this package
+        'import-x/resolver-next': [
+            createTypeScriptImportResolver({
                 alwaysTryTypes: true,
                 project: settings.tsConfigFiles ?? ['tsconfig*(.*).json'],
-                tsconfigRootDir: settings.rootDirectory,
-            },
-        },
+                // the default glob matches every tsconfig*.json on purpose
+                noWarnOnMultipleProjects: true,
+            }),
+        ],
     };
 }
