@@ -970,7 +970,7 @@ __metadata:
     "@typescript-eslint/utils": "npm:^8.70.1"
     eslint: "npm:9.39.2"
     eslint-plugin-n: "npm:^18.3.0"
-    eslint-plugin-security: "npm:^3.0.1"
+    eslint-plugin-security: "npm:^4.0.1"
     tslib: "npm:^2.8.1"
     typescript: "npm:5.9.3"
     typescript-eslint: "npm:^8.70.1"
@@ -1010,9 +1010,9 @@ __metadata:
     eslint: "npm:9.39.2"
     eslint-import-resolver-typescript: "npm:3.10.1"
     eslint-plugin-import-x: "npm:4.16.1"
-    eslint-plugin-no-unsanitized: "npm:4.1.4"
+    eslint-plugin-no-unsanitized: "npm:^4.1.5"
     eslint-plugin-perfectionist: "npm:5.3.1"
-    eslint-plugin-security: "npm:3.0.1"
+    eslint-plugin-security: "npm:^4.0.1"
     tslib: "npm:^2.8.1"
     typescript: "npm:5.9.3"
     typescript-eslint: "npm:^8.70.1"
@@ -1061,11 +1061,11 @@ __metadata:
     eslint-plugin-json-es: "npm:1.6.0"
     eslint-plugin-jsx-a11y: "npm:6.10.2"
     eslint-plugin-n: "npm:18.3.0"
-    eslint-plugin-no-unsanitized: "npm:4.1.4"
+    eslint-plugin-no-unsanitized: "npm:4.1.5"
     eslint-plugin-perfectionist: "npm:5.3.1"
     eslint-plugin-react: "npm:7.37.5"
     eslint-plugin-react-hooks: "npm:7.0.1"
-    eslint-plugin-security: "npm:3.0.1"
+    eslint-plugin-security: "npm:4.0.1"
     eslint-plugin-vue: "npm:10.11.0"
     husky: "npm:9.1.7"
     jest: "npm:30.5.1"
@@ -4411,12 +4411,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-no-unsanitized@npm:4.1.4":
-  version: 4.1.4
-  resolution: "eslint-plugin-no-unsanitized@npm:4.1.4"
+"eslint-plugin-no-unsanitized@npm:4.1.5, eslint-plugin-no-unsanitized@npm:^4.1.5":
+  version: 4.1.5
+  resolution: "eslint-plugin-no-unsanitized@npm:4.1.5"
   peerDependencies:
-    eslint: ^8 || ^9
-  checksum: 10c0/ec4d2e02843536d8384f43c8945bf6bae5a5e5843ccaa51b63c6ebda080ba877df2c2c35b5986f28d869e9c4c87db401991104d15781edf837904cf768acb980
+    eslint: ^9 || ^10
+  checksum: 10c0/c3dc2636ec698d4e4b7bc5bb744e8bf24975dc513b5dc9aaf616df5a32392ae5f5eaed91050b8a647cfa1ec717edea6e870d0418887d62a8afa8f1f5fcc1ed0c
   languageName: node
   linkType: hard
 
@@ -4475,12 +4475,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-security@npm:3.0.1, eslint-plugin-security@npm:^3.0.1":
-  version: 3.0.1
-  resolution: "eslint-plugin-security@npm:3.0.1"
+"eslint-plugin-security@npm:4.0.1, eslint-plugin-security@npm:^4.0.1":
+  version: 4.0.1
+  resolution: "eslint-plugin-security@npm:4.0.1"
   dependencies:
     safe-regex: "npm:^2.1.1"
-  checksum: 10c0/6b85feabe389b73e0a5961abfeac79214d61699249c990c9a66628a5e45870b49f1ab0be63223dfd75c4046ff9632f42a963790616f66e2c6d59b6c24643c5e0
+  checksum: 10c0/5fdb3be0a1e3707198169f64635e1d904e0e31f53f008bdf99738210bdd9df62ba098015e165401d0a9a01eb958fe0fc69af3980008664af3b88a9b71cde18ed
   languageName: node
   linkType: hard
 
