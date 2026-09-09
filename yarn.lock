@@ -969,7 +969,7 @@ __metadata:
     "@types/eslint-plugin-security": "workspace:*"
     "@typescript-eslint/utils": "npm:^8.70.1"
     eslint: "npm:9.39.2"
-    eslint-plugin-n: "npm:17.18.0"
+    eslint-plugin-n: "npm:^18.3.0"
     eslint-plugin-security: "npm:^3.0.1"
     tslib: "npm:^2.8.1"
     typescript: "npm:5.9.3"
@@ -1060,7 +1060,7 @@ __metadata:
     eslint-plugin-import-x: "npm:4.16.1"
     eslint-plugin-json-es: "npm:1.6.0"
     eslint-plugin-jsx-a11y: "npm:6.10.2"
-    eslint-plugin-n: "npm:17.18.0"
+    eslint-plugin-n: "npm:18.3.0"
     eslint-plugin-no-unsanitized: "npm:4.1.4"
     eslint-plugin-perfectionist: "npm:5.3.1"
     eslint-plugin-react: "npm:7.37.5"
@@ -4386,21 +4386,28 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-n@npm:17.18.0":
-  version: 17.18.0
-  resolution: "eslint-plugin-n@npm:17.18.0"
+"eslint-plugin-n@npm:18.3.0, eslint-plugin-n@npm:^18.3.0":
+  version: 18.3.0
+  resolution: "eslint-plugin-n@npm:18.3.0"
   dependencies:
     "@eslint-community/eslint-utils": "npm:^4.5.0"
     enhanced-resolve: "npm:^5.17.1"
     eslint-plugin-es-x: "npm:^7.8.0"
     get-tsconfig: "npm:^4.8.1"
     globals: "npm:^15.11.0"
+    globrex: "npm:^0.1.2"
     ignore: "npm:^5.3.2"
-    minimatch: "npm:^9.0.5"
     semver: "npm:^7.6.3"
   peerDependencies:
-    eslint: ">=8.23.0"
-  checksum: 10c0/ba2d624036a55be6f713b4e5bb6b015045abbcdbc328a2d9a384eb79f8e5ce062d8eafb14d8711bd283b5102cbf57ffad11a79bb563c94c881b11c4cf795783b
+    eslint: ">=8.57.1"
+    ts-declaration-location: ^1.0.6
+    typescript: ">=5.0.0"
+  peerDependenciesMeta:
+    ts-declaration-location:
+      optional: true
+    typescript:
+      optional: true
+  checksum: 10c0/d9d4b7bae54ef05378c0095c51541aa7681937bbe2673ee9b9f70a0619d0f634d98adf0f2e13ea6c2b98d70366f55af83b27ec1084707c72ea132a2203c7d00e
   languageName: node
   linkType: hard
 
@@ -5152,6 +5159,13 @@ __metadata:
     define-properties: "npm:^1.2.1"
     gopd: "npm:^1.0.1"
   checksum: 10c0/9d156f313af79d80b1566b93e19285f481c591ad6d0d319b4be5e03750d004dde40a39a0f26f7e635f9007a3600802f53ecd85a759b86f109e80a5f705e01846
+  languageName: node
+  linkType: hard
+
+"globrex@npm:^0.1.2":
+  version: 0.1.2
+  resolution: "globrex@npm:0.1.2"
+  checksum: 10c0/a54c029520cf58bda1d8884f72bd49b4cd74e977883268d931fd83bcbd1a9eb96d57c7dbd4ad80148fb9247467ebfb9b215630b2ed7563b2a8de02e1ff7f89d1
   languageName: node
   linkType: hard
 
@@ -6727,7 +6741,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"minimatch@npm:^9.0.4, minimatch@npm:^9.0.5":
+"minimatch@npm:^9.0.4":
   version: 9.0.5
   resolution: "minimatch@npm:9.0.5"
   dependencies:
