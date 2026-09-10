@@ -38,6 +38,15 @@ describe('cloudflightTypescriptConfig', () => {
         expect(ruleIds).toContain('no-var');
     });
 
+    it('reports a typescript file that no tsconfig.json includes instead of linting it without types', async () => {
+        const results = await createEslint().lintFiles(['orphan/orphan.ts']);
+        const messages = results.flatMap((result) => result.messages);
+
+        expect(messages).toHaveLength(1);
+        expect(messages[0]?.fatal).toBe(true);
+        expect(messages[0]?.message).toContain('was not found by the project service');
+    });
+
     it('provides type information with an explicit tsConfigFiles configuration', async () => {
         const results = await createEslint(['tsconfig.json']).lintFiles(['invalid.ts']);
         const ruleIds = results.flatMap((result) => result.messages).map((message) => message.ruleId);

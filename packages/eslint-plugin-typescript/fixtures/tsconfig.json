@@ -7,5 +7,6 @@
         "strict": true,
         "types": []
     },
-    "include": ["**/*.ts"]
+    "include": ["**/*.ts"],
+    "exclude": ["orphan"]
 }

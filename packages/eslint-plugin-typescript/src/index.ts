@@ -98,11 +98,33 @@ const cloudflightTypescriptDisableTypeCheckedConfig = tseslint.config({
 export interface CloudflightEslintPluginSettings {
     rootDirectory: string;
     /**
-     * Override the default tsconfig files to use for the project.
+     * Override the tsconfig files to use for the project.
+     * When omitted, typed linting uses the typescript-eslint project service,
+     * which discovers the closest tsconfig.json for each linted file (recommended).
+     * Set this only when automatic discovery does not fit the project layout,
+     * e.g. when linting relies on tsconfig files not named tsconfig.json.
      * Keep this list as short as possible, a large list will negatively impact performance.
      * Relative to the rootDirectory.
      */
     tsConfigFiles?: string[];
+}
+
+export function cloudflightTypedParserOptions(settings: CloudflightEslintPluginSettings): FlatConfig.ParserOptions {
+    // the two modes are mutually exclusive, both are set explicitly so a later config block
+    // (e.g. the vue helper, which enables the project service on its own) cannot leave both on
+    if (settings.tsConfigFiles == null) {
+        return {
+            project: false,
+            projectService: true,
+            tsconfigRootDir: settings.rootDirectory,
+        };
+    }
+
+    return {
+        project: settings.tsConfigFiles,
+        projectService: false,
+        tsconfigRootDir: settings.rootDirectory,
+    };
 }
 
 export function cloudflightTypescriptFormatConfig(settings: CloudflightEslintPluginSettings): FlatConfig.ConfigArray {
@@ -148,10 +170,7 @@ export function cloudflightTypescriptConfig(settings: CloudflightEslintPluginSet
         ...cloudflightTypescriptDisableTypeCheckedConfig,
         {
             languageOptions: {
-                parserOptions: {
-                    project: settings.tsConfigFiles ?? ['tsconfig*(.*).json'],
-                    tsconfigRootDir: settings.rootDirectory,
-                },
+                parserOptions: cloudflightTypedParserOptions(settings),
             },
         },
     ];

@@ -2,6 +2,7 @@ import type {FlatConfig} from '@typescript-eslint/utils/ts-eslint';
 
 import {
     CloudflightEslintPluginSettings,
+    cloudflightTypedParserOptions,
     cloudflightTypescriptBaseConfig,
     cloudflightTypescriptConfig,
     cloudflightTypescriptSecurityConfig,
@@ -39,10 +40,7 @@ export function cloudflightVueConfig(settings: CloudflightEslintPluginSettings):
                 ...vueRules,
             },
             languageOptions: {
-                parserOptions: {
-                    project: settings.tsConfigFiles ?? ['tsconfig*(.*).json'],
-                    tsconfigRootDir: settings.rootDirectory,
-                },
+                parserOptions: cloudflightTypedParserOptions(settings),
             },
         },
     );
@@ -53,13 +51,9 @@ export function cloudflightVueConfig(settings: CloudflightEslintPluginSettings):
             files: ['**/*.{ts,mts,cts,tsx}'],
             name: 'cloudflight/vue/typed-parser',
             languageOptions: {
-                // the type-checked preset enables the project service for typescript files, which
-                // conflicts with the project of the base config; applied after the helper's entries
-                parserOptions: {
-                    project: settings.tsConfigFiles ?? ['tsconfig*(.*).json'],
-                    projectService: false,
-                    tsconfigRootDir: settings.rootDirectory,
-                },
+                // the type-checked preset enables the project service for typescript files, the
+                // base's typed parser options are applied after the helper's entries
+                parserOptions: cloudflightTypedParserOptions(settings),
             },
         },
     ];

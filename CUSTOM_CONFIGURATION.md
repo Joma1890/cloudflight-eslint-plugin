@@ -3,7 +3,11 @@
 These configs are intended to be used as is without any customization, but we do recognize that some projects may have special requirements.
 
 ## Custom tsconfig files
-By default, only tsconfig files in the root directory are used. You can provide custom tsconfig files like this:
+By default, typed linting uses the [typescript-eslint project service](https://typescript-eslint.io/packages/parser/#projectservice),
+which automatically discovers the closest `tsconfig.json` for every linted file. Most projects should not need any tsconfig configuration.
+
+If automatic discovery does not fit your layout (for example when linting relies on tsconfig files
+not named `tsconfig.json`), you can provide explicit tsconfig files like this:
 
 ```ts
 // this applies to all configs, not just typescript
@@ -18,6 +22,13 @@ export default [
 ```
 **Try to keep the list of TSConfig files as short as possible, they have a negative effect on performance**
 
+Setting `tsConfigFiles` switches typed linting back to `parserOptions.project` (the 1.x behaviour), including in Vue.
+Do not set `parserOptions.project` or `projectService` yourself: an own `parserOptions.project` after the Cloudflight
+config fails with `Parsing error: Enabling "project" does nothing when "projectService" is enabled`.
+
+Typed files outside their selected project are deliberately reported as configuration errors
+(`… was not found by the project service`); add such files to a `tsconfig.json` or list your tsconfig files in `tsConfigFiles`.
+
 ## Adding additional plugins
 Add additional things before the Cloudflight config, this prevents these plugins from overriding important config options.
 
@@ -31,7 +42,6 @@ export default [
     ...storybook.configs['flat/recommended'],
     ...cloudflightTypescriptConfig({
         rootDirectory: import.meta.dirname,
-        tsConfigFiles: ['./packages/*/tsconfig.json', './packages/*/tsconfig.spec.json'],
     })
 ];
 ```
@@ -45,7 +55,6 @@ import { cloudflightTypescriptConfig } from '@cloudflight/eslint-plugin-typescri
 export default [
     ...cloudflightTypescriptConfig({
         rootDirectory: import.meta.dirname,
-        tsConfigFiles: ['./packages/*/tsconfig.json', './packages/*/tsconfig.spec.json'],
     }),
     {
         rules: {
