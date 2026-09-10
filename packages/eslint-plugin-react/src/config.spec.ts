@@ -22,6 +22,9 @@ describe('cloudflightReactConfig', () => {
         expect(results.flatMap((result) => result.messages)).toEqual([]);
     });
 
+    // this also proves the @eslint/compat fixup for eslint-plugin-react works on ESLint 10:
+    // without it, linting crashes with "contextOrFilename.getFilename is not a function"
+    // (https://github.com/jsx-eslint/eslint-plugin-react/issues/3977)
     it('reports react, hooks, a11y and type-aware violations', async () => {
         const results = await createEslint().lintFiles(['invalid.tsx']);
         const ruleIds = results.flatMap((result) => result.messages).map((message) => message.ruleId);

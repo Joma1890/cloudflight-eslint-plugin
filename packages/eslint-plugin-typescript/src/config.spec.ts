@@ -45,6 +45,13 @@ describe('cloudflightTypescriptConfig', () => {
         expect(ruleIds).toContain('@typescript-eslint/no-floating-promises');
     });
 
+    it('reports a caught error that is thrown away', async () => {
+        const results = await createEslint().lintText('try { JSON.parse("x"); } catch (error) { throw new Error("failed"); }\n', {filePath: 'invalid.ts'});
+        const rules = results.flatMap((result) => result.messages).map((message) => message.ruleId);
+
+        expect(rules).toContain('preserve-caught-error');
+    });
+
     it('fixes formatting with the format config', async () => {
         const eslint = new ESLint({
             cwd: fixtureDir,

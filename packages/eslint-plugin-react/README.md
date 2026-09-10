@@ -9,8 +9,12 @@ You can find the directory of all rules including their reasoning [here](src/con
 The following dependencies are required:
 
 ```
-"eslint": ">=9.0.0 < 10.0.0"
+"eslint": "^10.0.0"
 ```
+
+Node.js must satisfy `^20.19.0 || ^22.13.0 || >=24`.
+
+The usage example below imports `includeIgnoreFile` from `@eslint/compat` (2.0.2 or newer, the first release with an ESLint 10 peer dependency); install it if you keep that line.
 
 ## Usage
 
