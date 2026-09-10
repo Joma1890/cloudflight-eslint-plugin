@@ -41,4 +41,12 @@ describe('cloudflightNodeConfig', () => {
         expect(ruleIds).toContain('n/no-sync');
         expect(ruleIds).toContain('@typescript-eslint/no-floating-promises');
     });
+
+    it('lints javascript tooling files with synchronous calls without a typescript project', async () => {
+        const results = await createEslint().lintFiles(['tool.mjs']);
+        const messages = results.flatMap((result) => result.messages);
+
+        expect(messages.filter((message) => message.fatal)).toEqual([]);
+        expect(messages.map((message) => message.ruleId)).not.toContain('n/no-sync');
+    });
 });

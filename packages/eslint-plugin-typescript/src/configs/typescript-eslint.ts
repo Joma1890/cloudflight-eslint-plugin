@@ -44,4 +44,5 @@ export const typescriptEslintRules: TSESLint.Linter.RulesRecord = {
 
 export const typescriptEslintDisableTypeCheckedRules: TSESLint.Linter.RulesRecord = {
     '@typescript-eslint/explicit-function-return-type': 'off',
+    '@typescript-eslint/explicit-member-accessibility': 'off',
 };

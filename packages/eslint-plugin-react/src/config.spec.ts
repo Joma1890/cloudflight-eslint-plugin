@@ -16,6 +16,17 @@ function createEslint(): ESLint {
 }
 
 describe('cloudflightReactConfig', () => {
+    it('lints JSX outside tsconfig with shared and accessibility rules, without TS modifiers', async () => {
+        const results = await createEslint().lintText('export class Box { render() { console.log("debug"); return <img src="logo.png" />; } }', {filePath: 'outside.jsx'});
+        const messages = results.flatMap((result) => result.messages);
+        const rules = messages.map((message) => message.ruleId);
+
+        expect(messages.filter((message) => message.fatal)).toEqual([]);
+        expect(rules).toContain('no-console');
+        expect(rules).toContain('jsx-a11y/alt-text');
+        expect(rules).not.toContain('@typescript-eslint/explicit-member-accessibility');
+    });
+
     it('reports no errors for valid code', async () => {
         const results = await createEslint().lintFiles(['valid.tsx']);
 

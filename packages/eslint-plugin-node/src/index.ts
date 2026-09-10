@@ -24,5 +24,14 @@ export function cloudflightNodeConfig(settings: CloudflightEslintPluginSettings)
                 ...importRules,
             },
         },
+        {
+            files: ['**/*.{js,mjs,cjs}'],
+            name: 'cloudflight/node/javascript-rules',
+            rules: {
+                // eslint-plugin-n 18 asks the parser for type information on every match of this rule
+                // and throws for javascript files, which are linted without a program
+                'n/no-sync': 'off',
+            },
+        },
     );
 }

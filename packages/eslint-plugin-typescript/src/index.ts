@@ -169,6 +169,8 @@ export function cloudflightTypescriptConfig(settings: CloudflightEslintPluginSet
         ...cloudflightTypescriptImportConfig(settings),
         ...cloudflightTypescriptDisableTypeCheckedConfig,
         {
+            files: ['**/*.{ts,mts,cts,tsx}'],
+            name: 'cloudflight/typescript/typed-parser',
             languageOptions: {
                 parserOptions: cloudflightTypedParserOptions(settings),
             },

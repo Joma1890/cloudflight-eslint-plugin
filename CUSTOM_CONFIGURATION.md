@@ -25,6 +25,7 @@ export default [
 Setting `tsConfigFiles` switches typed linting back to `parserOptions.project` (the 1.x behaviour), including in Vue.
 Do not set `parserOptions.project` or `projectService` yourself: an own `parserOptions.project` after the Cloudflight
 config fails with `Parsing error: Enabling "project" does nothing when "projectService" is enabled`.
+JavaScript/JSX tooling files use untyped linting and do not need to be included in a TypeScript project.
 
 Typed files outside their selected project are deliberately reported as configuration errors
 (`… was not found by the project service`); add such files to a `tsconfig.json` or list your tsconfig files in `tsConfigFiles`.

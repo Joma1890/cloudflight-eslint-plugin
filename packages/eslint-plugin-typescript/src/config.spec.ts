@@ -54,6 +54,14 @@ describe('cloudflightTypescriptConfig', () => {
         expect(ruleIds).toContain('@typescript-eslint/no-floating-promises');
     });
 
+    it.each(['js', 'jsx'])('lints untyped .%s files outside tsconfig without TS-only syntax requirements', async (extension) => {
+        const results = await createEslint().lintText('class Box { method() { return "ok"; } } new Box().method();', {
+            filePath: `outside.${extension}`,
+        });
+
+        expect(results.flatMap((result) => result.messages).filter((message) => message.severity === 2)).toEqual([]);
+    });
+
     it('reports a caught error that is thrown away', async () => {
         const results = await createEslint().lintText('try { JSON.parse("x"); } catch (error) { throw new Error("failed"); }\n', {filePath: 'invalid.ts'});
         const rules = results.flatMap((result) => result.messages).map((message) => message.ruleId);
