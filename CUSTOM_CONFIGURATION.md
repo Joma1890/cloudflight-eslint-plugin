@@ -24,7 +24,9 @@ export default [
 
 `rootDirectory` must be the absolute project/config directory. Explicit `tsConfigFiles` paths and globs
 are resolved against it for both typed parsing and import resolution, independently of the shell's
-working directory.
+working directory. Without `tsConfigFiles`, files below a nested `tsconfig.json` resolve their imports
+through that project, like the project service, so the aliases of nested projects resolve in monorepos
+and unrelated projects do not take part.
 Setting `tsConfigFiles` switches typed linting back to `parserOptions.project` (the 1.x behaviour), including in Vue.
 Do not set `parserOptions.project` or `projectService` yourself: an own `parserOptions.project` after the Cloudflight
 config fails with `Parsing error: Enabling "project" does nothing when "projectService" is enabled`.

@@ -1,4 +1,6 @@
 import {ESLint, type Linter} from 'eslint';
+import {defineConfig} from 'eslint/config';
+import {readFileSync} from 'node:fs';
 import {join} from 'node:path';
 
 import {cloudflightTypescriptConfig, cloudflightTypescriptFormatConfig} from './index';
@@ -69,6 +71,70 @@ describe('cloudflightTypescriptConfig', () => {
         expect(rules).toContain('no-const-assign');
         // node and browser globals are declared, only the typo is undefined
         expect(rules.filter((rule) => rule === 'no-undef')).toHaveLength(1);
+    });
+
+    it('resolves the aliases of nested tsconfig files with the default configuration', async () => {
+        const results = await createEslint().lintFiles(['nested-project/src/index.ts']);
+        const messages = results.flatMap((result) => result.messages);
+
+        expect(messages.filter((message) => message.fatal)).toEqual([]);
+        expect(messages.map((message) => message.ruleId)).toContain('@typescript-eslint/no-floating-promises');
+        expect(messages.map((message) => message.ruleId)).not.toContain('import-x/no-unresolved');
+    });
+
+    it('resolves nested aliases when eslint runs from another directory', async () => {
+        const eslint = new ESLint({
+            cwd: join(fixtureDir, '..'),
+            overrideConfigFile: true,
+            // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+            overrideConfig: cloudflightTypescriptConfig({rootDirectory: fixtureDir}) as Linter.Config[],
+        });
+        const results = await eslint.lintFiles([join(fixtureDir, 'nested-project/src/index.ts')]);
+        const messages = results.flatMap((result) => result.messages);
+
+        expect(messages.map((message) => message.ruleId)).toContain('@typescript-eslint/no-floating-promises');
+        expect(messages.map((message) => message.ruleId)).not.toContain('import-x/no-unresolved');
+    });
+
+    it('resolves the aliases of nested projects in directories with glob metacharacters', async () => {
+        const file = join(fixtureDir, '[bracket]', 'src', 'index.ts');
+        const results = await createEslint().lintText(readFileSync(file, 'utf8'), {filePath: file});
+        const messages = results.flatMap((result) => result.messages);
+
+        expect(messages.filter((message) => message.fatal)).toEqual([]);
+        expect(messages.map((message) => message.ruleId)).not.toContain('import-x/no-unresolved');
+    });
+
+    it('can be extended by a scoped config object although nested projects exist', async () => {
+        const eslint = new ESLint({
+            cwd: fixtureDir,
+            overrideConfigFile: true,
+            // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+            overrideConfig: defineConfig({files: ['**/*.ts'], extends: [cloudflightTypescriptConfig({rootDirectory: fixtureDir}) as Linter.Config[]]}),
+        });
+        const results = await eslint.lintFiles(['nested-project/src/index.ts']);
+        const messages = results.flatMap((result) => result.messages);
+
+        expect(messages.filter((message) => message.fatal)).toEqual([]);
+        expect(messages.map((message) => message.ruleId)).not.toContain('import-x/no-unresolved');
+    });
+
+    it('resolves the aliases of hidden projects such as .storybook', async () => {
+        const results = await createEslint().lintFiles(['.storybook/preview.ts']);
+        const messages = results.flatMap((result) => result.messages);
+
+        expect(messages.filter((message) => message.fatal)).toEqual([]);
+        expect(messages.map((message) => message.ruleId)).toContain('@typescript-eslint/no-floating-promises');
+        expect(messages.map((message) => message.ruleId)).not.toContain('import-x/no-unresolved');
+    });
+
+    it('keeps unrelated projects with broken tsconfig files out of other files', async () => {
+        // broken-project/tsconfig.json extends a file that does not exist, like a generated nuxt config
+        const results = await createEslint().lintFiles(['tool.mjs']);
+        const messages = results.flatMap((result) => result.messages);
+
+        expect(messages.filter((message) => message.fatal)).toEqual([]);
+        expect(messages.map((message) => message.ruleId)).not.toContain('import-x/no-unresolved');
     });
 
     it('uses the custom project and resolves its aliases independently of process.cwd', async () => {

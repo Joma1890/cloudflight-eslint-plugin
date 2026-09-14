@@ -8,7 +8,8 @@ import pluginNoUnsanitized from 'eslint-plugin-no-unsanitized';
 import pluginPerfectionist from 'eslint-plugin-perfectionist';
 import pluginSecurity from 'eslint-plugin-security';
 import globals from 'globals';
-import {resolve} from 'node:path';
+import {type Dirent, existsSync, readdirSync} from 'node:fs';
+import {isAbsolute, join, relative, resolve, sep} from 'node:path';
 import tseslint from 'typescript-eslint';
 
 import {customRules} from './configs/custom';
@@ -68,23 +69,53 @@ export const cloudflightTypescriptSecurityConfig = tseslint.config(
 
 function cloudflightTypescriptImportConfig(settings: CloudflightEslintPluginSettings): FlatConfig.ConfigArray {
     // eslint-disable-next-line @typescript-eslint/no-deprecated -- tseslint.config is deprecated but defineConfig has type incompatibilities with typescript-eslint
-    return tseslint.config({
-        files: ['**/*.{js,jsx,mjs,cjs,ts,mts,cts,tsx}'],
-        extends: [
-            pluginImportX.flatConfigs.recommended,
-            pluginImportX.flatConfigs.typescript,
-        ],
-        languageOptions: {
-            parser: tseslint.parser,
-            ecmaVersion: 'latest',
-            sourceType: 'module',
+    return tseslint.config(
+        {
+            files: ['**/*.{js,jsx,mjs,cjs,ts,mts,cts,tsx}'],
+            extends: [
+                pluginImportX.flatConfigs.recommended,
+                pluginImportX.flatConfigs.typescript,
+            ],
+            languageOptions: {
+                parser: tseslint.parser,
+                ecmaVersion: 'latest',
+                sourceType: 'module',
+            },
+            name: 'cloudflight/typescript/import-rules',
+            rules: {
+                ...importRules,
+            },
+            settings: importXSettings(settings),
         },
-        name: 'cloudflight/typescript/import-rules',
-        rules: {
-            ...importRules,
-        },
-        settings: importXSettings(settings),
-    });
+        // like the project service, files below a nested tsconfig.json resolve their imports through
+        // that project, so aliases of nested projects work and unrelated projects never take part
+        ...nestedProjectImportConfigs(settings),
+    );
+}
+
+function nestedProjectImportConfigs(settings: CloudflightEslintPluginSettings): FlatConfig.Config[] {
+    // the config types do not know function matchers yet, eslint supports them since v9
+    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+    return nestedProjectDirectories(settings).map((directory) => ({
+        // matched by path instead of a pattern relative to eslint's base path: the block then works
+        // wherever eslint runs from, inside `extends` (where eslint rejects a base path) and for
+        // directory names with glob metacharacters; the glob keeps it to source files
+        files: [['**/*.{js,jsx,mjs,cjs,ts,mts,cts,tsx}', isBelow(join(settings.rootDirectory, directory))]],
+        name: `cloudflight/typescript/import-rules/${directory}`,
+        settings: importXSettings({rootDirectory: settings.rootDirectory, tsConfigFiles: [`${directory}/tsconfig.json`]}),
+    } as unknown as FlatConfig.Config));
+}
+
+/**
+ * Whether a file lies below the directory, compared as paths so the result depends neither on
+ * eslint's base path nor on glob metacharacters in directory names.
+ */
+function isBelow(directory: string): (file: string) => boolean {
+    return (file) => {
+        const relativePath = relative(directory, file);
+
+        return relativePath !== '' && relativePath !== '..' && !relativePath.startsWith(`..${sep}`) && !isAbsolute(relativePath);
+    };
 }
 
 // eslint-disable-next-line @typescript-eslint/no-deprecated -- tseslint.config is deprecated but defineConfig has type incompatibilities with typescript-eslint
@@ -115,7 +146,9 @@ export interface CloudflightEslintPluginSettings {
     /**
      * Override the tsconfig files to use for the project.
      * When omitted, typed linting uses the typescript-eslint project service,
-     * which discovers the closest tsconfig.json for each linted file (recommended).
+     * which discovers the closest tsconfig.json for each linted file (recommended);
+     * import resolution uses the tsconfig*.json files in rootDirectory and the tsconfig.json
+     * of each nested project directory.
      * Set this only when automatic discovery does not fit the project layout,
      * e.g. when linting relies on tsconfig files not named tsconfig.json.
      * Keep this list as short as possible, a large list will negatively impact performance.
@@ -207,4 +240,76 @@ function importXSettings(settings: CloudflightEslintPluginSettings): SharedConfi
             }),
         ],
     };
+}
+
+// dependency, version control, build output and cache directories never hold projects of the consumer
+const skippedDirectories = new Set([
+    'node_modules',
+    '.git',
+    '.hg',
+    '.svn',
+    '.yarn',
+    'dist',
+    'build',
+    'coverage',
+    'target',
+    '.angular',
+    '.gradle',
+    '.next',
+    '.nuxt',
+    '.nx',
+    '.svelte-kit',
+    '.venv',
+]);
+
+/**
+ * Directories below the root directory with their own tsconfig.json, parents before children,
+ * so that the block of the closest project wins.
+ */
+function nestedProjectDirectories(settings: CloudflightEslintPluginSettings): string[] {
+    if (settings.tsConfigFiles !== undefined) {
+        return [];
+    }
+
+    return collectProjectDirectories(settings.rootDirectory, '');
+}
+
+function isUnreadableDirectory(error: unknown): boolean {
+    return error instanceof Error && 'code' in error && ['EACCES', 'EPERM', 'ENOENT', 'ENOTDIR'].includes(String(error.code));
+}
+
+/**
+ * The entries of a directory below the root; one that cannot be read (permissions, removed in the
+ * meantime) holds no project of the linted files and is skipped instead of failing every lint run.
+ */
+function readNestedDirectory(root: string, directory: string): Dirent[] {
+    try {
+        return readdirSync(join(root, directory), {withFileTypes: true});
+    }
+    catch (error) {
+        if (directory !== '' && isUnreadableDirectory(error)) {
+            return [];
+        }
+
+        throw error;
+    }
+}
+
+function collectProjectDirectories(root: string, directory: string): string[] {
+    const directories: string[] = [];
+
+    for (const entry of readNestedDirectory(root, directory)) {
+        if (!entry.isDirectory() || skippedDirectories.has(entry.name)) {
+            continue;
+        }
+
+        const child = directory === '' ? entry.name : `${directory}/${entry.name}`;
+
+        if (existsSync(join(root, child, 'tsconfig.json'))) {
+            directories.push(child);
+        }
+        directories.push(...collectProjectDirectories(root, child));
+    }
+
+    return directories;
 }
