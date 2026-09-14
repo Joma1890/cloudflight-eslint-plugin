@@ -5,13 +5,13 @@ import {cloudflightVueConfig} from './index';
 
 const fixtureDir = join(__dirname, '..', 'fixtures');
 
-function createEslint(): ESLint {
+function createEslint(tsConfigFiles?: string[]): ESLint {
     return new ESLint({
         cwd: fixtureDir,
         overrideConfigFile: true,
         // the typescript-eslint config types are structurally compatible with the eslint core types
         // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-        overrideConfig: cloudflightVueConfig({rootDirectory: fixtureDir}) as Linter.Config[],
+        overrideConfig: cloudflightVueConfig({rootDirectory: fixtureDir, tsConfigFiles}) as Linter.Config[],
     });
 }
 
@@ -37,5 +37,21 @@ describe('cloudflightVueConfig', () => {
 
         expect(ruleIds).toContain('@typescript-eslint/no-unsafe-member-access');
         expect(ruleIds).toContain('@typescript-eslint/no-unsafe-return');
+    });
+
+    it('uses an explicit tsconfig project for conventional SFC scripts and TypeScript files', async () => {
+        const results = await createEslint(['explicit-tsconfig/tsconfig.lint.json']).lintFiles(['explicit-tsconfig/Form.vue', 'explicit-tsconfig/outside.ts']);
+
+        expect(results).toHaveLength(2);
+        for (const result of results) {
+            expect(result.messages.filter((message) => message.fatal)).toEqual([]);
+            expect(result.messages.map((message) => message.ruleId)).toContain('@typescript-eslint/no-floating-promises');
+        }
+    });
+
+    it('lints a template-only SFC without a script block', async () => {
+        const results = await createEslint().lintFiles(['OnlyTemplate.vue']);
+
+        expect(results.flatMap((result) => result.messages).filter((message) => message.severity === 2)).toEqual([]);
     });
 });

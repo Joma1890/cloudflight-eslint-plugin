@@ -15,10 +15,11 @@ import {typescriptRules} from './configs/typescript';
 import {vueRules} from './configs/vue';
 
 export function cloudflightVueConfig(settings: CloudflightEslintPluginSettings): FlatConfig.ConfigArray {
-    // with a type-checked preset the helper turns the no-unsafe-* rules off for every .ts and .vue file
-    // by default; keep them, the base config only relaxes no-unsafe-assignment for .vue files
-    configureVueProject({allowComponentTypeUnsafety: false});
-
+    // This synchronous upstream helper uses a separate discovery root from ESLint.
+    // Set it on every call so factories for different projects do not reuse a root.
+    // With a type-checked preset the helper turns the no-unsafe-* rules off for every .ts and .vue
+    // file by default; keep them, the base config only relaxes no-unsafe-assignment for .vue files.
+    configureVueProject({rootDir: settings.rootDirectory, allowComponentTypeUnsafety: false});
     const configs = defineConfigWithVueTs(
         ...cloudflightTypescriptConfig(settings),
         {
@@ -45,10 +46,18 @@ export function cloudflightVueConfig(settings: CloudflightEslintPluginSettings):
         },
     );
 
+    // Nested installs give the Vue helper a separate copy of typescript-eslint.
+    // Keep the shared base's plugin identity while preserving the helper's rules
+    // and parser composition. ESLint rejects two objects under one plugin name.
+    const typescriptPlugin = cloudflightTypescriptBaseConfig.find((config) => config.plugins?.['@typescript-eslint'])?.plugins?.['@typescript-eslint'];
+    const sharedPluginConfigs = configs.map((config) => config.plugins?.['@typescript-eslint'] && typescriptPlugin ?
+        {...config, plugins: {...config.plugins, '@typescript-eslint': typescriptPlugin}} :
+        config);
+
     return [
-        ...configs,
+        ...sharedPluginConfigs,
         {
-            files: ['**/*.{ts,mts,cts,tsx}'],
+            files: ['**/*.{ts,mts,cts,tsx,vue}'],
             name: 'cloudflight/vue/typed-parser',
             languageOptions: {
                 // the type-checked preset enables the project service for typescript files, the
