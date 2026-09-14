@@ -4,6 +4,21 @@ import pluginJs from '@eslint/js';
 import tseslint from 'typescript-eslint';
 
 export const typescriptEslintRules: TSESLint.Linter.RulesRecord = {
+    // The presets enable typed replacements; do not re-enable the core rules.
+    'no-implied-eval': 'off',
+    'no-throw-literal': 'off',
+    'no-unused-expressions': 'off',
+    'prefer-promise-reject-errors': 'off',
+    // same options as the core rule in configs/eslint.ts
+    '@typescript-eslint/no-unused-expressions': [
+        'error',
+        {
+            allowShortCircuit: false,
+            allowTernary: false,
+            allowTaggedTemplates: false,
+            enforceForJSX: true,
+        },
+    ],
     // we do not need to care about js codebases, they are outside our scope
     '@typescript-eslint/consistent-generic-constructors': 'off',
     '@typescript-eslint/consistent-type-assertions': ['error', {assertionStyle: 'never'}],
@@ -67,4 +82,11 @@ export const javascriptRecommendedRules: TSESLint.Linter.RulesRecord = restoreCo
 export const typescriptEslintDisableTypeCheckedRules: TSESLint.Linter.RulesRecord = {
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/explicit-member-accessibility': 'off',
+    // The typed replacements of these core rules need a type checker, which JS files are linted without.
+    // Re-enable the core rules here so config and tooling files keep these checks.
+    'dot-notation': 'error',
+    'no-implied-eval': 'error',
+    'no-throw-literal': 'error',
+    'prefer-promise-reject-errors': 'error',
+    'require-await': 'error',
 };

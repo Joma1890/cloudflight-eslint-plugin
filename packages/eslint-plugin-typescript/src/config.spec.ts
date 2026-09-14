@@ -146,6 +146,42 @@ describe('cloudflightTypescriptConfig', () => {
         expect(messages.map((message) => message.ruleId)).not.toContain('import-x/no-unresolved');
     });
 
+    it.each([
+        ['throw "oops";', 'no-throw-literal', '@typescript-eslint/only-throw-error'],
+        ['Promise.reject("oops");', 'prefer-promise-reject-errors', '@typescript-eslint/prefer-promise-reject-errors'],
+    ])('reports %s once through the typed replacement of %s', async (code, coreRule, typedRule) => {
+        const results = await createEslint().lintText(code, {filePath: 'invalid.ts'});
+        const rules = results.flatMap((result) => result.messages).map((message) => message.ruleId);
+
+        expect(rules.filter((rule) => rule === typedRule)).toHaveLength(1);
+        expect(rules).not.toContain(coreRule);
+    });
+
+    it.each([
+        ["export const value = process['env'];", 'dot-notation'],
+        ['export async function load() { return 1; }', 'require-await'],
+    ])('keeps the core rule for %s in javascript files', async (code, coreRule) => {
+        const results = await createEslint().lintText(code, {filePath: 'outside.js'});
+        const rules = results.flatMap((result) => result.messages).map((message) => message.ruleId);
+
+        expect(rules).toContain(coreRule);
+    });
+
+    it('reports duplicate imports once through import-x', async () => {
+        const results = await createEslint().lintText("import {join} from 'node:path';\nimport {resolve} from 'node:path';\n\nexport const paths = [join, resolve];\n", {filePath: 'invalid.ts'});
+        const rules = results.flatMap((result) => result.messages).map((message) => message.ruleId);
+
+        expect(rules).toContain('import-x/no-duplicates');
+        expect(rules).not.toContain('no-duplicate-imports');
+    });
+
+    it('keeps the unused-expression options for JSX', async () => {
+        const results = await createEslint().lintText('<div />;', {filePath: 'outside.jsx'});
+        const rules = results.flatMap((result) => result.messages).map((message) => message.ruleId);
+
+        expect(rules).toContain('@typescript-eslint/no-unused-expressions');
+    });
+
     it('reports a caught error that is thrown away', async () => {
         const results = await createEslint().lintText('try { JSON.parse("x"); } catch (error) { throw new Error("failed"); }\n', {filePath: 'invalid.ts'});
         const rules = results.flatMap((result) => result.messages).map((message) => message.ruleId);
