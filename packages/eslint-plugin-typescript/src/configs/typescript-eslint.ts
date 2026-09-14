@@ -1,5 +1,8 @@
 import type {TSESLint} from '@typescript-eslint/utils';
 
+import pluginJs from '@eslint/js';
+import tseslint from 'typescript-eslint';
+
 export const typescriptEslintRules: TSESLint.Linter.RulesRecord = {
     // we do not need to care about js codebases, they are outside our scope
     '@typescript-eslint/consistent-generic-constructors': 'off',
@@ -41,6 +44,25 @@ export const typescriptEslintRules: TSESLint.Linter.RulesRecord = {
     '@typescript-eslint/strict-boolean-expressions': 'error',
     '@typescript-eslint/switch-exhaustiveness-check': 'error',
 };
+
+function restoreCompilerCoveredRules(): TSESLint.Linter.RulesRecord {
+    const recommended = new Map(Object.entries(pluginJs.configs.recommended.rules));
+
+    return Object.fromEntries(Object.entries(tseslint.configs.eslintRecommended.rules ?? {})
+        .filter(([, severity]) => severity === 'off')
+        .flatMap(([rule]) => {
+            const entry = recommended.get(rule);
+
+            return entry === undefined ? [] : [[rule, entry] as const];
+        }));
+}
+
+/**
+ * typescript-eslint turns these core rules off because the compiler reports the same problems
+ * in TypeScript files. JavaScript files are linted without the compiler, so the recommended
+ * severities are restored for them.
+ */
+export const javascriptRecommendedRules: TSESLint.Linter.RulesRecord = restoreCompilerCoveredRules();
 
 export const typescriptEslintDisableTypeCheckedRules: TSESLint.Linter.RulesRecord = {
     '@typescript-eslint/explicit-function-return-type': 'off',

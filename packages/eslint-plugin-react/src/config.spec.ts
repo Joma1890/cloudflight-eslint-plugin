@@ -27,6 +27,14 @@ describe('cloudflightReactConfig', () => {
         expect(rules).not.toContain('@typescript-eslint/explicit-member-accessibility');
     });
 
+    it('reports an undefined component in javascript files once', async () => {
+        const results = await createEslint().lintText('export const view = <Missing />;', {filePath: 'outside.jsx'});
+        const rules = results.flatMap((result) => result.messages).map((message) => message.ruleId);
+
+        expect(rules.filter((rule) => rule === 'no-undef')).toHaveLength(1);
+        expect(rules).not.toContain('react/jsx-no-undef');
+    });
+
     it('reports no errors for valid code', async () => {
         const results = await createEslint().lintFiles(['valid.tsx']);
 

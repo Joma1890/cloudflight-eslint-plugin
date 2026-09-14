@@ -62,6 +62,15 @@ describe('cloudflightTypescriptConfig', () => {
         expect(results.flatMap((result) => result.messages).filter((message) => message.severity === 2)).toEqual([]);
     });
 
+    it('keeps the core rules that typescript covers for javascript files', async () => {
+        const results = await createEslint().lintText('const value = 1;\nvalue = 2;\nexport const environment = [process.cwd(), window.location, typo];\n', {filePath: 'outside.js'});
+        const rules = results.flatMap((result) => result.messages).map((message) => message.ruleId);
+
+        expect(rules).toContain('no-const-assign');
+        // node and browser globals are declared, only the typo is undefined
+        expect(rules.filter((rule) => rule === 'no-undef')).toHaveLength(1);
+    });
+
     it('reports a caught error that is thrown away', async () => {
         const results = await createEslint().lintText('try { JSON.parse("x"); } catch (error) { throw new Error("failed"); }\n', {filePath: 'invalid.ts'});
         const rules = results.flatMap((result) => result.messages).map((message) => message.ruleId);

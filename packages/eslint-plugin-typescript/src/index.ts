@@ -7,6 +7,7 @@ import pluginImportX from 'eslint-plugin-import-x';
 import pluginNoUnsanitized from 'eslint-plugin-no-unsanitized';
 import pluginPerfectionist from 'eslint-plugin-perfectionist';
 import pluginSecurity from 'eslint-plugin-security';
+import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
 import {customRules} from './configs/custom';
@@ -14,7 +15,7 @@ import {eslintRules} from './configs/eslint';
 import {formatRules} from './configs/format';
 import {importRules} from './configs/import';
 import {securityRules} from './configs/security';
-import {typescriptEslintDisableTypeCheckedRules, typescriptEslintRules} from './configs/typescript-eslint';
+import {javascriptRecommendedRules, typescriptEslintDisableTypeCheckedRules, typescriptEslintRules} from './configs/typescript-eslint';
 import {cloudflightTypescriptPlugin} from './rules';
 
 /**
@@ -90,7 +91,13 @@ const cloudflightTypescriptDisableTypeCheckedConfig = tseslint.config({
     files: ['**/*.{js,jsx,mjs,cjs}'],
     extends: [tseslint.configs.disableTypeChecked],
     name: 'cloudflight/typescript/disable-type-checked-rules',
+    languageOptions: {
+        // javascript files are tooling or browser scripts, declare both environments
+        // so no-undef reports unknown identifiers instead of every runtime global
+        globals: {...globals.node, ...globals.browser},
+    },
     rules: {
+        ...javascriptRecommendedRules,
         ...typescriptEslintDisableTypeCheckedRules,
     },
 });

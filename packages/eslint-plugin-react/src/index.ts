@@ -60,6 +60,14 @@ export function cloudflightReactConfig(settings: CloudflightEslintPluginSettings
                 },
             },
         },
+        {
+            files: ['**/*.{js,jsx,mjs,cjs}'],
+            name: 'cloudflight/react/javascript-rules',
+            rules: {
+                // the core no-undef rule is active for javascript files and reports the same identifier
+                'react/jsx-no-undef': 'off',
+            },
+        },
     );
 }
 

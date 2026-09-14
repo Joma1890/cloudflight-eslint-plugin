@@ -26,6 +26,19 @@ Setting `tsConfigFiles` switches typed linting back to `parserOptions.project` (
 Do not set `parserOptions.project` or `projectService` yourself: an own `parserOptions.project` after the Cloudflight
 config fails with `Parsing error: Enabling "project" does nothing when "projectService" is enabled`.
 JavaScript/JSX tooling files use untyped linting and do not need to be included in a TypeScript project.
+They keep the core rules that the compiler covers in TypeScript files, such as `no-undef`, with Node.js and
+browser globals declared. Files that rely on other globals declare them in the project config (install `globals`
+as your own devDependency), for example Jest test files:
+
+```js
+import {cloudflightTypescriptConfig} from '@cloudflight/eslint-plugin-typescript';
+import globals from 'globals';
+
+export default [
+    ...cloudflightTypescriptConfig({rootDirectory: import.meta.dirname}),
+    {files: ['**/*.spec.js'], languageOptions: {globals: globals.jest}},
+];
+```
 
 Typed files outside their selected project are deliberately reported as configuration errors
 (`… was not found by the project service`); add such files to a `tsconfig.json` or list your tsconfig files in `tsConfigFiles`.
