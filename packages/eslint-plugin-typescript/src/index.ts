@@ -8,6 +8,7 @@ import pluginNoUnsanitized from 'eslint-plugin-no-unsanitized';
 import pluginPerfectionist from 'eslint-plugin-perfectionist';
 import pluginSecurity from 'eslint-plugin-security';
 import globals from 'globals';
+import {resolve} from 'node:path';
 import tseslint from 'typescript-eslint';
 
 import {customRules} from './configs/custom';
@@ -103,6 +104,13 @@ const cloudflightTypescriptDisableTypeCheckedConfig = tseslint.config({
 });
 
 export interface CloudflightEslintPluginSettings {
+    /**
+     * Absolute path of the project directory the config lives in (usually `import.meta.dirname`).
+     * tsconfig paths and the import resolver's project globs are resolved against it.
+     * Glob metacharacters in this path (`(`, `)`, `[`, `]`, `{`, `}`, `*`, `?`) are not escaped
+     * by eslint-import-resolver-typescript and make import alias resolution fall back to
+     * the `tsconfig.json` in the working directory.
+     */
     rootDirectory: string;
     /**
      * Override the tsconfig files to use for the project.
@@ -192,7 +200,8 @@ function importXSettings(settings: CloudflightEslintPluginSettings): SharedConfi
         'import-x/resolver-next': [
             createTypeScriptImportResolver({
                 alwaysTryTypes: true,
-                project: settings.tsConfigFiles ?? ['tsconfig*(.*).json'],
+                project: (settings.tsConfigFiles ?? ['tsconfig*(.*).json'])
+                    .map((file) => resolve(settings.rootDirectory, file).replace(/\\/g, '/')),
                 // the default glob matches every tsconfig*.json on purpose
                 noWarnOnMultipleProjects: true,
             }),

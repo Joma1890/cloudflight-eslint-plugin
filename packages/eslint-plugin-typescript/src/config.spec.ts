@@ -71,6 +71,15 @@ describe('cloudflightTypescriptConfig', () => {
         expect(rules.filter((rule) => rule === 'no-undef')).toHaveLength(1);
     });
 
+    it('uses the custom project and resolves its aliases independently of process.cwd', async () => {
+        const results = await createEslint(['explicit-tsconfig/tsconfig.lint.json']).lintFiles(['explicit-tsconfig/outside.ts']);
+        const messages = results.flatMap((result) => result.messages);
+
+        expect(messages.filter((message) => message.fatal)).toEqual([]);
+        expect(messages.map((message) => message.ruleId)).toContain('@typescript-eslint/no-floating-promises');
+        expect(messages.map((message) => message.ruleId)).not.toContain('import-x/no-unresolved');
+    });
+
     it('reports a caught error that is thrown away', async () => {
         const results = await createEslint().lintText('try { JSON.parse("x"); } catch (error) { throw new Error("failed"); }\n', {filePath: 'invalid.ts'});
         const rules = results.flatMap((result) => result.messages).map((message) => message.ruleId);
