@@ -2,12 +2,12 @@ import {TSESLint} from '@typescript-eslint/utils';
 
 export const angularTemplateRules: TSESLint.Linter.RulesRecord = {
     '@angular-eslint/template/button-has-type': 'error',
-    '@angular-eslint/template/eqeqeq': [
-        'off', // disable it for now since it does not work correctly
-        {
-            allowNullOrUndefined: true,
-        },
-    ],
+    // complexity rules are not auto-fixable, so they belong in the lint config,
+    // not in the format config that runs with --fix in pre-commit hooks
+    '@angular-eslint/template/conditional-complexity': ['error', {maxComplexity: 3}],
+    '@angular-eslint/template/cyclomatic-complexity': ['error', {maxComplexity: 5}],
+    // loose comparisons with null and undefined are allowed
+    '@angular-eslint/template/eqeqeq': ['error', {allowNullOrUndefined: true}],
     // does not work with custom input components
     '@angular-eslint/template/label-has-associated-control': 'off',
     '@angular-eslint/template/no-any': 'error',

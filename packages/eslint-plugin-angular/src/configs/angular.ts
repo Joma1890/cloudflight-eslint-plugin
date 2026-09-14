@@ -27,4 +27,9 @@ export const angularRules: TSESLint.Linter.RulesRecord = {
     '@angular-eslint/use-pipe-transform-interface': 'error',
     '@angular-eslint/prefer-standalone': 'error',
     '@angular-eslint/prefer-signals': 'error',
+    // correctness rules the recommended preset does not enable, available since angular-eslint
+    // 17.2 (no-async-lifecycle-method), 17.4 (no-duplicates-in-metadata-arrays) and 19.7 (no-uncalled-signals)
+    '@angular-eslint/no-async-lifecycle-method': 'error',
+    '@angular-eslint/no-duplicates-in-metadata-arrays': 'error',
+    '@angular-eslint/no-uncalled-signals': 'error',
 };
