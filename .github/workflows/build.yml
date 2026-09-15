@@ -6,8 +6,14 @@ on:
     pull_request:
 jobs:
     build:
-        name: Build
-        runs-on: ubuntu-latest
+        name: Build (${{ matrix.os }})
+        runs-on: ${{ matrix.os }}
+        strategy:
+            # keep the other platforms running when one fails, so platform-specific
+            # problems (e.g. project-service path handling on windows) are visible in isolation
+            fail-fast: false
+            matrix:
+                os: [ubuntu-latest, windows-latest, macos-latest]
         steps:
             - uses: actions/checkout@v4
             - uses: volta-cli/action@v4.0.1
