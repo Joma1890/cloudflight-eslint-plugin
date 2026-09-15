@@ -28,13 +28,14 @@ const fixtureFiles = new Map([
     ['vue', ['Form.vue', 'base.ts']],
     ['angular', ['invalid.component.ts', 'invalid.html']],
 ]);
-// CONSUMER_PACKAGES limits the run to some packages, CONSUMER_TYPESCRIPT and CONSUMER_TYPES_NODE
-// select the compiler and its node types, e.g. to probe the minimum supported versions.
+// CONSUMER_PACKAGES limits the run to some packages, CONSUMER_TYPESCRIPT, CONSUMER_TYPES_NODE and
+// CONSUMER_ESLINT select the compiler, its node types and eslint, e.g. to probe the minimum supported versions.
 const selected = (process.env.CONSUMER_PACKAGES ?? [...frameworks.keys()].join(',')).split(',');
 const compiler = {
     typescript: process.env.CONSUMER_TYPESCRIPT ?? '6.0.3',
     '@types/node': process.env.CONSUMER_TYPES_NODE ?? rootPackage.devDependencies['@types/node'],
 };
+const eslint = process.env.CONSUMER_ESLINT ?? rootPackage.devDependencies.eslint;
 
 for (const name of selected) {
     assert.ok(frameworks.has(name), `unknown package ${name}`);
@@ -72,7 +73,7 @@ function probe(label, names, strategy) {
     const consumer = join(temporary, label);
     // the framework packages depend on the base package, take it from the archives as well
     // instead of letting npm fetch the published version
-    const dependencies = {eslint: rootPackage.devDependencies.eslint, ...compiler, '@cloudflight/eslint-plugin-typescript': archive('typescript')};
+    const dependencies = {eslint, ...compiler, '@cloudflight/eslint-plugin-typescript': archive('typescript')};
 
     for (const name of names) {
         Object.assign(dependencies, frameworks.get(name));

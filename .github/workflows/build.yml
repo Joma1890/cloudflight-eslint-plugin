@@ -46,3 +46,43 @@ jobs:
               run: yarn run build
             - name: Test packed consumers
               run: yarn run test:consumers
+    consumers-minimum:
+        name: Test packed consumers (${{ matrix.name }})
+        runs-on: ubuntu-latest
+        # the advertised minimum node, typescript and eslint versions, angular has its own requirements
+        timeout-minutes: 20
+        strategy:
+            fail-fast: false
+            matrix:
+                include:
+                    - name: minimum versions
+                      node: 20.19.0
+                      typescript: 5.0.4
+                      types-node: 20.19.43
+                      eslint: 10.0.0
+                      packages: typescript,node,react,vue
+                    - name: angular minimum versions
+                      node: 22.22.3
+                      typescript: 6.0.2
+                      types-node: 22.20.4
+                      eslint: 10.0.0
+                      packages: angular
+        steps:
+            - uses: actions/checkout@v4
+            - uses: volta-cli/action@v4.0.1
+            - name: Install
+              run: yarn install --immutable --check-cache
+            - name: Build
+              run: yarn run build
+            - name: Switch to the minimum node version
+              uses: actions/setup-node@v4
+              with:
+                  node-version: ${{ matrix.node }}
+            - name: Test packed consumers
+              # invoked with node directly: the yarn shim would switch back to the pinned node version
+              run: node scripts/test-consumers.mjs
+              env:
+                  CONSUMER_PACKAGES: ${{ matrix.packages }}
+                  CONSUMER_TYPESCRIPT: ${{ matrix.typescript }}
+                  CONSUMER_TYPES_NODE: ${{ matrix.types-node }}
+                  CONSUMER_ESLINT: ${{ matrix.eslint }}
