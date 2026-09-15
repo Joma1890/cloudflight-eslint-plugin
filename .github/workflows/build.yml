@@ -19,3 +19,17 @@ jobs:
               run: yarn run lint
             - name: Test
               run: yarn run test
+    consumers:
+        name: Test packed consumers
+        runs-on: ubuntu-latest
+        # installs real frameworks from the registry into temporary consumers
+        timeout-minutes: 20
+        steps:
+            - uses: actions/checkout@v4
+            - uses: volta-cli/action@v4.0.1
+            - name: Install
+              run: yarn install --immutable --check-cache
+            - name: Build
+              run: yarn run build
+            - name: Test packed consumers
+              run: yarn run test:consumers

@@ -18,6 +18,7 @@ export default tseslint.config(
             'packages/types-eslint-plugin-*/**',
             // lint fixtures deliberately contain rule violations
             'packages/*/fixtures/**',
+            'scripts/consumer-fixtures/**',
         ],
     },
 );

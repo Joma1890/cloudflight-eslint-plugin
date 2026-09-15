@@ -1061,6 +1061,7 @@ __metadata:
     "@typescript-eslint/utils": "npm:8.70.1"
     "@vue/eslint-config-typescript": "npm:14.9.0"
     angular-eslint: "npm:22.5.0"
+    cross-spawn: "npm:7.0.6"
     eslint: "npm:10.9.1"
     eslint-import-resolver-typescript: "npm:4.4.5"
     eslint-plugin-import-x: "npm:4.17.1"
@@ -3600,7 +3601,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cross-spawn@npm:^7.0.3, cross-spawn@npm:^7.0.6":
+"cross-spawn@npm:7.0.6, cross-spawn@npm:^7.0.3, cross-spawn@npm:^7.0.6":
   version: 7.0.6
   resolution: "cross-spawn@npm:7.0.6"
   dependencies:
