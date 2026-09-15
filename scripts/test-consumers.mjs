@@ -125,7 +125,50 @@ for (const name of selected) {
     probe(`isolated-${name}`, [name], 'hoisted');
 }
 
-console.log(`Packed consumers passed for ${selected.join(', ')}: hoisted, nested and isolated.`);
+// the framework packages are only supported with the base package of their own version
+function olderBaseArchive(consumer) {
+    const olderBase = join(consumer, 'older-base');
+
+    mkdirSync(olderBase, {recursive: true});
+    run('tar', ['-xzf', join(archives, '@cloudflight-eslint-plugin-typescript.tgz'), '--strip-components=1', '-C', olderBase], consumer);
+    const manifest = JSON.parse(readFileSync(join(olderBase, 'package.json'), 'utf8'));
+
+    writeFileSync(join(olderBase, 'package.json'), JSON.stringify({...manifest, version: '0.0.0-older'}, null, 2));
+    // packed again, because npm does not install the dependencies of a linked directory
+    run('npm', ['pack', '--ignore-scripts', '--pack-destination', consumer], olderBase);
+
+    return 'file:./cloudflight-eslint-plugin-typescript-0.0.0-older.tgz';
+}
+
+function probeRejectedVersions(label, name, manifest) {
+    const consumer = join(temporary, `${label}-${name}`);
+
+    mkdirSync(consumer);
+    const olderBase = olderBaseArchive(consumer);
+
+    cpSync(join(fixtures, 'mixed-probe.mjs'), join(consumer, 'mixed-probe.mjs'));
+    writeFileSync(join(consumer, 'package.json'), JSON.stringify({name: `cloudflight-consumer-${label}-${name}`, private: true, type: 'module', ...manifest(olderBase)}, null, 2));
+    run('npm', ['install', '--ignore-scripts', '--engine-strict', '--no-audit', '--no-fund'], consumer);
+    run(process.execPath, ['mixed-probe.mjs', name], consumer);
+}
+
+for (const name of selected.filter((selectedName) => selectedName !== 'typescript')) {
+    const shared = {eslint, ...compiler, ...frameworks.get(name), [`@cloudflight/eslint-plugin-${name}`]: archive(name)};
+
+    // the framework package's own dependency on the base package is forced to an older copy
+    probeRejectedVersions('mixed', name, (olderBase) => ({
+        dependencies: shared,
+        overrides: {'@cloudflight/eslint-plugin-typescript': olderBase},
+    }));
+    // a partial update: the project keeps its older base package, only the framework package
+    // brings the current one along as a nested copy
+    probeRejectedVersions('partial', name, (olderBase) => ({
+        dependencies: {...shared, '@cloudflight/eslint-plugin-typescript': olderBase},
+        overrides: {[`@cloudflight/eslint-plugin-${name}`]: {'@cloudflight/eslint-plugin-typescript': archive('typescript')}},
+    }));
+}
+
+console.log(`Packed consumers passed for ${selected.join(', ')}: hoisted, nested, isolated, and mixed versions rejected.`);
 if (process.env.CONSUMER_KEEP === undefined) {
     rmSync(temporary, {recursive: true, force: true});
 }

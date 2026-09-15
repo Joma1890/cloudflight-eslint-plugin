@@ -4,11 +4,18 @@ import {CloudflightEslintPluginSettings, cloudflightTypescriptConfig} from '@clo
 import pluginNode from 'eslint-plugin-n';
 import tseslint from 'typescript-eslint';
 
+import {assertMatchingBaseVersion} from './base-version';
 import {importRules} from './configs/import';
 import {nodeRules} from './configs/node';
 import {securityRules} from './configs/security';
 
+/**
+ * The Node config: the TypeScript config plus the eslint-plugin-n rules and all security rules as errors.
+ * @throws Error when the installed @cloudflight/eslint-plugin-typescript has a different version than this package.
+ */
 export function cloudflightNodeConfig(settings: CloudflightEslintPluginSettings): FlatConfig.ConfigArray {
+    assertMatchingBaseVersion(settings.rootDirectory);
+
     // eslint-disable-next-line @typescript-eslint/no-deprecated -- tseslint.config is deprecated but defineConfig has type incompatibilities with typescript-eslint
     return tseslint.config(
         ...cloudflightTypescriptConfig(settings),

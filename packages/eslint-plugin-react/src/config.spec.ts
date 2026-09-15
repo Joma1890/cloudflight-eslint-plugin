@@ -1,4 +1,6 @@
 import {ESLint, type Linter} from 'eslint';
+import {mkdirSync, mkdtempSync, rmSync, writeFileSync} from 'node:fs';
+import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 
 import {cloudflightReactConfig, cloudflightReactFormatConfig} from './index';
@@ -71,5 +73,20 @@ describe('cloudflightReactConfig', () => {
         expect(result?.messages).toEqual([]);
         expect(second?.output).toBeUndefined();
         expect(second?.messages).toEqual([]);
+    });
+
+    it('rejects a project whose own base package has another version', () => {
+        const project = mkdtempSync(join(tmpdir(), 'cloudflight-mixed-'));
+        const olderBase = join(project, 'node_modules', '@cloudflight', 'eslint-plugin-typescript');
+
+        mkdirSync(olderBase, {recursive: true});
+        writeFileSync(join(project, 'package.json'), JSON.stringify({devDependencies: {'@cloudflight/eslint-plugin-typescript': '0.0.0-older'}}));
+        writeFileSync(join(olderBase, 'package.json'), JSON.stringify({name: '@cloudflight/eslint-plugin-typescript', version: '0.0.0-older'}));
+        try {
+            expect(() => cloudflightReactConfig({rootDirectory: project})).toThrow('Update all @cloudflight/eslint-plugin-* packages together');
+        }
+        finally {
+            rmSync(project, {recursive: true, force: true});
+        }
     });
 });

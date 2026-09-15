@@ -1,4 +1,6 @@
 import {ESLint, type Linter} from 'eslint';
+import {mkdirSync, mkdtempSync, rmSync, writeFileSync} from 'node:fs';
+import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 
 import {cloudflightVueConfig} from './index';
@@ -60,5 +62,20 @@ describe('cloudflightVueConfig', () => {
         const results = await createEslint().lintFiles(['OnlyTemplate.vue']);
 
         expect(results.flatMap((result) => result.messages).filter((message) => message.severity === 2)).toEqual([]);
+    });
+
+    it('rejects a project whose own base package has another version', () => {
+        const project = mkdtempSync(join(tmpdir(), 'cloudflight-mixed-'));
+        const olderBase = join(project, 'node_modules', '@cloudflight', 'eslint-plugin-typescript');
+
+        mkdirSync(olderBase, {recursive: true});
+        writeFileSync(join(project, 'package.json'), JSON.stringify({devDependencies: {'@cloudflight/eslint-plugin-typescript': '0.0.0-older'}}));
+        writeFileSync(join(olderBase, 'package.json'), JSON.stringify({name: '@cloudflight/eslint-plugin-typescript', version: '0.0.0-older'}));
+        try {
+            expect(() => cloudflightVueConfig({rootDirectory: project})).toThrow('Update all @cloudflight/eslint-plugin-* packages together');
+        }
+        finally {
+            rmSync(project, {recursive: true, force: true});
+        }
     });
 });

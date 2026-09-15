@@ -11,6 +11,7 @@ import pluginReact from 'eslint-plugin-react';
 import * as pluginReactHooks from 'eslint-plugin-react-hooks';
 import tseslint from 'typescript-eslint';
 
+import {assertMatchingBaseVersion} from './base-version';
 import {reactRules} from './configs/react';
 
 const relevantFiles = ['**/*.{js,jsx,mjs,cjs,ts,mts,cts,tsx}'];
@@ -21,7 +22,13 @@ const relevantFiles = ['**/*.{js,jsx,mjs,cjs,ts,mts,cts,tsx}'];
 // @eslint/compat fixup layer. See https://github.com/jsx-eslint/eslint-plugin-react/issues/3977
 const pluginReactFixed = fixupPluginRules(pluginReact);
 
+/**
+ * The React lint config: the TypeScript config plus the react, react-hooks and jsx-a11y rules.
+ * @throws Error when the installed @cloudflight/eslint-plugin-typescript has a different version than this package.
+ */
 export function cloudflightReactConfig(settings: CloudflightEslintPluginSettings): FlatConfig.ConfigArray {
+    assertMatchingBaseVersion(settings.rootDirectory);
+
     // eslint-disable-next-line @typescript-eslint/no-deprecated -- tseslint.config is deprecated but defineConfig has type incompatibilities with typescript-eslint
     return tseslint.config(
         ...cloudflightTypescriptConfig(settings),
@@ -71,7 +78,13 @@ export function cloudflightReactConfig(settings: CloudflightEslintPluginSettings
     );
 }
 
+/**
+ * The React format config: the TypeScript format config with JSX parsing.
+ * @throws Error when the installed @cloudflight/eslint-plugin-typescript has a different version than this package.
+ */
 export function cloudflightReactFormatConfig(settings: CloudflightEslintPluginSettings): FlatConfig.ConfigArray {
+    assertMatchingBaseVersion(settings.rootDirectory);
+
     return [
         ...cloudflightTypescriptFormatConfig(settings),
         {

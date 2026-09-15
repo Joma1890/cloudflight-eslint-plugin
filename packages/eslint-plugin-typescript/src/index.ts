@@ -18,6 +18,7 @@ import {formatRules} from './configs/format';
 import {importRules} from './configs/import';
 import {securityRules} from './configs/security';
 import {javascriptRecommendedRules, typescriptEslintDisableTypeCheckedRules, typescriptEslintRules} from './configs/typescript-eslint';
+import {packageManifest} from './package-manifest';
 import {cloudflightTypescriptPlugin} from './rules';
 
 /**
@@ -133,6 +134,11 @@ const cloudflightTypescriptDisableTypeCheckedConfig = tseslint.config({
         ...typescriptEslintDisableTypeCheckedRules,
     },
 });
+
+/**
+ * Version of this package. The framework packages only work with the base package of their own version.
+ */
+export const cloudflightTypescriptVersion: string = packageManifest(__dirname).version;
 
 export interface CloudflightEslintPluginSettings {
     /**

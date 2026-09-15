@@ -11,10 +11,17 @@ import {TSESLint} from '@typescript-eslint/utils';
 import {configureVueProject, defineConfigWithVueTs, vueTsConfigs} from '@vue/eslint-config-typescript';
 import pluginVue from 'eslint-plugin-vue';
 
+import {assertMatchingBaseVersion} from './base-version';
 import {typescriptRules} from './configs/typescript';
 import {vueRules} from './configs/vue';
 
+/**
+ * The Vue lint config: the TypeScript config plus the Vue rules and typed linting for single-file components.
+ * @throws Error when the installed @cloudflight/eslint-plugin-typescript has a different version than this package.
+ */
 export function cloudflightVueConfig(settings: CloudflightEslintPluginSettings): FlatConfig.ConfigArray {
+    assertMatchingBaseVersion(settings.rootDirectory);
+
     // This synchronous upstream helper uses a separate discovery root from ESLint.
     // Set it on every call so factories for different projects do not reuse a root.
     // With a type-checked preset the helper turns the no-unsafe-* rules off for every .ts and .vue

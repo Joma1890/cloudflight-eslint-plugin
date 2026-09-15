@@ -1,4 +1,6 @@
 import {ESLint, type Linter} from 'eslint';
+import {mkdirSync, mkdtempSync, rmSync, writeFileSync} from 'node:fs';
+import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 
 import {cloudflightNodeConfig} from './index';
@@ -48,5 +50,36 @@ describe('cloudflightNodeConfig', () => {
 
         expect(messages.filter((message) => message.fatal)).toEqual([]);
         expect(messages.map((message) => message.ruleId)).not.toContain('n/no-sync');
+    });
+
+    it('accepts a workspace that gets the base package through this package only', () => {
+        const project = mkdtempSync(join(tmpdir(), 'cloudflight-workspace-'));
+        const hoistedBase = join(project, 'node_modules', '@cloudflight', 'eslint-plugin-typescript');
+
+        mkdirSync(hoistedBase, {recursive: true});
+        // a base package hoisted for another workspace, not declared by this one
+        writeFileSync(join(project, 'package.json'), JSON.stringify({devDependencies: {'@cloudflight/eslint-plugin-node': '0.0.0'}}));
+        writeFileSync(join(hoistedBase, 'package.json'), JSON.stringify({name: '@cloudflight/eslint-plugin-typescript', version: '0.0.0-older'}));
+        try {
+            expect(() => cloudflightNodeConfig({rootDirectory: project})).not.toThrow();
+        }
+        finally {
+            rmSync(project, {recursive: true, force: true});
+        }
+    });
+
+    it('rejects a project whose own base package has another version', () => {
+        const project = mkdtempSync(join(tmpdir(), 'cloudflight-mixed-'));
+        const olderBase = join(project, 'node_modules', '@cloudflight', 'eslint-plugin-typescript');
+
+        mkdirSync(olderBase, {recursive: true});
+        writeFileSync(join(project, 'package.json'), JSON.stringify({devDependencies: {'@cloudflight/eslint-plugin-typescript': '0.0.0-older'}}));
+        writeFileSync(join(olderBase, 'package.json'), JSON.stringify({name: '@cloudflight/eslint-plugin-typescript', version: '0.0.0-older'}));
+        try {
+            expect(() => cloudflightNodeConfig({rootDirectory: project})).toThrow('Update all @cloudflight/eslint-plugin-* packages together');
+        }
+        finally {
+            rmSync(project, {recursive: true, force: true});
+        }
     });
 });
