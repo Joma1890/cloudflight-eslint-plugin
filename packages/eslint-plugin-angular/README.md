@@ -9,14 +9,15 @@ You can find the directory of all rules including their reasoning [here](src/con
 The following dependencies are required:
 
 ```
-"eslint": "^10.0.0"
+"eslint": "^10.0.0",
+"typescript": ">=5.0.0 <6.1.0"
 ```
 
 Node.js must satisfy `^22.22.3 || ^24.15.0 || >=26.0.0`.
 
 The usage example below imports `includeIgnoreFile` from `@eslint/compat` (2.0.2 or newer, the first release with an ESLint 10 peer dependency); install it if you keep that line.
 
-Angular 22 applications must use TypeScript 6.0.x.
+Angular 22 applications must use TypeScript 6.0.x; the wider TypeScript peer covers the configuration library, not the Angular compiler.
 
 ## Usage
 

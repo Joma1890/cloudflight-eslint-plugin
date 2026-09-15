@@ -9,7 +9,8 @@ You can find the directory of all rules including their reasoning [here](src/con
 The following dependencies are required:
 
 ```
-"eslint": "^10.0.0"
+"eslint": "^10.0.0",
+"typescript": ">=5.0.0 <6.1.0"
 ```
 
 Node.js must satisfy `^20.19.0 || ^22.13.0 || >=24`.

@@ -958,6 +958,7 @@ __metadata:
     typescript-eslint: "npm:^8.70.1"
   peerDependencies:
     eslint: ^10.0.0
+    typescript: ">=5.0.0 <6.1.0"
   languageName: unknown
   linkType: soft
 
@@ -976,6 +977,7 @@ __metadata:
     typescript-eslint: "npm:^8.70.1"
   peerDependencies:
     eslint: ^10.0.0
+    typescript: ">=5.0.0 <6.1.0"
   languageName: unknown
   linkType: soft
 
@@ -996,6 +998,7 @@ __metadata:
     typescript-eslint: "npm:^8.70.1"
   peerDependencies:
     eslint: ^10.0.0
+    typescript: ">=5.0.0 <6.1.0"
   languageName: unknown
   linkType: soft
 
@@ -1020,6 +1023,7 @@ __metadata:
     typescript-eslint: "npm:^8.70.1"
   peerDependencies:
     eslint: ^10.0.0
+    typescript: ">=5.0.0 <6.1.0"
   languageName: unknown
   linkType: soft
 
@@ -1037,6 +1041,7 @@ __metadata:
     vue-eslint-parser: "npm:^10.4.1"
   peerDependencies:
     eslint: ^10.0.0
+    typescript: ">=5.0.0 <6.1.0"
   languageName: unknown
   linkType: soft
 
