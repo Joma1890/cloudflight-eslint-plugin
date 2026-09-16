@@ -3,7 +3,9 @@ import {defineConfig} from 'eslint/config';
 import {readFileSync} from 'node:fs';
 import {join} from 'node:path';
 
-import {cloudflightTypescriptConfig, cloudflightTypescriptFormatConfig} from './index';
+import {cloudflightTypescriptConfig, cloudflightTypescriptFormatConfig, cloudflightTypescriptVersion} from './index';
+import {cloudflightTypescriptPlugin} from './rules';
+import {NoOnEventAssign} from './rules/typescript/no-on-event-assign';
 
 const fixtureDir = join(__dirname, '..', 'fixtures');
 
@@ -22,6 +24,13 @@ async function ruleIdsFor(file: string): Promise<(string | null)[]> {
 
     return results.flatMap((result) => result.messages).map((message) => message.ruleId);
 }
+
+describe('cloudflightTypescriptPlugin', () => {
+    it('carries the package version and links the rule documentation', () => {
+        expect(cloudflightTypescriptPlugin.meta?.version).toBe(cloudflightTypescriptVersion);
+        expect(NoOnEventAssign.meta.docs?.url).toContain('/src/rules/typescript/no-on-event-assign.ts');
+    });
+});
 
 describe('cloudflightTypescriptConfig', () => {
     it('reports no errors for valid code', async () => {
