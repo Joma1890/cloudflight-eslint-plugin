@@ -206,4 +206,19 @@ describe('cloudflightTypescriptConfig', () => {
         expect(second?.output).toBeUndefined();
         expect(second?.messages).toEqual([]);
     });
+
+    it('formats enums and conditional operators like prettier', async () => {
+        const eslint = new ESLint({
+            cwd: fixtureDir,
+            overrideConfigFile: true,
+            fix: true,
+            // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+            overrideConfig: cloudflightTypescriptFormatConfig({rootDirectory: fixtureDir}) as Linter.Config[],
+        });
+        const source = "export enum Level {\n    Low = 1,\n    High = 2\n}\nexport const label = Level.Low === 1 ?\n    'low' :\n    'high';\nexport type Wide<T> = T extends string ?\n    string :\n    number;\n";
+        const [result] = await eslint.lintText(source, {filePath: 'format.ts'});
+
+        expect(result?.output).toBe("export enum Level {\n    Low = 1,\n    High = 2,\n}\nexport const label = Level.Low === 1\n    ? 'low'\n    : 'high';\nexport type Wide<T> = T extends string\n    ? string\n    : number;\n");
+        expect(result?.messages).toEqual([]);
+    });
 });

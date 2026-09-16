@@ -57,9 +57,9 @@ export function cloudflightVueConfig(settings: CloudflightEslintPluginSettings):
     // Keep the shared base's plugin identity while preserving the helper's rules
     // and parser composition. ESLint rejects two objects under one plugin name.
     const typescriptPlugin = cloudflightTypescriptBaseConfig.find((config) => config.plugins?.['@typescript-eslint'])?.plugins?.['@typescript-eslint'];
-    const sharedPluginConfigs = configs.map((config) => config.plugins?.['@typescript-eslint'] && typescriptPlugin ?
-        {...config, plugins: {...config.plugins, '@typescript-eslint': typescriptPlugin}} :
-        config);
+    const sharedPluginConfigs = configs.map((config) => config.plugins?.['@typescript-eslint'] && typescriptPlugin
+        ? {...config, plugins: {...config.plugins, '@typescript-eslint': typescriptPlugin}}
+        : config);
 
     return [
         ...sharedPluginConfigs,

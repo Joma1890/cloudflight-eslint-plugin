@@ -190,6 +190,7 @@ export const formatRules: TSESLint.Linter.RulesRecord = {
             imports: 'always-multiline',
             exports: 'always-multiline',
             functions: 'always-multiline',
+            enums: 'always-multiline',
         },
     ],
     '@stylistic/comma-style': [
@@ -314,7 +315,8 @@ export const formatRules: TSESLint.Linter.RulesRecord = {
             consistent: true,
         },
     ],
-    '@stylistic/operator-linebreak': ['error', 'after'],
+    // conditional operators lead the line, in ternaries and in conditional types, like prettier formats them
+    '@stylistic/operator-linebreak': ['error', 'after', {overrides: {'?': 'before', ':': 'before'}}],
     'perfectionist/sort-imports': [
         'error',
         {
