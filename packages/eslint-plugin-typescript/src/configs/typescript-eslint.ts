@@ -19,7 +19,8 @@ export const typescriptEslintRules: TSESLint.Linter.RulesRecord = {
             enforceForJSX: true,
         },
     ],
-    // we do not need to care about js codebases, they are outside our scope
+    // generic constructor style is not enforced, both `new Map<string, number>()`
+    // and `const map: Map<string, number> = new Map()` are fine
     '@typescript-eslint/consistent-generic-constructors': 'off',
     '@typescript-eslint/consistent-type-assertions': ['error', {assertionStyle: 'never'}],
     'default-param-last': 'off',
@@ -40,10 +41,10 @@ export const typescriptEslintRules: TSESLint.Linter.RulesRecord = {
     'no-restricted-imports': 'off',
     'no-shadow': 'off',
     '@typescript-eslint/no-shadow': 'error',
-    // typescript by default does not add undefined to the type of index-accessed properties
+    // typescript by default does not add undefined to the type of index-accessed properties,
     // because of that this rule incorrectly points correct checks out as error.
-    // typescript offers the compiler setting 'noPropertyAccessFromIndexSignature' which would solve this issue,
-    // but it is not perfect. It also adds 'undefined' to the type even if there was a bounds-check already.
+    // the compiler setting 'noUncheckedIndexedAccess' would solve this, but it is not perfect:
+    // it also adds 'undefined' to the type even if there was a bounds-check already.
     '@typescript-eslint/no-unnecessary-condition': ['off', {allowConstantLoopConditions: true}],
     // this rule makes it hard to work with the default functionalities of js itself, thus disabled
     '@typescript-eslint/no-unsafe-argument': 'off',

@@ -106,6 +106,7 @@ export const eslintRules: TSESLint.Linter.RulesRecord = {
     'func-style': ['error', 'declaration'],
     'func-names': 'warn',
     'one-var': ['error', 'never'],
+    // deprecated core formatting rule, available until eslint 11; a candidate for the next major
     'one-var-declaration-per-line': ['error', 'always'],
     camelcase: [
         'error',
