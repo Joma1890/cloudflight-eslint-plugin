@@ -1,16 +1,36 @@
-# To get started with Dependabot version updates, you'll need to specify which
-# package ecosystems to update and where the package manifests are located.
-# Please see the documentation for all configuration options:
+# Configuration options:
 # https://docs.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
 
 version: 2
 updates:
-    - package-ecosystem: 'npm' # See documentation for possible values
-      directory: '/' # Location of package manifests
+    - package-ecosystem: 'npm'
+      directory: '/'
       schedule:
           interval: 'monthly'
+      groups:
+          # the ESLint ecosystem is tightly coupled (peer dependencies between
+          # eslint, typescript-eslint and the framework plugins), so these
+          # packages have to be updated - and reviewed - together.
+          eslint-ecosystem:
+              patterns:
+                  - 'eslint'
+                  - '@eslint/*'
+                  - 'eslint-*'
+                  - '@typescript-eslint/*'
+                  - 'typescript-eslint'
+                  - 'typescript'
+                  - '@stylistic/eslint-plugin'
+                  - 'angular-eslint'
+                  - '@vue/eslint-config-typescript'
+                  - 'vue-eslint-parser'
+              exclude-patterns:
+                  - 'eslint-plugin-react'
+                  - 'eslint-plugin-jsx-a11y'
+      # eslint-plugin-react 7.x does not support ESLint 10 yet; it is pinned with
+      # an @eslint/compat fixup layer. Review its next release manually instead of
+      # letting a grouped update mask the compatibility problem.
+      # (see jsx-eslint/eslint-plugin-react#3977)
     - package-ecosystem: 'github-actions'
       directory: '/'
       schedule:
-          # Check for updates to GitHub Actions every week
           interval: 'monthly'
