@@ -1,7 +1,7 @@
 import {cloudflightTypescriptVersion} from '@cloudflight/eslint-plugin-typescript';
 import {existsSync, readFileSync} from 'node:fs';
 import {createRequire} from 'node:module';
-import {join} from 'node:path';
+import {isAbsolute, join} from 'node:path';
 
 interface PackageManifest {
     name: string;
@@ -58,7 +58,8 @@ function projectDeclaresBase(rootDirectory: string): boolean {
  * config files import; undefined when the project does not declare or cannot resolve the base package.
  */
 function projectBaseManifest(rootDirectory: string): {path: string; manifest: PackageManifest} | undefined {
-    if (!projectDeclaresBase(rootDirectory)) {
+    // an invalid root directory is reported by the base config with a message that names the setting
+    if (typeof rootDirectory !== 'string' || !isAbsolute(rootDirectory) || !projectDeclaresBase(rootDirectory)) {
         return undefined;
     }
 

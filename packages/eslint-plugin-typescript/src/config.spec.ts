@@ -3,7 +3,7 @@ import {defineConfig} from 'eslint/config';
 import {readFileSync} from 'node:fs';
 import {join} from 'node:path';
 
-import {cloudflightTypescriptConfig, cloudflightTypescriptFormatConfig, cloudflightTypescriptVersion} from './index';
+import {type CloudflightEslintPluginSettings, cloudflightTypescriptConfig, cloudflightTypescriptFormatConfig, cloudflightTypescriptVersion} from './index';
 import {cloudflightTypescriptPlugin} from './rules';
 import {NoOnEventAssign} from './rules/typescript/no-on-event-assign';
 
@@ -33,6 +33,15 @@ describe('cloudflightTypescriptPlugin', () => {
 });
 
 describe('cloudflightTypescriptConfig', () => {
+    it.each([
+        [{}, 'rootDirectory must be set'],
+        [{rootDirectory: 'relative/path'}, 'must be an absolute path'],
+        [{rootDirectory: join(fixtureDir, 'missing')}, 'is not a directory'],
+    ])('rejects the settings %j with a message that names rootDirectory', (settings, message) => {
+        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+        expect(() => cloudflightTypescriptConfig(settings as CloudflightEslintPluginSettings)).toThrow(message);
+    });
+
     it('reports no errors for valid code', async () => {
         const results = await createEslint().lintFiles(['valid.ts']);
 

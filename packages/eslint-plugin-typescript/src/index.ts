@@ -8,7 +8,7 @@ import pluginNoUnsanitized from 'eslint-plugin-no-unsanitized';
 import pluginPerfectionist from 'eslint-plugin-perfectionist';
 import pluginSecurity from 'eslint-plugin-security';
 import globals from 'globals';
-import {type Dirent, existsSync, readdirSync} from 'node:fs';
+import {type Dirent, existsSync, readdirSync, statSync} from 'node:fs';
 import {isAbsolute, join, relative, resolve, sep} from 'node:path';
 import tseslint from 'typescript-eslint';
 
@@ -163,7 +163,30 @@ export interface CloudflightEslintPluginSettings {
     tsConfigFiles?: string[];
 }
 
+/**
+ * Fails early with a message that names the setting when the root directory is not an existing
+ * absolute directory; the errors of the tools further down never mention `rootDirectory`.
+ */
+function assertRootDirectory(settings: CloudflightEslintPluginSettings): void {
+    // javascript configs are not type checked, so the shape is verified at runtime as well
+    const rootDirectory: unknown = settings.rootDirectory;
+
+    if (typeof rootDirectory !== 'string' || rootDirectory === '') {
+        throw new Error('rootDirectory must be set to the absolute path of the project directory, e.g. import.meta.dirname');
+    }
+
+    if (!isAbsolute(rootDirectory)) {
+        throw new Error(`rootDirectory must be an absolute path, got '${rootDirectory}'`);
+    }
+
+    if (!existsSync(rootDirectory) || !statSync(rootDirectory).isDirectory()) {
+        throw new Error(`rootDirectory '${rootDirectory}' is not a directory`);
+    }
+}
+
 export function cloudflightTypedParserOptions(settings: CloudflightEslintPluginSettings): FlatConfig.ParserOptions {
+    assertRootDirectory(settings);
+
     // the two modes are mutually exclusive, both are set explicitly so a later config block
     // (e.g. the vue helper, which enables the project service on its own) cannot leave both on
     if (settings.tsConfigFiles == null) {
@@ -182,6 +205,8 @@ export function cloudflightTypedParserOptions(settings: CloudflightEslintPluginS
 }
 
 export function cloudflightTypescriptFormatConfig(settings: CloudflightEslintPluginSettings): FlatConfig.ConfigArray {
+    assertRootDirectory(settings);
+
     return [
         {
             ignores: ['.yarn/**'],
@@ -217,6 +242,8 @@ export function cloudflightTypescriptFormatConfig(settings: CloudflightEslintPlu
 }
 
 export function cloudflightTypescriptConfig(settings: CloudflightEslintPluginSettings): FlatConfig.ConfigArray {
+    assertRootDirectory(settings);
+
     return [
         ...cloudflightTypescriptBaseConfig,
         ...cloudflightTypescriptSecurityConfig,
