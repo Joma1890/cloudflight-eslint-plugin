@@ -1,4 +1,4 @@
-import {ESLint, type Linter} from 'eslint';
+import {ESLint} from 'eslint';
 import {mkdirSync, mkdtempSync, rmSync, writeFileSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
@@ -11,9 +11,7 @@ function createEslint(): ESLint {
     return new ESLint({
         cwd: fixtureDir,
         overrideConfigFile: true,
-        // the typescript-eslint config types are structurally compatible with the eslint core types
-        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-        overrideConfig: cloudflightNodeConfig({rootDirectory: fixtureDir}) as Linter.Config[],
+        overrideConfig: cloudflightNodeConfig({rootDirectory: fixtureDir}),
     });
 }
 
@@ -63,8 +61,7 @@ describe('cloudflightNodeConfig', () => {
             const eslint = new ESLint({
                 cwd: project,
                 overrideConfigFile: true,
-                // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-                overrideConfig: cloudflightNodeConfig({rootDirectory: project}) as Linter.Config[],
+                overrideConfig: cloudflightNodeConfig({rootDirectory: project}),
             });
             const expectations: [string, string][] = [['tool.js', sourceType], ['tool.cjs', 'commonjs'], ['tool.mjs', 'module']];
 

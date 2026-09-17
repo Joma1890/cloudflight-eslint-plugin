@@ -1,4 +1,5 @@
 import type {FlatConfig} from '@typescript-eslint/utils/ts-eslint';
+import type {Linter} from 'eslint';
 
 import {
     CloudflightEslintPluginSettings,
@@ -19,7 +20,7 @@ import {vueRules} from './configs/vue';
  * The Vue lint config: the TypeScript config plus the Vue rules and typed linting for single-file components.
  * @throws Error when the installed @cloudflight/eslint-plugin-typescript has a different version than this package.
  */
-export function cloudflightVueConfig(settings: CloudflightEslintPluginSettings): FlatConfig.ConfigArray {
+export function cloudflightVueConfig(settings: CloudflightEslintPluginSettings): Linter.Config[] {
     assertMatchingBaseVersion(settings.rootDirectory);
 
     // This synchronous upstream helper uses a separate discovery root from ESLint.
@@ -61,7 +62,7 @@ export function cloudflightVueConfig(settings: CloudflightEslintPluginSettings):
         ? {...config, plugins: {...config.plugins, '@typescript-eslint': typescriptPlugin}}
         : config);
 
-    return [
+    return eslintConfigs([
         ...sharedPluginConfigs,
         {
             files: ['**/*.{ts,mts,cts,tsx,vue}'],
@@ -72,5 +73,14 @@ export function cloudflightVueConfig(settings: CloudflightEslintPluginSettings):
                 parserOptions: cloudflightTypedParserOptions(settings),
             },
         },
-    ];
+    ]);
+}
+
+/**
+ * The config objects are valid eslint configs; typescript-eslint's config type is stricter than
+ * eslint's own and is not accepted by eslint's `defineConfig` or in a typed `eslint.config.ts`.
+ */
+function eslintConfigs(configs: FlatConfig.ConfigArray): Linter.Config[] {
+    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+    return configs as Linter.Config[];
 }

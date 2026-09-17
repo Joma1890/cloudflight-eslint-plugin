@@ -1,4 +1,4 @@
-import {ESLint, type Linter} from 'eslint';
+import {ESLint} from 'eslint';
 import {mkdirSync, mkdtempSync, rmSync, writeFileSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
@@ -11,9 +11,7 @@ function createEslint(): ESLint {
     return new ESLint({
         cwd: fixtureDir,
         overrideConfigFile: true,
-        // the typescript-eslint config types are structurally compatible with the eslint core types
-        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-        overrideConfig: cloudflightReactConfig({rootDirectory: fixtureDir}) as Linter.Config[],
+        overrideConfig: cloudflightReactConfig({rootDirectory: fixtureDir}),
     });
 }
 
@@ -61,8 +59,7 @@ describe('cloudflightReactConfig', () => {
             cwd: fixtureDir,
             overrideConfigFile: true,
             fix: true,
-            // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-            overrideConfig: cloudflightReactFormatConfig({rootDirectory: fixtureDir}) as Linter.Config[],
+            overrideConfig: cloudflightReactFormatConfig({rootDirectory: fixtureDir}),
         });
         // a disable comment for a react rule must be recognized although the format config runs no react rules
         const [result] = await eslint.lintText('// eslint-disable-next-line react-hooks/exhaustive-deps\nexport const value=1', {filePath: 'format.tsx'});

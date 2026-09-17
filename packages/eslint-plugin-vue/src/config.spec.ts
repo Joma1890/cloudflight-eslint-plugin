@@ -1,4 +1,4 @@
-import {ESLint, type Linter} from 'eslint';
+import {ESLint} from 'eslint';
 import {mkdirSync, mkdtempSync, rmSync, writeFileSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
@@ -11,9 +11,7 @@ function createEslint(tsConfigFiles?: string[]): ESLint {
     return new ESLint({
         cwd: fixtureDir,
         overrideConfigFile: true,
-        // the typescript-eslint config types are structurally compatible with the eslint core types
-        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-        overrideConfig: cloudflightVueConfig({rootDirectory: fixtureDir, tsConfigFiles}) as Linter.Config[],
+        overrideConfig: cloudflightVueConfig({rootDirectory: fixtureDir, tsConfigFiles}),
     });
 }
 

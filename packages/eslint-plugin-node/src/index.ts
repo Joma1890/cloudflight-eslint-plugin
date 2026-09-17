@@ -1,4 +1,5 @@
 import type {FlatConfig} from '@typescript-eslint/utils/ts-eslint';
+import type {Linter} from 'eslint';
 
 import {CloudflightEslintPluginSettings, cloudflightTypescriptConfig} from '@cloudflight/eslint-plugin-typescript';
 import pluginNode from 'eslint-plugin-n';
@@ -15,11 +16,11 @@ import {securityRules} from './configs/security';
  * The Node config: the TypeScript config plus the eslint-plugin-n rules and all security rules as errors.
  * @throws Error when the installed @cloudflight/eslint-plugin-typescript has a different version than this package.
  */
-export function cloudflightNodeConfig(settings: CloudflightEslintPluginSettings): FlatConfig.ConfigArray {
+export function cloudflightNodeConfig(settings: CloudflightEslintPluginSettings): Linter.Config[] {
     assertMatchingBaseVersion(settings.rootDirectory);
 
     // eslint-disable-next-line @typescript-eslint/no-deprecated -- tseslint.config is deprecated but defineConfig has type incompatibilities with typescript-eslint
-    return tseslint.config(
+    return eslintConfigs(tseslint.config(
         ...cloudflightTypescriptConfig(settings),
         {
             files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
@@ -53,7 +54,16 @@ export function cloudflightNodeConfig(settings: CloudflightEslintPluginSettings)
             name: 'cloudflight/node/module',
             languageOptions: {...pluginNode.configs['flat/recommended-module'].languageOptions},
         },
-    );
+    ));
+}
+
+/**
+ * The config objects are valid eslint configs; typescript-eslint's config type is stricter than
+ * eslint's own and is not accepted by eslint's `defineConfig` or in a typed `eslint.config.ts`.
+ */
+function eslintConfigs(configs: FlatConfig.ConfigArray): Linter.Config[] {
+    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+    return configs as Linter.Config[];
 }
 
 /**

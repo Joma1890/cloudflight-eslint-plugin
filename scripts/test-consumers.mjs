@@ -105,10 +105,12 @@ function probe(label, names, strategy) {
         },
         include: ['*.ts', '*.tsx', '*.vue'],
     }, null, 2));
-    // the declaration check in probe.mjs imports every probed config
+    // the declaration check in probe.mjs imports every probed config and passes it to eslint's defineConfig
     writeFileSync(join(consumer, 'config-types.ts'), [
         ...names.map((name) => `import {${configName(name)}} from '@cloudflight/eslint-plugin-${name}';\n`),
+        "import {defineConfig} from 'eslint/config';\n",
         `\nexport const factories = [${names.map(configName).join(', ')}];\n`,
+        '\nexport default defineConfig(...factories.map((factory) => factory({rootDirectory: import.meta.dirname})));\n',
     ].join(''));
     // npm's default peer policy warns for the two pinned React plugins.
     // Strict-peer React consumers must wait for compatible upstream metadata.

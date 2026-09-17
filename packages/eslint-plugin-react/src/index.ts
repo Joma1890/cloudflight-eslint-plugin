@@ -1,4 +1,5 @@
 import type {FlatConfig} from '@typescript-eslint/utils/ts-eslint';
+import type {Linter} from 'eslint';
 
 import {
     CloudflightEslintPluginSettings,
@@ -26,11 +27,11 @@ const pluginReactFixed = fixupPluginRules(pluginReact);
  * The React lint config: the TypeScript config plus the react, react-hooks and jsx-a11y rules.
  * @throws Error when the installed @cloudflight/eslint-plugin-typescript has a different version than this package.
  */
-export function cloudflightReactConfig(settings: CloudflightEslintPluginSettings): FlatConfig.ConfigArray {
+export function cloudflightReactConfig(settings: CloudflightEslintPluginSettings): Linter.Config[] {
     assertMatchingBaseVersion(settings.rootDirectory);
 
     // eslint-disable-next-line @typescript-eslint/no-deprecated -- tseslint.config is deprecated but defineConfig has type incompatibilities with typescript-eslint
-    return tseslint.config(
+    return eslintConfigs(tseslint.config(
         ...cloudflightTypescriptConfig(settings),
         {
             files: relevantFiles,
@@ -75,17 +76,17 @@ export function cloudflightReactConfig(settings: CloudflightEslintPluginSettings
                 'react/jsx-no-undef': 'off',
             },
         },
-    );
+    ));
 }
 
 /**
  * The React format config: the TypeScript format config with JSX parsing.
  * @throws Error when the installed @cloudflight/eslint-plugin-typescript has a different version than this package.
  */
-export function cloudflightReactFormatConfig(settings: CloudflightEslintPluginSettings): FlatConfig.ConfigArray {
+export function cloudflightReactFormatConfig(settings: CloudflightEslintPluginSettings): Linter.Config[] {
     assertMatchingBaseVersion(settings.rootDirectory);
 
-    return [
+    return eslintConfigs([
         ...cloudflightTypescriptFormatConfig(settings),
         {
             files: relevantFiles,
@@ -114,5 +115,14 @@ export function cloudflightReactFormatConfig(settings: CloudflightEslintPluginSe
                 },
             },
         },
-    ];
+    ]);
+}
+
+/**
+ * The config objects are valid eslint configs; typescript-eslint's config type is stricter than
+ * eslint's own and is not accepted by eslint's `defineConfig` or in a typed `eslint.config.ts`.
+ */
+function eslintConfigs(configs: FlatConfig.ConfigArray): Linter.Config[] {
+    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+    return configs as Linter.Config[];
 }

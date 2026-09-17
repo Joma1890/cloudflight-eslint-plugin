@@ -74,5 +74,6 @@ if (packages.includes('angular')) {
 }
 
 // Check type declarations even in nested installs, without skipLibCheck hiding them.
-execFileSync(process.execPath, [tsc, ...explicitFiles, '--noEmit', '--strict', '--module', 'nodenext', '--moduleResolution', 'nodenext', 'config-types.ts'], {stdio: 'inherit'});
+// TypeScript 6 no longer includes @types packages by default, the node types are named for import.meta.dirname.
+execFileSync(process.execPath, [tsc, ...explicitFiles, '--noEmit', '--strict', '--module', 'nodenext', '--moduleResolution', 'nodenext', '--types', 'node', 'config-types.ts'], {stdio: 'inherit'});
 console.log(`Real-framework linting, declarations and formatting passed for ${packages.join(', ')}.`);

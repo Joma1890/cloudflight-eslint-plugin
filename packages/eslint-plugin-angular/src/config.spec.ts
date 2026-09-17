@@ -1,4 +1,4 @@
-import {ESLint, type Linter} from 'eslint';
+import {ESLint} from 'eslint';
 import {mkdirSync, mkdtempSync, rmSync, writeFileSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
@@ -11,9 +11,7 @@ function createEslint(): ESLint {
     return new ESLint({
         cwd: fixtureDir,
         overrideConfigFile: true,
-        // the typescript-eslint config types are structurally compatible with the eslint core types
-        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-        overrideConfig: cloudflightAngularConfig({rootDirectory: fixtureDir}) as Linter.Config[],
+        overrideConfig: cloudflightAngularConfig({rootDirectory: fixtureDir}),
     });
 }
 
@@ -51,8 +49,7 @@ describe('cloudflightAngularConfig', () => {
             cwd: fixtureDir,
             overrideConfigFile: true,
             fix: true,
-            // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-            overrideConfig: cloudflightAngularFormatConfig({rootDirectory: fixtureDir}) as Linter.Config[],
+            overrideConfig: cloudflightAngularFormatConfig({rootDirectory: fixtureDir}),
         });
         const [template] = await eslint.lintText('<app-child></app-child>', {filePath: 'format.html'});
         // a disable comment for an angular rule must be recognized although the format config runs no angular rules

@@ -1,4 +1,4 @@
-import {ESLint, type Linter} from 'eslint';
+import {ESLint} from 'eslint';
 import {defineConfig} from 'eslint/config';
 import {readFileSync} from 'node:fs';
 import {join} from 'node:path';
@@ -13,9 +13,7 @@ function createEslint(tsConfigFiles?: string[]): ESLint {
     return new ESLint({
         cwd: fixtureDir,
         overrideConfigFile: true,
-        // the typescript-eslint config types are structurally compatible with the eslint core types
-        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-        overrideConfig: cloudflightTypescriptConfig({rootDirectory: fixtureDir, tsConfigFiles}) as Linter.Config[],
+        overrideConfig: cloudflightTypescriptConfig({rootDirectory: fixtureDir, tsConfigFiles}),
     });
 }
 
@@ -104,8 +102,7 @@ describe('cloudflightTypescriptConfig', () => {
         const eslint = new ESLint({
             cwd: join(fixtureDir, '..'),
             overrideConfigFile: true,
-            // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-            overrideConfig: cloudflightTypescriptConfig({rootDirectory: fixtureDir}) as Linter.Config[],
+            overrideConfig: cloudflightTypescriptConfig({rootDirectory: fixtureDir}),
         });
         const results = await eslint.lintFiles([join(fixtureDir, 'nested-project/src/index.ts')]);
         const messages = results.flatMap((result) => result.messages);
@@ -127,8 +124,7 @@ describe('cloudflightTypescriptConfig', () => {
         const eslint = new ESLint({
             cwd: fixtureDir,
             overrideConfigFile: true,
-            // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-            overrideConfig: defineConfig({files: ['**/*.ts'], extends: [cloudflightTypescriptConfig({rootDirectory: fixtureDir}) as Linter.Config[]]}),
+            overrideConfig: defineConfig({files: ['**/*.ts'], extends: [cloudflightTypescriptConfig({rootDirectory: fixtureDir})]}),
         });
         const results = await eslint.lintFiles(['nested-project/src/index.ts']);
         const messages = results.flatMap((result) => result.messages);
@@ -212,8 +208,7 @@ describe('cloudflightTypescriptConfig', () => {
             cwd: fixtureDir,
             overrideConfigFile: true,
             fix: true,
-            // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-            overrideConfig: cloudflightTypescriptFormatConfig({rootDirectory: fixtureDir}) as Linter.Config[],
+            overrideConfig: cloudflightTypescriptFormatConfig({rootDirectory: fixtureDir}),
         });
         const [result] = await eslint.lintText('export const value=1', {filePath: 'format.ts'});
         // the fixed output must be clean and stable: nothing left to report, and a second pass changes nothing
@@ -230,8 +225,7 @@ describe('cloudflightTypescriptConfig', () => {
             cwd: fixtureDir,
             overrideConfigFile: true,
             fix: true,
-            // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-            overrideConfig: cloudflightTypescriptFormatConfig({rootDirectory: fixtureDir}) as Linter.Config[],
+            overrideConfig: cloudflightTypescriptFormatConfig({rootDirectory: fixtureDir}),
         });
         const source = "export enum Level {\n    Low = 1,\n    High = 2\n}\nexport const label = Level.Low === 1 ?\n    'low' :\n    'high';\nexport type Wide<T> = T extends string ?\n    string :\n    number;\n";
         const [result] = await eslint.lintText(source, {filePath: 'format.ts'});

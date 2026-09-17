@@ -1,4 +1,5 @@
 import type {FlatConfig, SharedConfigurationSettings} from '@typescript-eslint/utils/ts-eslint';
+import type {Linter} from 'eslint';
 
 import pluginJs from '@eslint/js';
 import pluginStylistic from '@stylistic/eslint-plugin';
@@ -28,7 +29,7 @@ import {cloudflightTypescriptPlugin} from './rules';
  * (e.g. to apply the same rules inside Vue SFCs); use `cloudflightTypescriptConfig` in projects.
  */
 // eslint-disable-next-line @typescript-eslint/no-deprecated -- tseslint.config is deprecated but defineConfig has type incompatibilities with typescript-eslint
-export const cloudflightTypescriptBaseConfig = tseslint.config(
+export const cloudflightTypescriptBaseConfig: Linter.Config[] = eslintConfigs(tseslint.config(
     {
         files: ['**/*.{js,jsx,mjs,cjs,ts,mts,cts,tsx}'],
         plugins: {
@@ -46,7 +47,7 @@ export const cloudflightTypescriptBaseConfig = tseslint.config(
             ...customRules,
         },
     },
-);
+));
 
 /**
  * Security rule set (eslint-plugin-security + eslint-plugin-no-unsanitized).
@@ -54,7 +55,7 @@ export const cloudflightTypescriptBaseConfig = tseslint.config(
  * (e.g. to apply the same rules inside Vue SFCs); use `cloudflightTypescriptConfig` in projects.
  */
 // eslint-disable-next-line @typescript-eslint/no-deprecated -- tseslint.config is deprecated but defineConfig has type incompatibilities with typescript-eslint
-export const cloudflightTypescriptSecurityConfig = tseslint.config(
+export const cloudflightTypescriptSecurityConfig: Linter.Config[] = eslintConfigs(tseslint.config(
     {
         files: ['**/*.{js,jsx,mjs,cjs,ts,mts,cts,tsx}'],
         extends: [
@@ -66,7 +67,7 @@ export const cloudflightTypescriptSecurityConfig = tseslint.config(
             ...securityRules,
         },
     },
-);
+));
 
 function cloudflightTypescriptImportConfig(settings: CloudflightEslintPluginSettings): FlatConfig.ConfigArray {
     // eslint-disable-next-line @typescript-eslint/no-deprecated -- tseslint.config is deprecated but defineConfig has type incompatibilities with typescript-eslint
@@ -204,10 +205,10 @@ export function cloudflightTypedParserOptions(settings: CloudflightEslintPluginS
     };
 }
 
-export function cloudflightTypescriptFormatConfig(settings: CloudflightEslintPluginSettings): FlatConfig.ConfigArray {
+export function cloudflightTypescriptFormatConfig(settings: CloudflightEslintPluginSettings): Linter.Config[] {
     assertRootDirectory(settings);
 
-    return [
+    return eslintConfigs([
         {
             ignores: ['.yarn/**'],
         },
@@ -238,13 +239,13 @@ export function cloudflightTypescriptFormatConfig(settings: CloudflightEslintPlu
             },
             settings: importXSettings(settings),
         },
-    ];
+    ]);
 }
 
-export function cloudflightTypescriptConfig(settings: CloudflightEslintPluginSettings): FlatConfig.ConfigArray {
+export function cloudflightTypescriptConfig(settings: CloudflightEslintPluginSettings): Linter.Config[] {
     assertRootDirectory(settings);
 
-    return [
+    return eslintConfigs([
         ...cloudflightTypescriptBaseConfig,
         ...cloudflightTypescriptSecurityConfig,
         ...cloudflightTypescriptImportConfig(settings),
@@ -256,7 +257,16 @@ export function cloudflightTypescriptConfig(settings: CloudflightEslintPluginSet
                 parserOptions: cloudflightTypedParserOptions(settings),
             },
         },
-    ];
+    ]);
+}
+
+/**
+ * The config objects are valid eslint configs; typescript-eslint's config type is stricter than
+ * eslint's own and is not accepted by eslint's `defineConfig` or in a typed `eslint.config.ts`.
+ */
+function eslintConfigs(configs: FlatConfig.ConfigArray): Linter.Config[] {
+    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+    return configs as Linter.Config[];
 }
 
 function importXSettings(settings: CloudflightEslintPluginSettings): SharedConfigurationSettings {
