@@ -160,7 +160,7 @@ export interface CloudflightEslintPluginSettings {
      * Keep this list as short as possible, a large list will negatively impact performance.
      * Relative to the rootDirectory.
      */
-    tsConfigFiles?: string[];
+    tsConfigFiles?: string[] | undefined;
 }
 
 /**

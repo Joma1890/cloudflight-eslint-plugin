@@ -20,6 +20,7 @@
         "build": "yarn workspaces foreach -pA --topological-dev run build-package",
         "lint": "eslint . && eslint -c eslint.format.mjs .",
         "test": "yarn workspaces foreach -pA run test-package",
+        "typecheck": "yarn workspaces foreach -pA run typecheck-package",
         "postinstall": "husky",
         "publish-workspaces": "node ./scripts/prepare.mjs && yarn workspaces foreach -At --no-private npm publish --tolerate-republish",
         "test:consumers": "node scripts/test-consumers.mjs"

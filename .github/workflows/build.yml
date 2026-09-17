@@ -30,6 +30,8 @@ jobs:
               run: yarn run build
             - name: Lint
               run: yarn run lint
+            - name: Type-check the tests
+              run: yarn run typecheck
             - name: Test
               run: yarn run test
     consumers:
