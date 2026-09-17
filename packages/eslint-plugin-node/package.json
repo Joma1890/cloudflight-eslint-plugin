@@ -28,7 +28,7 @@
         "access": "public"
     },
     "scripts": {
-        "build-package": "tsc",
+        "build-package": "node -e \"require('node:fs').rmSync('dist', {recursive: true, force: true})\" && tsc",
         "test-package": "NODE_OPTIONS=--experimental-vm-modules yarn run -T jest"
     },
     "dependencies": {
