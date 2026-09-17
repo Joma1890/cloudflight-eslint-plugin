@@ -52,6 +52,37 @@ describe('cloudflightNodeConfig', () => {
         expect(messages.map((message) => message.ruleId)).not.toContain('n/no-sync');
     });
 
+    it.each([
+        ['module', 'module'],
+        ['commonjs', 'commonjs'],
+    ])('follows the package type %s of the project for .js files and the extension for .cjs and .mjs', async (type, sourceType) => {
+        const project = mkdtempSync(join(tmpdir(), 'cloudflight-node-'));
+
+        writeFileSync(join(project, 'package.json'), JSON.stringify({type}));
+        try {
+            const eslint = new ESLint({
+                cwd: project,
+                overrideConfigFile: true,
+                // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+                overrideConfig: cloudflightNodeConfig({rootDirectory: project}) as Linter.Config[],
+            });
+            const expectations: [string, string][] = [['tool.js', sourceType], ['tool.cjs', 'commonjs'], ['tool.mjs', 'module']];
+
+            for (const [file, expected] of expectations) {
+                const config: unknown = await eslint.calculateConfigForFile(join(project, file));
+
+                expect(config).toMatchObject({languageOptions: {sourceType: expected}});
+            }
+            // commonjs globals stay available in .cjs files of a module project
+            const [result] = await eslint.lintText('module.exports = 1;\n', {filePath: join(project, 'tool.cjs')});
+
+            expect(result?.messages.map((message) => message.ruleId)).not.toContain('no-undef');
+        }
+        finally {
+            rmSync(project, {recursive: true, force: true});
+        }
+    });
+
     it('accepts a workspace that gets the base package through this package only', () => {
         const project = mkdtempSync(join(tmpdir(), 'cloudflight-workspace-'));
         const hoistedBase = join(project, 'node_modules', '@cloudflight', 'eslint-plugin-typescript');
