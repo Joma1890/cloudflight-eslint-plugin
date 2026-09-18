@@ -27,6 +27,9 @@ describe('cloudflightAngularConfig', () => {
         const ruleIds = results.flatMap((result) => result.messages).map((message) => message.ruleId);
 
         expect(ruleIds).toContain('@angular-eslint/no-empty-lifecycle-method');
+        expect(ruleIds).toContain('@angular-eslint/prefer-output-emitter-ref');
+        expect(ruleIds).toContain('@angular-eslint/computed-must-return');
+        expect(ruleIds).toContain('@angular-eslint/require-lifecycle-on-prototype');
         // proves the inline-template processor works
         expect(ruleIds).toContain('@angular-eslint/template/button-has-type');
         // proves typed linting works in angular projects
@@ -42,6 +45,13 @@ describe('cloudflightAngularConfig', () => {
         expect(ruleIds).toContain('@angular-eslint/template/prefer-control-flow');
         expect(ruleIds).toContain('@angular-eslint/template/eqeqeq');
         expect(ruleIds).toContain('@angular-eslint/template/conditional-complexity');
+        expect(ruleIds).toContain('@angular-eslint/template/prefer-class-binding');
+        expect(ruleIds).toContain('@angular-eslint/template/prefer-style-binding');
+        expect(ruleIds).toContain('@angular-eslint/template/no-nested-tags');
+        expect(ruleIds).toContain('@angular-eslint/template/no-outerhtml');
+        expect(ruleIds).toContain('@angular-eslint/template/no-empty-control-flow');
+        expect(ruleIds).toContain('@angular-eslint/template/no-non-null-assertion');
+        expect(ruleIds).toContain('@angular-eslint/template/prefer-template-literal');
     });
 
     it('fixes formatting in templates and typescript files with the format config', async () => {
@@ -51,14 +61,14 @@ describe('cloudflightAngularConfig', () => {
             fix: true,
             overrideConfig: cloudflightAngularFormatConfig({rootDirectory: fixtureDir}),
         });
-        const [template] = await eslint.lintText('<app-child></app-child>', {filePath: 'format.html'});
+        const [template] = await eslint.lintText('<app-child [title]="\'text\'"></app-child>', {filePath: 'format.html'});
         // a disable comment for an angular rule must be recognized although the format config runs no angular rules
         const [script] = await eslint.lintText('// eslint-disable-next-line @angular-eslint/component-class-suffix\nexport const value=1', {filePath: 'format.ts'});
         // the fixed output must be clean and stable: nothing left to report, and a second pass changes nothing
         const [templateAgain] = await eslint.lintText(template?.output ?? '', {filePath: 'format.html'});
         const [scriptAgain] = await eslint.lintText(script?.output ?? '', {filePath: 'format.ts'});
 
-        expect(template?.output).toContain('<app-child />');
+        expect(template?.output).toContain('<app-child title="text" />');
         expect(script?.output).toContain('value = 1;');
         for (const result of [template, script]) {
             expect(result?.messages).toEqual([]);

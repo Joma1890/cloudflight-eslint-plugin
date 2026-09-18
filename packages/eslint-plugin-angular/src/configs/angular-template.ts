@@ -15,9 +15,22 @@ export const angularTemplateRules: TSESLint.Linter.RulesRecord = {
     // see: https://github.com/angular-eslint/angular-eslint/issues/1380
     '@angular-eslint/template/no-call-expression': 'off',
     '@angular-eslint/template/no-duplicate-attributes': 'error',
+    // empty blocks are leftovers of unfinished refactorings
+    '@angular-eslint/template/no-empty-control-flow': 'error',
     '@angular-eslint/template/no-inline-styles': 'error',
     '@angular-eslint/template/no-interpolation-in-attributes': 'error',
+    // invalid html, the browser closes the outer tag
+    '@angular-eslint/template/no-nested-tags': 'error',
+    // like @typescript-eslint/no-non-null-assertion in the typescript rules
+    '@angular-eslint/template/no-non-null-assertion': 'error',
+    // detaches the element from the view
+    '@angular-eslint/template/no-outerhtml': 'error',
     '@angular-eslint/template/no-positive-tabindex': 'error',
+    // the angular style guide prefers class and style bindings over ngClass and ngStyle
+    '@angular-eslint/template/prefer-class-binding': 'error',
+    '@angular-eslint/template/prefer-style-binding': 'error',
+    // like prefer-template in the typescript rules
+    '@angular-eslint/template/prefer-template-literal': 'error',
     // part of the recommended preset since angular-eslint 22: every *ngIf, *ngFor and *ngSwitch is
     // reported, `ng generate @angular/core:control-flow` migrates a project
     '@angular-eslint/template/prefer-control-flow': 'error',

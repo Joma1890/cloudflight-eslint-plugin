@@ -7,4 +7,16 @@ declare module '@angular/core' {
     export interface OnInit {
         ngOnInit(): void;
     }
+    export interface OnDestroy {
+        ngOnDestroy(): void;
+    }
+    export function Output(alias?: string): PropertyDecorator;
+    export class EventEmitter<T> {
+        public emit(value: T): void;
+    }
+    export interface Signal<T> {
+        (): T;
+    }
+    export function signal<T>(initialValue: T): Signal<T>;
+    export function computed<T>(computation: () => T): Signal<T>;
 }

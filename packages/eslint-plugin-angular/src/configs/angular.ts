@@ -1,6 +1,8 @@
 import {TSESLint} from '@typescript-eslint/utils';
 
 export const angularRules: TSESLint.Linter.RulesRecord = {
+    // the angular team no longer recommends class suffixes since v20, the cli generates classes
+    // without them; kept as house style for now
     '@angular-eslint/component-class-suffix': [
         'error',
         {
@@ -32,4 +34,9 @@ export const angularRules: TSESLint.Linter.RulesRecord = {
     '@angular-eslint/no-async-lifecycle-method': 'error',
     '@angular-eslint/no-duplicates-in-metadata-arrays': 'error',
     '@angular-eslint/no-uncalled-signals': 'error',
+    '@angular-eslint/computed-must-return': 'error',
+    '@angular-eslint/no-implicit-take-until-destroyed': 'error',
+    '@angular-eslint/require-lifecycle-on-prototype': 'error',
+    // prefer-signals covers inputs and queries, this covers @Output
+    '@angular-eslint/prefer-output-emitter-ref': 'error',
 };

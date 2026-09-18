@@ -3,3 +3,10 @@
 <div *ngIf="visible">structural directive</div>
 <div>{{ count == 1 }}</div>
 <span *ngIf="first && second && third && fourth && fifth">too many conditions</span>
+<div [ngClass]="{active: visible}">class binding</div>
+<div [ngStyle]="{color: tone}">style binding</div>
+<a href="/outer"><a href="/inner">nested links</a></a>
+<div [outerHTML]="markup"></div>
+@if (visible) {}
+<span>{{ name! }}</span>
+<span>{{ 'Hello ' + name }}</span>
