@@ -17,6 +17,10 @@ Node.js must satisfy `^20.19.0 || ^22.13.0 || >=24`.
 
 The usage example below imports `includeIgnoreFile` from `@eslint/compat` (2.0.2 or newer, the first release with an ESLint 10 peer dependency); install it if you keep that line.
 
+Upgrading from 1.x? See [Upgrading from 1.x](https://github.com/cloudflightio/cloudflight-eslint-plugin#upgrading-from-1x).
+
+React uses a temporary official compatibility wrapper. Yarn 4 and ordinary npm installs report known peer warnings for the pinned React/a11y plugins. Strict-peer npm installation is not supported until upstream updates its peers. Do not use a blanket force/legacy-peer bypass.
+
 ## Usage
 
 In your `package.json` add the following:
@@ -31,17 +35,13 @@ In your `package.json` add the following:
 
 Now open your `eslint.config.mjs` and add one of the configurations:
 
-```ts
-import { cloudflightReactConfig } from '@cloudflight/eslint-plugin-react';
-import { includeIgnoreFile } from '@eslint/compat';
-import { dirname, normalize, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
-
-const directory = dirname(fileURLToPath(import.meta.url));
-const gitignorePath = normalize(resolve(directory, '.gitignore'));
+```js
+import {cloudflightReactConfig} from '@cloudflight/eslint-plugin-react';
+import {includeIgnoreFile} from '@eslint/compat';
+import {resolve} from 'node:path';
 
 export default [
-    includeIgnoreFile(gitignorePath),
+    includeIgnoreFile(resolve(import.meta.dirname, '.gitignore')),
     ...cloudflightReactConfig({
         rootDirectory: import.meta.dirname,
     }),
@@ -67,17 +67,13 @@ In your `package.json` add the following:
 
 Create a new file called `eslint.format.mjs` and add the following:
 
-```ts
-import { cloudflightReactFormatConfig } from '@cloudflight/eslint-plugin-react';
-import { includeIgnoreFile } from '@eslint/compat';
-import { dirname, normalize, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
-
-const directory = dirname(fileURLToPath(import.meta.url));
-const gitignorePath = normalize(resolve(directory, '.gitignore'));
+```js
+import {cloudflightReactFormatConfig} from '@cloudflight/eslint-plugin-react';
+import {includeIgnoreFile} from '@eslint/compat';
+import {resolve} from 'node:path';
 
 export default [
-    includeIgnoreFile(gitignorePath),
+    includeIgnoreFile(resolve(import.meta.dirname, '.gitignore')),
     ...cloudflightReactFormatConfig({
         rootDirectory: import.meta.dirname,
     }),
@@ -90,13 +86,13 @@ With the command `eslint -c eslint.format.mjs .` your project can be checked for
 
 The reason we created another eslint config file just for formatting instead of adding it to the existing one is to separate between linting and formatting, which are two different concerns. Furthermore, with the separation we also gain the ability to fix the formatting automatically before commit. Automatically fixing linting bugs with `eslint --fix` is not recommended, since it changes the intent of the code.
 
-To automatically format your code before committing, set up [husky](https://typicode.github.io/husky/) and [lint-staged](https://github.com/okonet/lint-staged) with the following content in your `package.json`.
+To automatically format your code before committing, set up [husky](https://typicode.github.io/husky/) and [lint-staged](https://github.com/lint-staged/lint-staged) with the following content in your `package.json`.
 
 ```json
 {
     // ...
     "lint-staged": {
-        "*.ts": "eslint -c eslint.format.mjs --fix"
+        "*.{js,jsx,mjs,cjs,ts,mts,cts,tsx}": "eslint -c eslint.format.mjs --fix"
     }
 }
 ```

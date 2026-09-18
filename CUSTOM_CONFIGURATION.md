@@ -9,9 +9,9 @@ which automatically discovers the closest `tsconfig.json` for every linted file.
 If automatic discovery does not fit your layout (for example when linting relies on tsconfig files
 not named `tsconfig.json`), you can provide explicit tsconfig files like this:
 
-```ts
+```js
 // this applies to all configs, not just typescript
-import { cloudflightTypescriptConfig } from '@cloudflight/eslint-plugin-typescript';
+import {cloudflightTypescriptConfig} from '@cloudflight/eslint-plugin-typescript';
 
 export default [
     ...cloudflightTypescriptConfig({
@@ -53,23 +53,24 @@ Add additional things before the Cloudflight config, this prevents these plugins
 
 **Note:** This might not work for all Plugins
 
-```ts
+```js
 // this applies to all configs, not just typescript
-import { cloudflightTypescriptConfig } from '@cloudflight/eslint-plugin-typescript';
+import {cloudflightTypescriptConfig} from '@cloudflight/eslint-plugin-typescript';
+import storybook from 'eslint-plugin-storybook';
 
 export default [
     ...storybook.configs['flat/recommended'],
     ...cloudflightTypescriptConfig({
         rootDirectory: import.meta.dirname,
-    })
+    }),
 ];
 ```
 
 ## Disabling rules
 
-```ts
+```js
 // this applies to all configs, not just typescript
-import { cloudflightTypescriptConfig } from '@cloudflight/eslint-plugin-typescript';
+import {cloudflightTypescriptConfig} from '@cloudflight/eslint-plugin-typescript';
 
 export default [
     ...cloudflightTypescriptConfig({

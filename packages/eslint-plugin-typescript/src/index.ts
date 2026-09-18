@@ -185,6 +185,11 @@ function assertRootDirectory(settings: CloudflightEslintPluginSettings): void {
     }
 }
 
+/**
+ * Typed parser options for TypeScript files: the project service when `tsConfigFiles` is omitted,
+ * otherwise `parserOptions.project`. Used by the Cloudflight framework packages; project configs get
+ * them through `cloudflightTypescriptConfig`.
+ */
 export function cloudflightTypedParserOptions(settings: CloudflightEslintPluginSettings): FlatConfig.ParserOptions {
     assertRootDirectory(settings);
 

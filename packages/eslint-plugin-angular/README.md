@@ -17,6 +17,8 @@ Node.js must satisfy `^22.22.3 || ^24.15.0 || >=26.0.0`.
 
 The usage example below imports `includeIgnoreFile` from `@eslint/compat` (2.0.2 or newer, the first release with an ESLint 10 peer dependency); install it if you keep that line.
 
+Upgrading from 1.x? See [Upgrading from 1.x](https://github.com/cloudflightio/cloudflight-eslint-plugin#upgrading-from-1x).
+
 Angular 22 applications must use TypeScript 6.0.x; the wider TypeScript peer covers the configuration library, not the Angular compiler.
 
 ## Usage
@@ -42,17 +44,13 @@ The plugin provides 2 different main configurations (linting and formatting):
 
 For linting: Open your `eslint.config.mjs` and add one of the configurations:
 
-```ts
-import { cloudflightAngularConfig } from '@cloudflight/eslint-plugin-angular';
-import { includeIgnoreFile } from '@eslint/compat';
-import { dirname, normalize, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
-
-const directory = dirname(fileURLToPath(import.meta.url));
-const gitignorePath = normalize(resolve(directory, '.gitignore'));
+```js
+import {cloudflightAngularConfig} from '@cloudflight/eslint-plugin-angular';
+import {includeIgnoreFile} from '@eslint/compat';
+import {resolve} from 'node:path';
 
 export default [
-    includeIgnoreFile(gitignorePath),
+    includeIgnoreFile(resolve(import.meta.dirname, '.gitignore')),
     ...cloudflightAngularConfig({
         rootDirectory: import.meta.dirname,
     }),
@@ -61,17 +59,13 @@ export default [
 
 For formatting: Open your `eslint.format.mjs` and add one of the configurations:
 
-```ts
-import { cloudflightAngularFormatConfig } from '@cloudflight/eslint-plugin-angular';
-import { includeIgnoreFile } from '@eslint/compat';
-import { dirname, normalize, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
-
-const directory = dirname(fileURLToPath(import.meta.url));
-const gitignorePath = normalize(resolve(directory, '.gitignore'));
+```js
+import {cloudflightAngularFormatConfig} from '@cloudflight/eslint-plugin-angular';
+import {includeIgnoreFile} from '@eslint/compat';
+import {resolve} from 'node:path';
 
 export default [
-    includeIgnoreFile(gitignorePath),
+    includeIgnoreFile(resolve(import.meta.dirname, '.gitignore')),
     ...cloudflightAngularFormatConfig({
         rootDirectory: import.meta.dirname,
     }),

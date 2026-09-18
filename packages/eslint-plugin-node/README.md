@@ -1,6 +1,6 @@
 # `@cloudflight/eslint-plugin-node`
 
-The Cloudflight ESLint Plugin for Node provides multiple configurations of ESLint rules recommended by Cloudflight.
+The Cloudflight ESLint Plugin for Node provides a configuration of ESLint rules recommended by Cloudflight.
 
 You can find the directory of all rules including their reasoning [here](src/configs).
 
@@ -17,6 +17,10 @@ Node.js must satisfy `^20.19.0 || ^22.13.0 || >=24`.
 
 The usage example below imports `includeIgnoreFile` from `@eslint/compat` (2.0.2 or newer, the first release with an ESLint 10 peer dependency); install it if you keep that line.
 
+Upgrading from 1.x? See [Upgrading from 1.x](https://github.com/cloudflightio/cloudflight-eslint-plugin#upgrading-from-1x).
+
+In addition to the base config, every rule of the recommended preset of eslint-plugin-security is an error in the Node config.
+
 ## Usage
 
 In your `package.json` add the following:
@@ -31,20 +35,18 @@ In your `package.json` add the following:
 
 Now open your `eslint.config.mjs` and add one of the configurations:
 
-```ts
-import { cloudflightNodeConfig } from '@cloudflight/eslint-plugin-node';
-import { includeIgnoreFile } from '@eslint/compat';
-import { dirname, normalize, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
-
-const directory = dirname(fileURLToPath(import.meta.url));
-const gitignorePath = normalize(resolve(directory, '.gitignore'));
+```js
+import {cloudflightNodeConfig} from '@cloudflight/eslint-plugin-node';
+import {includeIgnoreFile} from '@eslint/compat';
+import {resolve} from 'node:path';
 
 export default [
-    includeIgnoreFile(gitignorePath),
+    includeIgnoreFile(resolve(import.meta.dirname, '.gitignore')),
     ...cloudflightNodeConfig({
         rootDirectory: import.meta.dirname,
     }),
 ];
 ```
+See [@cloudflight/eslint-plugin-typescript](../eslint-plugin-typescript/README.md) for formatting.
+
 See [Custom Configuration](../../CUSTOM_CONFIGURATION.md) for more complicated project setups.
