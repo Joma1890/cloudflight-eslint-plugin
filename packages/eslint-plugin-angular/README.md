@@ -9,8 +9,15 @@ You can find the directory of all rules including their reasoning [here](src/con
 The following dependencies are required:
 
 ```
-"eslint": ">=9.0.0 < 10.0.0"
+"eslint": "^10.4.0",
+"typescript": ">=5.0.0 <6.1.0"
 ```
+
+Node.js must satisfy `^22.22.3 || ^24.15.0 || >=26.0.0`.
+
+Upgrading from 1.x? See [Upgrading from 1.x](https://github.com/cloudflightio/cloudflight-eslint-plugin#upgrading-from-1x).
+
+Angular 22 applications must use TypeScript 6.0.x; the wider TypeScript peer covers the configuration library, not the Angular compiler.
 
 ## Usage
 
@@ -24,31 +31,43 @@ In your `package.json` add the following:
 }
 ```
 
-The plugin provides 3 different configurations:
+The plugin provides 2 different main configurations (linting and formatting):
 
--   cloudflightAngularConfig
-    -   Both of the below 2 configurations
--   cloudflightAngularTemplateConfig
-    -   Only contains rules for HTML files
--   cloudflightAngularTypescriptConfig
-    -   Only contains rules for TS files
+- `cloudflightAngularConfig(settings)`: Both of the below 2 configurations
+    - `cloudflightAngularTypescriptConfig(settings)`: The TypeScript config plus the Angular rules for TS files, inline templates are linted with the template rules
+    - `cloudflightAngularTemplateConfig`: Only contains rules for HTML files (a config array, spread it without calling it)
+- `cloudflightAngularFormatConfig(settings)`: Both of the below 2 configurations
+    - `cloudflightTypescriptFormatConfig(settings)` from `@cloudflight/eslint-plugin-typescript`: Only contains formatting rules for JavaScript and TypeScript files
+    - `cloudflightAngularTemplateFormatConfig`: Only contains formatting rules for HTML files (a config array), inline templates are not format-checked
 
-Now open your `eslint.config.mjs` and add one of the configurations:
+For linting: Open your `eslint.config.mjs` and add one of the configurations:
 
-```ts
-import { cloudflightAngularConfig } from '@cloudflight/eslint-plugin-angular';
-import { includeIgnoreFile } from '@eslint/compat';
-import { dirname, normalize, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
-
-const directory = dirname(fileURLToPath(import.meta.url));
-const gitignorePath = normalize(resolve(directory, '.gitignore'));
+```js
+import {cloudflightAngularConfig} from '@cloudflight/eslint-plugin-angular';
+import {includeIgnoreFile} from 'eslint/config';
+import {resolve} from 'node:path';
 
 export default [
-    includeIgnoreFile(gitignorePath),
+    includeIgnoreFile(resolve(import.meta.dirname, '.gitignore')),
     ...cloudflightAngularConfig({
         rootDirectory: import.meta.dirname,
     }),
 ];
 ```
+
+For formatting: Open your `eslint.format.mjs` and add one of the configurations:
+
+```js
+import {cloudflightAngularFormatConfig} from '@cloudflight/eslint-plugin-angular';
+import {includeIgnoreFile} from 'eslint/config';
+import {resolve} from 'node:path';
+
+export default [
+    includeIgnoreFile(resolve(import.meta.dirname, '.gitignore')),
+    ...cloudflightAngularFormatConfig({
+        rootDirectory: import.meta.dirname,
+    }),
+];
+```
+
 See [Custom Configuration](../../CUSTOM_CONFIGURATION.md) for more complicated project setups.
