@@ -353,4 +353,5 @@ export const formatRules: TSESLint.Linter.RulesRecord = {
     '@stylistic/semi': ['error'],
     '@stylistic/no-extra-semi': ['error'],
     '@stylistic/type-annotation-spacing': ['error'],
+    '@stylistic/one-var-declaration-per-line': ['error', 'always'],
 };

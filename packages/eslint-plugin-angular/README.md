@@ -9,13 +9,11 @@ You can find the directory of all rules including their reasoning [here](src/con
 The following dependencies are required:
 
 ```
-"eslint": "^10.0.0",
+"eslint": "^10.4.0",
 "typescript": ">=5.0.0 <6.1.0"
 ```
 
 Node.js must satisfy `^22.22.3 || ^24.15.0 || >=26.0.0`.
-
-The usage example below imports `includeIgnoreFile` from `@eslint/compat` (2.0.2 or newer, the first release with an ESLint 10 peer dependency); install it if you keep that line.
 
 Upgrading from 1.x? See [Upgrading from 1.x](https://github.com/cloudflightio/cloudflight-eslint-plugin#upgrading-from-1x).
 
@@ -46,7 +44,7 @@ For linting: Open your `eslint.config.mjs` and add one of the configurations:
 
 ```js
 import {cloudflightAngularConfig} from '@cloudflight/eslint-plugin-angular';
-import {includeIgnoreFile} from '@eslint/compat';
+import {includeIgnoreFile} from 'eslint/config';
 import {resolve} from 'node:path';
 
 export default [
@@ -61,7 +59,7 @@ For formatting: Open your `eslint.format.mjs` and add one of the configurations:
 
 ```js
 import {cloudflightAngularFormatConfig} from '@cloudflight/eslint-plugin-angular';
-import {includeIgnoreFile} from '@eslint/compat';
+import {includeIgnoreFile} from 'eslint/config';
 import {resolve} from 'node:path';
 
 export default [

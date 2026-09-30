@@ -61,13 +61,13 @@ jobs:
                       node: 20.19.0
                       typescript: 5.0.4
                       types-node: 20.19.43
-                      eslint: 10.0.0
+                      eslint: 10.4.0
                       packages: typescript,node,react,vue
                     - name: angular minimum versions
                       node: 22.22.3
                       typescript: 6.0.2
                       types-node: 22.20.4
-                      eslint: 10.0.0
+                      eslint: 10.4.0
                       packages: angular
         steps:
             - uses: actions/checkout@v4

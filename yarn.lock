@@ -957,7 +957,7 @@ __metadata:
     typescript: "npm:5.9.3"
     typescript-eslint: "npm:^8.70.1"
   peerDependencies:
-    eslint: ^10.0.0
+    eslint: ^10.4.0
     typescript: ">=5.0.0 <6.1.0"
   languageName: unknown
   linkType: soft
@@ -976,7 +976,7 @@ __metadata:
     typescript: "npm:5.9.3"
     typescript-eslint: "npm:^8.70.1"
   peerDependencies:
-    eslint: ^10.0.0
+    eslint: ^10.4.0
     typescript: ">=5.0.0 <6.1.0"
   languageName: unknown
   linkType: soft
@@ -997,7 +997,7 @@ __metadata:
     typescript: "npm:5.9.3"
     typescript-eslint: "npm:^8.70.1"
   peerDependencies:
-    eslint: ^10.0.0
+    eslint: ^10.4.0
     typescript: ">=5.0.0 <6.1.0"
   languageName: unknown
   linkType: soft
@@ -1022,7 +1022,7 @@ __metadata:
     typescript: "npm:5.9.3"
     typescript-eslint: "npm:^8.70.1"
   peerDependencies:
-    eslint: ^10.0.0
+    eslint: ^10.4.0
     typescript: ">=5.0.0 <6.1.0"
   languageName: unknown
   linkType: soft
@@ -1040,7 +1040,7 @@ __metadata:
     typescript: "npm:5.9.3"
     vue-eslint-parser: "npm:^10.4.1"
   peerDependencies:
-    eslint: ^10.0.0
+    eslint: ^10.4.0
     typescript: ">=5.0.0 <6.1.0"
   languageName: unknown
   linkType: soft
@@ -1049,7 +1049,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@cloudflight/eslint-plugin@workspace:."
   dependencies:
-    "@eslint/compat": "npm:2.1.1"
     "@eslint/js": "npm:10.0.1"
     "@stylistic/eslint-plugin": "npm:5.10.0"
     "@types/estree": "npm:1.0.9"
@@ -1079,7 +1078,6 @@ __metadata:
     ts-jest: "npm:29.4.12"
     ts-node: "npm:10.9.2"
     typescript: "npm:5.9.3"
-    typescript-eslint: "npm:8.70.1"
     vue-eslint-parser: "npm:10.4.1"
   languageName: unknown
   linkType: soft
@@ -1185,7 +1183,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/compat@npm:2.1.1, @eslint/compat@npm:^2.1.1":
+"@eslint/compat@npm:^2.1.1":
   version: 2.1.1
   resolution: "@eslint/compat@npm:2.1.1"
   dependencies:
@@ -8107,7 +8105,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript-eslint@npm:8.70.1, typescript-eslint@npm:^8.60.0, typescript-eslint@npm:^8.70.1":
+"typescript-eslint@npm:^8.60.0, typescript-eslint@npm:^8.70.1":
   version: 8.70.1
   resolution: "typescript-eslint@npm:8.70.1"
   dependencies:

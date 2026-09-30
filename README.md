@@ -22,7 +22,7 @@ Please refer to the README's of each plugin to get started:
 
 ## Upgrading from 1.x
 
-Version 2 requires ESLint 10 (flat config only); stay on 1.3.3 for ESLint 9.
+Version 2 requires ESLint 10.4 or newer (flat config only); stay on 1.3.3 for ESLint 9.
 
 1. **Update all `@cloudflight/eslint-plugin-*` packages together, to the same version**, including a direct
    `@cloudflight/eslint-plugin-typescript` dependency you keep for the format config. The framework configs refuse
@@ -37,8 +37,8 @@ Version 2 requires ESLint 10 (flat config only); stay on 1.3.3 for ESLint 9.
    `Parsing error: Enabling "project" does nothing when "projectService" is enabled`. Files that no `tsconfig.json`
    includes are reported as `… was not found by the project service`: add them to a `tsconfig.json`, or pass your
    list as `tsConfigFiles` (see [Custom Configuration](CUSTOM_CONFIGURATION.md)).
-4. If your config uses `includeIgnoreFile`, update `@eslint/compat` to 2.0.2 or newer, the first release with an
-   ESLint 10 peer dependency.
+4. Import `includeIgnoreFile` from `eslint/config` instead of `@eslint/compat`. The packages do not need
+   `@eslint/compat`; remove it if nothing else in your config uses it.
 5. Reformat once with `eslint -c eslint.format.mjs --fix .`: multiline enums get a trailing comma and the `?` and `:`
    of multiline conditionals start the line. Move comments that sit between an operator and its operand above the
    line first, the fixer cannot handle them.
