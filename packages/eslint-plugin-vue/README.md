@@ -9,7 +9,7 @@ You can find the directory of all rules including their reasoning [here](src/con
 The following dependencies are required:
 
 ```
-"eslint": "^10.0.0",
+"eslint": "^10.4.0",
 "typescript": ">=5.0.0 <6.1.0"
 ```
 
@@ -33,7 +33,7 @@ Now open your `eslint.config.mjs` and add one of the configurations:
 
 ```js
 import {cloudflightVueConfig} from '@cloudflight/eslint-plugin-vue';
-import {includeIgnoreFile} from '@eslint/compat';
+import {includeIgnoreFile} from 'eslint/config';
 import {resolve} from 'node:path';
 
 export default [
@@ -65,7 +65,7 @@ Create a new file called `eslint.format.mjs` and add the following:
 
 ```js
 import {cloudflightTypescriptFormatConfig} from '@cloudflight/eslint-plugin-typescript';
-import {includeIgnoreFile} from '@eslint/compat';
+import {includeIgnoreFile} from 'eslint/config';
 import {resolve} from 'node:path';
 
 export default [

@@ -22,9 +22,9 @@ Please refer to the README's of each plugin to get started:
 
 ## Upgrading from 1.x
 
-Version 2 requires ESLint 10 (flat config only), update `eslint` together with the packages; stay on 1.3.3 for ESLint 9.
-The Angular package requires Angular 22 and Node `^22.22.3 || ^24.15.0 || >=26.0.0`; stay on 1.3.3 for Angular 21 and
-older.
+Version 2 requires ESLint 10.4 or newer (flat config only), update `eslint` together with the packages; stay on 1.3.3
+for ESLint 9. The Angular package requires Angular 22 and Node `^22.22.3 || ^24.15.0 || >=26.0.0`; stay on 1.3.3 for
+Angular 21 and older.
 
 1. **Deduplicate typescript-eslint.** Every `@typescript-eslint/utils` copy must be 8.56 or newer, the first release
    with ESLint 10 support. Older copies that an existing lockfile keeps nested, for example under angular-eslint or
@@ -40,8 +40,9 @@ older.
    by an included file is not enough.
 3. Remove `/* eslint-env */` comments. ESLint 10 reports them as errors, in the format run too, where they block the
    pre-commit hook.
-4. If your config uses `includeIgnoreFile`, update `@eslint/compat` to 2.0.2 or newer, the first release with an
-   ESLint 10 peer dependency.
+4. Import `includeIgnoreFile` from `eslint/config` instead of `@eslint/compat`, in the same import as `defineConfig` if
+   your config already has one. The packages do not need `@eslint/compat`; remove it if nothing else in your config
+   uses it.
 5. If you import `cloudflightTypescriptImportConfig` or `cloudflightTypescriptDisableTypeCheckedConfig`, use
    `cloudflightTypescriptConfig` instead; both are no longer exported.
 6. If your project uses the format config, switch `eslint.format.mjs` to the format config of your framework package;
