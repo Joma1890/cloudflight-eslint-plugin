@@ -2,13 +2,13 @@ import type {FlatConfig} from '@typescript-eslint/utils/ts-eslint';
 import type {Linter} from 'eslint';
 
 import {CloudflightEslintPluginSettings, cloudflightTypescriptConfig} from '@cloudflight/eslint-plugin-typescript';
-import angular from 'angular-eslint';
+import angularEslint from 'angular-eslint';
 import tseslint from 'typescript-eslint';
 
-import {angularEslintRules} from './configs/angular-eslint';
-import {angularTemplateEslintRules} from './configs/angular-eslint-template';
+import {angularRules} from './configs/angular';
+import {angularTemplateRules} from './configs/angular-template';
 import {eslintRules} from './configs/eslint';
-import {typescriptEslintRules} from './configs/typescript-eslint';
+import {typescriptRules} from './configs/typescript';
 
 export function cloudflightAngularTypescriptConfig(settings: CloudflightEslintPluginSettings): Linter.Config[] {
     // eslint-disable-next-line @typescript-eslint/no-deprecated -- tseslint.config is deprecated but defineConfig has type incompatibilities with typescript-eslint
@@ -17,14 +17,14 @@ export function cloudflightAngularTypescriptConfig(settings: CloudflightEslintPl
         {
             files: ['**/*.{ts,mts,cts}'],
             extends: [
-                ...angular.configs.tsRecommended,
+                ...angularEslint.configs.tsRecommended,
             ],
-            processor: angular.processInlineTemplates,
+            processor: angularEslint.processInlineTemplates,
             name: 'cloudflight/angular/typescript/rules',
             rules: {
                 ...eslintRules,
-                ...typescriptEslintRules,
-                ...angularEslintRules,
+                ...typescriptRules,
+                ...angularRules,
             },
         },
     ));
@@ -35,12 +35,12 @@ export const cloudflightAngularTemplateConfig: Linter.Config[] = eslintConfigs(t
     {
         files: ['**/*.html'],
         extends: [
-            ...angular.configs.templateRecommended,
-            ...angular.configs.templateAccessibility,
+            ...angularEslint.configs.templateRecommended,
+            ...angularEslint.configs.templateAccessibility,
         ],
         name: 'cloudflight/angular/template/rules',
         rules: {
-            ...angularTemplateEslintRules,
+            ...angularTemplateRules,
             // todo: this should be its own config
             // ...formatAngularTemplateEslintRules,
         },
