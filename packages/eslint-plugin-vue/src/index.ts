@@ -1,4 +1,5 @@
 import type {FlatConfig} from '@typescript-eslint/utils/ts-eslint';
+import type {Linter} from 'eslint';
 
 import {
     CloudflightEslintPluginSettings,
@@ -13,9 +14,9 @@ import tseslint from 'typescript-eslint';
 import {typescriptRules} from './configs/typescript';
 import {vueRules} from './configs/vue';
 
-export function cloudflightVueConfig(settings: CloudflightEslintPluginSettings): FlatConfig.ConfigArray {
+export function cloudflightVueConfig(settings: CloudflightEslintPluginSettings): Linter.Config[] {
     // eslint-disable-next-line @typescript-eslint/no-deprecated -- tseslint.config is deprecated but defineConfig has type incompatibilities with typescript-eslint
-    return tseslint.config(
+    return eslintConfigs(tseslint.config(
         ...cloudflightTypescriptConfig(settings),
         {
             files: ['**/*.vue'],
@@ -42,5 +43,11 @@ export function cloudflightVueConfig(settings: CloudflightEslintPluginSettings):
                 },
             },
         },
-    );
+    ));
+}
+
+// typescript-eslint's config type is not accepted by eslint's defineConfig or a typed eslint.config.ts
+function eslintConfigs(configs: FlatConfig.ConfigArray): Linter.Config[] {
+    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+    return configs as Linter.Config[];
 }

@@ -1,4 +1,5 @@
 import type {FlatConfig} from '@typescript-eslint/utils/ts-eslint';
+import type {Linter} from 'eslint';
 
 import {CloudflightEslintPluginSettings, cloudflightTypescriptConfig} from '@cloudflight/eslint-plugin-typescript';
 import pluginNode from 'eslint-plugin-n';
@@ -10,9 +11,9 @@ import {importEslintRules} from './configs/import';
 import {nodeRules} from './configs/node';
 import {securityRules} from './configs/security';
 
-export function cloudflightNodeConfig(settings: CloudflightEslintPluginSettings): FlatConfig.ConfigArray {
+export function cloudflightNodeConfig(settings: CloudflightEslintPluginSettings): Linter.Config[] {
     // eslint-disable-next-line @typescript-eslint/no-deprecated -- tseslint.config is deprecated but defineConfig has type incompatibilities with typescript-eslint
-    return tseslint.config(
+    return eslintConfigs(tseslint.config(
         ...cloudflightTypescriptConfig(settings),
         {
             files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
@@ -34,5 +35,11 @@ export function cloudflightNodeConfig(settings: CloudflightEslintPluginSettings)
                 },
             },
         },
-    );
+    ));
+}
+
+// typescript-eslint's config type is not accepted by eslint's defineConfig or a typed eslint.config.ts
+function eslintConfigs(configs: FlatConfig.ConfigArray): Linter.Config[] {
+    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+    return configs as Linter.Config[];
 }

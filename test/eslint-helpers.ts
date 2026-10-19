@@ -6,14 +6,12 @@ import {extname, join} from 'node:path';
 export const typescriptFiles = ['file.ts', 'file.mts', 'file.cts', 'file.tsx'];
 export const javascriptFiles = ['file.js', 'file.mjs', 'file.cjs', 'file.jsx'];
 
-export function createEslint(cwd: string, config: object[], fix = false): ESLint {
+export function createEslint(cwd: string, config: Linter.Config[], fix = false): ESLint {
     return new ESLint({
         cwd,
         fix,
         overrideConfigFile: true,
-        // the typescript-eslint config types are structurally compatible with the eslint core types
-        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-        overrideConfig: config as Linter.Config[],
+        overrideConfig: config,
     });
 }
 

@@ -1,4 +1,5 @@
 import type {FlatConfig} from '@typescript-eslint/utils/ts-eslint';
+import type {Linter} from 'eslint';
 
 import {
     CloudflightEslintPluginSettings,
@@ -16,9 +17,9 @@ import {reactRules} from './configs/react';
 
 const relevantFiles = ['**/*.{js,jsx,mjs,cjs,ts,mts,cts,tsx}'];
 
-export function cloudflightReactConfig(settings: CloudflightEslintPluginSettings): FlatConfig.ConfigArray {
+export function cloudflightReactConfig(settings: CloudflightEslintPluginSettings): Linter.Config[] {
     // eslint-disable-next-line @typescript-eslint/no-deprecated -- tseslint.config is deprecated but defineConfig has type incompatibilities with typescript-eslint
-    return tseslint.config(
+    return eslintConfigs(tseslint.config(
         ...cloudflightTypescriptConfig(settings),
         {
             files: relevantFiles,
@@ -59,10 +60,10 @@ export function cloudflightReactConfig(settings: CloudflightEslintPluginSettings
                 },
             },
         },
-    );
+    ));
 }
 
-export function cloudflightReactFormatConfig(settings: CloudflightEslintPluginSettings): FlatConfig.ConfigArray {
+export function cloudflightReactFormatConfig(settings: CloudflightEslintPluginSettings): Linter.Config[] {
     const mappedConfigs = cloudflightTypescriptFormatConfig(settings).map((config) => {
         if (config.files == null) {
             return config;
@@ -75,7 +76,7 @@ export function cloudflightReactFormatConfig(settings: CloudflightEslintPluginSe
     });
 
     // eslint-disable-next-line @typescript-eslint/no-deprecated -- tseslint.config is deprecated but defineConfig has type incompatibilities with typescript-eslint
-    return tseslint.config(
+    return eslintConfigs(tseslint.config(
         ...mappedConfigs,
         {
             files: relevantFiles,
@@ -96,5 +97,11 @@ export function cloudflightReactFormatConfig(settings: CloudflightEslintPluginSe
                 },
             },
         },
-    );
+    ));
+}
+
+// typescript-eslint's config type is not accepted by eslint's defineConfig or a typed eslint.config.ts
+function eslintConfigs(configs: FlatConfig.ConfigArray): Linter.Config[] {
+    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+    return configs as Linter.Config[];
 }
