@@ -1,4 +1,5 @@
 import {type ESLint} from 'eslint';
+import {readFileSync} from 'node:fs';
 import {join} from 'node:path';
 
 import {
@@ -13,6 +14,8 @@ import {
     typescriptFiles,
 } from '../../../test/eslint-helpers';
 import {cloudflightTypescriptConfig, cloudflightTypescriptFormatConfig} from './index';
+import {cloudflightTypescriptPlugin} from './rules';
+import {NoOnEventAssign} from './rules/typescript/no-on-event-assign';
 
 const fixtureDir = join(__dirname, '..', 'fixtures');
 const inputDir = join(fixtureDir, 'format', 'input');
@@ -25,6 +28,15 @@ function lintConfig(tsConfigFiles?: string[]): ESLint {
 function formatConfig(fix = false): ESLint {
     return createEslint(fixtureDir, cloudflightTypescriptFormatConfig({rootDirectory: fixtureDir}), fix);
 }
+
+describe('cloudflightTypescriptPlugin', () => {
+    it('carries the package version and links the rule documentation', () => {
+        const manifest: unknown = JSON.parse(readFileSync(join(__dirname, '..', 'package.json'), 'utf8'));
+
+        expect(manifest).toMatchObject({version: cloudflightTypescriptPlugin.meta?.version});
+        expect(NoOnEventAssign.meta.docs?.url).toContain('/src/rules/typescript/no-on-event-assign.ts');
+    });
+});
 
 describe('cloudflightTypescriptConfig', () => {
     it('applies the expected rules to each file type', async () => {
