@@ -1,4 +1,5 @@
 import {type ESLint} from 'eslint';
+import {defineConfig} from 'eslint/config';
 import {readFileSync} from 'node:fs';
 import {join} from 'node:path';
 
@@ -60,8 +61,54 @@ describe('cloudflightTypescriptConfig', () => {
     });
 
     describe('typed linting', () => {
+        it('reports a typescript file that no tsconfig.json includes instead of linting it without types', async () => {
+            const messages = await lintMessages(lintConfig(), 'orphan/orphan.ts');
+
+            expect(messages).toHaveLength(1);
+            expect(messages[0]?.fatal).toBe(true);
+            expect(messages[0]?.message).toContain('was not found by the project service');
+        });
+
         it('provides type information with an explicit tsConfigFiles configuration', async () => {
             expect(await ruleIds(lintConfig(['tsconfig.json']), 'invalid/typescript.ts')).toContain('@typescript-eslint/no-floating-promises');
+        });
+
+        it('resolves the aliases of nested tsconfig files with the default configuration', async () => {
+            const messages = await lintMessages(lintConfig(), 'nested-project/src/index.ts');
+
+            expect(messages.filter((message) => message.fatal)).toEqual([]);
+            expect(messages.map((message) => message.ruleId)).toContain('@typescript-eslint/no-floating-promises');
+            expect(messages.map((message) => message.ruleId)).not.toContain('import-x/no-unresolved');
+        });
+
+        it('resolves nested aliases when eslint runs from another directory', async () => {
+            const eslint = createEslint(join(fixtureDir, '..'), cloudflightTypescriptConfig({rootDirectory: fixtureDir}));
+            const messages = await lintMessages(eslint, join(fixtureDir, 'nested-project/src/index.ts'));
+
+            expect(messages.map((message) => message.ruleId)).toContain('@typescript-eslint/no-floating-promises');
+            expect(messages.map((message) => message.ruleId)).not.toContain('import-x/no-unresolved');
+        });
+
+        it('can be extended by a scoped config object although nested projects exist', async () => {
+            const eslint = createEslint(fixtureDir, defineConfig({files: ['**/*.ts'], extends: [cloudflightTypescriptConfig({rootDirectory: fixtureDir})]}));
+            const messages = await lintMessages(eslint, 'nested-project/src/index.ts');
+
+            expect(messages.filter((message) => message.fatal)).toEqual([]);
+            expect(messages.map((message) => message.ruleId)).not.toContain('import-x/no-unresolved');
+        });
+
+        it('matches files by glob patterns only, tools like the config inspector cannot read function matchers', () => {
+            const patterns: unknown[] = cloudflightTypescriptConfig({rootDirectory: fixtureDir}).flatMap((config) => config.files ?? []).flat();
+
+            expect(patterns.filter((pattern) => typeof pattern !== 'string')).toEqual([]);
+        });
+
+        it('uses the custom project and resolves its aliases independently of process.cwd', async () => {
+            const messages = await lintMessages(lintConfig(['explicit-tsconfig/tsconfig.lint.json']), 'explicit-tsconfig/outside.ts');
+
+            expect(messages.filter((message) => message.fatal)).toEqual([]);
+            expect(messages.map((message) => message.ruleId)).toContain('@typescript-eslint/no-floating-promises');
+            expect(messages.map((message) => message.ruleId)).not.toContain('import-x/no-unresolved');
         });
     });
 });

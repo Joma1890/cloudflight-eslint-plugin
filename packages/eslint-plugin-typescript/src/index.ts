@@ -8,7 +8,9 @@ import pluginImportX from 'eslint-plugin-import-x';
 import pluginNoUnsanitized from 'eslint-plugin-no-unsanitized';
 import pluginPerfectionist from 'eslint-plugin-perfectionist';
 import pluginSecurity from 'eslint-plugin-security';
+import {type Dirent, existsSync, readdirSync} from 'node:fs';
 import {createRequire} from 'node:module';
+import {join, resolve} from 'node:path';
 import tseslint from 'typescript-eslint';
 
 import {customRules} from './configs/custom';
@@ -77,23 +79,25 @@ const importXTypescriptConfig = {
 
 function cloudflightTypescriptImportConfig(settings: CloudflightEslintPluginSettings): FlatConfig.ConfigArray {
     // eslint-disable-next-line @typescript-eslint/no-deprecated -- tseslint.config is deprecated but defineConfig has type incompatibilities with typescript-eslint
-    return tseslint.config({
-        files: ['**/*.{js,jsx,mjs,cjs,ts,mts,cts,tsx}'],
-        extends: [
-            pluginImportX.flatConfigs.recommended,
-            importXTypescriptConfig,
-        ],
-        languageOptions: {
-            parser: tseslint.parser,
-            ecmaVersion: 'latest',
-            sourceType: 'module',
+    return tseslint.config(
+        {
+            files: ['**/*.{js,jsx,mjs,cjs,ts,mts,cts,tsx}'],
+            extends: [
+                pluginImportX.flatConfigs.recommended,
+                importXTypescriptConfig,
+            ],
+            languageOptions: {
+                parser: tseslint.parser,
+                ecmaVersion: 'latest',
+                sourceType: 'module',
+            },
+            name: 'cloudflight/typescript/import-rules',
+            rules: {
+                ...importRules,
+            },
+            settings: importXSettings(settings),
         },
-        name: 'cloudflight/typescript/import-rules',
-        rules: {
-            ...importRules,
-        },
-        settings: importXSettings(settings),
-    });
+    );
 }
 
 // eslint-disable-next-line @typescript-eslint/no-deprecated -- tseslint.config is deprecated but defineConfig has type incompatibilities with typescript-eslint
@@ -107,13 +111,35 @@ const cloudflightTypescriptDisableTypeCheckedConfig = tseslint.config({
 });
 
 export interface CloudflightEslintPluginSettings {
+    /**
+     * Absolute path of the project directory, usually `import.meta.dirname`. tsconfig paths and the
+     * import resolver's project globs are relative to it; glob metacharacters in the path break those globs.
+     */
     rootDirectory: string;
     /**
-     * Override the default tsconfig files to use for the project.
-     * Keep this list as short as possible, a large list will negatively impact performance.
-     * Relative to the rootDirectory.
+     * The tsconfig files of the project, relative to the rootDirectory. Without it the project service finds
+     * the closest tsconfig.json of each file and imports resolve through the tsconfig*.json
+     * files of the rootDirectory and of each nested project. Set it only when the layout needs other file
+     * names, and keep the list short, every entry costs performance.
      */
     tsConfigFiles?: string[];
+}
+
+export function cloudflightTypedParserOptions(settings: CloudflightEslintPluginSettings): FlatConfig.ParserOptions {
+    // both set explicitly, a later block like the vue helper must not leave both on
+    if (settings.tsConfigFiles == null) {
+        return {
+            project: false,
+            projectService: true,
+            tsconfigRootDir: settings.rootDirectory,
+        };
+    }
+
+    return {
+        project: settings.tsConfigFiles,
+        projectService: false,
+        tsconfigRootDir: settings.rootDirectory,
+    };
 }
 
 export function cloudflightTypescriptFormatConfig(settings: CloudflightEslintPluginSettings): Linter.Config[] {
@@ -166,10 +192,7 @@ export function cloudflightTypescriptConfig(settings: CloudflightEslintPluginSet
         ...cloudflightTypescriptDisableTypeCheckedConfig,
         {
             languageOptions: {
-                parserOptions: {
-                    project: settings.tsConfigFiles ?? ['tsconfig*(.*).json'],
-                    tsconfigRootDir: settings.rootDirectory,
-                },
+                parserOptions: cloudflightTypedParserOptions(settings),
             },
         },
     ]);
@@ -187,10 +210,75 @@ function importXSettings(settings: CloudflightEslintPluginSettings): SharedConfi
         'import-x/resolver-next': [
             createTypeScriptImportResolver({
                 alwaysTryTypes: true,
-                project: settings.tsConfigFiles ?? ['tsconfig*(.*).json'],
+                // without tsConfigFiles also the tsconfig files of the nested projects, in the lint and in the format run;
+                // the resolver takes the closest project that includes the file, like the project service does
+                project: (settings.tsConfigFiles ?? projectTsConfigFiles(settings.rootDirectory))
+                    .map((file) => resolve(settings.rootDirectory, file).replace(/\\/g, '/')),
                 // the default glob matches every tsconfig*.json on purpose
                 noWarnOnMultipleProjects: true,
             }),
         ],
     };
+}
+
+// never hold projects of the consumer
+const skippedDirectories = new Set([
+    'node_modules',
+    '.git',
+    '.hg',
+    '.svn',
+    '.yarn',
+    'dist',
+    'build',
+    'coverage',
+    'target',
+    '.angular',
+    '.gradle',
+    '.next',
+    '.nuxt',
+    '.nx',
+    '.svelte-kit',
+    '.venv',
+]);
+
+// the tsconfig files of the root and of each directory below it with its own tsconfig.json
+function projectTsConfigFiles(rootDirectory: string): string[] {
+    return ['tsconfig*(.*).json', ...collectProjectDirectories(rootDirectory, '').map((directory) => `${directory}/tsconfig*(.*).json`)];
+}
+
+function isUnreadableDirectory(error: unknown): boolean {
+    return error instanceof Error && 'code' in error && ['EACCES', 'EPERM', 'ENOENT', 'ENOTDIR'].includes(String(error.code));
+}
+
+// an unreadable directory is skipped instead of failing every run
+function readNestedDirectory(root: string, directory: string): Dirent[] {
+    try {
+        return readdirSync(join(root, directory), {withFileTypes: true});
+    }
+    catch (error) {
+        if (directory !== '' && isUnreadableDirectory(error)) {
+            return [];
+        }
+
+        throw error;
+    }
+}
+
+function collectProjectDirectories(root: string, directory: string): string[] {
+    const directories: string[] = [];
+
+    for (const entry of readNestedDirectory(root, directory)) {
+        if (!entry.isDirectory() || skippedDirectories.has(entry.name)) {
+            continue;
+        }
+
+        const child = directory === '' ? entry.name : `${directory}/${entry.name}`;
+
+        if (existsSync(join(root, child, 'tsconfig.json'))) {
+            directories.push(child);
+        }
+        directories.push(...collectProjectDirectories(root, child));
+    }
+
+    return directories;
 }
