@@ -9,12 +9,13 @@ You can find the directory of all rules including their reasoning [here](src/con
 The following dependencies are required:
 
 ```
-"eslint": "^10.0.0"
+"eslint": "^10.0.0",
+"typescript": ">=5.0.0 <6.1.0"
 ```
 
 Node.js must satisfy `^22.22.3 || ^24.15.0 || >=26.0.0`.
 
-This version requires Angular 22; stay on 1.3.3 for Angular 21 and older. Angular 22 applications must use TypeScript 6.0.x.
+This version requires Angular 22; stay on 1.3.3 for Angular 21 and older. Angular 22 applications must use TypeScript 6.0.x; the wider TypeScript peer covers the configuration library, not the Angular compiler.
 
 ## Usage
 
