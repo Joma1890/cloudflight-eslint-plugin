@@ -258,7 +258,6 @@ prefer-rest-params [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 prefer-spread [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 prefer-template [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 radix [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error ["always"]
-react-hooks/component-hook-factories [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 react-hooks/config [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 react-hooks/error-boundaries [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 react-hooks/exhaustive-deps [ts, mts, cts, tsx, js, mjs, cjs, jsx]: warn
@@ -275,7 +274,6 @@ react-hooks/set-state-in-render [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 react-hooks/static-components [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 react-hooks/unsupported-syntax [ts, mts, cts, tsx, js, mjs, cjs, jsx]: warn
 react-hooks/use-memo [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
-react-hooks/void-use-memo [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 react/display-name [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 react/jsx-fragments [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error ["element"]
 react/jsx-key [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error

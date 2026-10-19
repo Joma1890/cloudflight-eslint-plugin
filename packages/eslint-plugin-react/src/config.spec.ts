@@ -70,4 +70,13 @@ describe('cloudflightReactFormatConfig', () => {
     it.each(formatCases(inputDir))('leaves no lint findings in the formatted %s', async (file) => {
         expect(await lintMessages(lintConfig(), join(expectedDir, file))).toEqual([]);
     });
+
+    describe('disable comments', () => {
+        it('knows the lint rules', async () => {
+            const result = await fixFile(formatConfig(true), join(fixtureDir, 'disable/lint-rules.tsx'));
+
+            expect(result.output).toBe(readWithUnixLineEndings(join(fixtureDir, 'disable/lint-rules.tsx')));
+            expect(result.messages).toEqual([]);
+        });
+    });
 });

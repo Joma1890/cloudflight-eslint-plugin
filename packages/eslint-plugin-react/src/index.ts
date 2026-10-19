@@ -6,6 +6,7 @@ import {
     cloudflightTypescriptConfig,
     cloudflightTypescriptFormatConfig,
 } from '@cloudflight/eslint-plugin-typescript';
+import {fixupPluginRules} from '@eslint/compat';
 import pluginJsxA11y from 'eslint-plugin-jsx-a11y';
 import pluginReact from 'eslint-plugin-react';
 import * as pluginReactHooks from 'eslint-plugin-react-hooks';
@@ -15,6 +16,10 @@ import {reactRules} from './configs/react';
 
 const relevantFiles = ['**/*.{js,jsx,mjs,cjs,ts,mts,cts,tsx}'];
 
+// eslint-plugin-react 7 still uses context.getFilename and crashes on eslint 10, @eslint/compat patches that
+// see: https://github.com/jsx-eslint/eslint-plugin-react/issues/3977
+const pluginReactFixed = fixupPluginRules(pluginReact);
+
 export function cloudflightReactConfig(settings: CloudflightEslintPluginSettings): Linter.Config[] {
     // eslint-disable-next-line @typescript-eslint/no-deprecated -- tseslint.config is deprecated but defineConfig has type incompatibilities with typescript-eslint
     return eslintConfigs(tseslint.config(
@@ -22,17 +27,13 @@ export function cloudflightReactConfig(settings: CloudflightEslintPluginSettings
         {
             files: relevantFiles,
             extends: [
-                // type assertion is workaround for incorrect TypeScript types in eslint-plugin-react
-                // see https://github.com/jsx-eslint/eslint-plugin-react/issues/3838
-                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                pluginReact.configs.flat['recommended']!,
-                // type assertion is workaround for incorrect TypeScript types in eslint-plugin-react
-                // see https://github.com/jsx-eslint/eslint-plugin-react/issues/3838
-                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                pluginReact.configs.flat['jsx-runtime']!,
-                pluginReactHooks.configs.flat['recommended-latest'],
+                // the stable preset, recommended-latest adds experimental rules
+                pluginReactHooks.configs.flat.recommended,
                 pluginJsxA11y.flatConfigs.recommended,
             ],
+            plugins: {
+                react: pluginReactFixed,
+            },
             languageOptions: {
                 parser: tseslint.parser,
                 ecmaVersion: 'latest',
@@ -46,6 +47,11 @@ export function cloudflightReactConfig(settings: CloudflightEslintPluginSettings
             },
             name: 'cloudflight/react/rules',
             rules: {
+                // configs.flat is a Record, its entries are typed as possibly undefined
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                ...pluginReact.configs.flat['recommended']!.rules,
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                ...pluginReact.configs.flat['jsx-runtime']!.rules,
                 ...reactRules,
             },
             settings: {
@@ -62,6 +68,13 @@ export function cloudflightReactFormatConfig(settings: CloudflightEslintPluginSe
         ...cloudflightTypescriptFormatConfig(settings),
         {
             files: relevantFiles,
+            // no rules, only so that disable comments for the react rules are known in the format run,
+            // the same plugin objects as in the lint config because eslint rejects two objects under one name
+            plugins: {
+                ...pluginReactHooks.configs.flat.recommended.plugins,
+                ...pluginJsxA11y.flatConfigs.recommended.plugins,
+                react: pluginReactFixed,
+            },
             languageOptions: {
                 parser: tseslint.parser,
                 ecmaVersion: 'latest',
