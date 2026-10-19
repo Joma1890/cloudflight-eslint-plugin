@@ -1,12 +1,14 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`cloudflightAngularConfig applies the expected rules to each file type 1`] = `
-"@angular-eslint/component-class-suffix [ts, mts, cts]: error [{"suffixes":["Component","Page"]}]
+"@angular-eslint/computed-must-return [ts, mts, cts]: error
 @angular-eslint/contextual-decorator [ts, mts, cts]: error
 @angular-eslint/contextual-lifecycle [ts, mts, cts]: error
-@angular-eslint/directive-class-suffix [ts, mts, cts]: error [{"suffixes":["Directive"]}]
+@angular-eslint/no-async-lifecycle-method [ts, mts, cts]: error
 @angular-eslint/no-attribute-decorator [ts, mts, cts]: error
+@angular-eslint/no-duplicates-in-metadata-arrays [ts, mts, cts]: error
 @angular-eslint/no-empty-lifecycle-method [ts, mts, cts]: error
+@angular-eslint/no-implicit-take-until-destroyed [ts, mts, cts]: error
 @angular-eslint/no-input-rename [ts, mts, cts]: error [{"allowedNames":[]}]
 @angular-eslint/no-inputs-metadata-property [ts, mts, cts]: error
 @angular-eslint/no-output-native [ts, mts, cts]: error
@@ -14,29 +16,42 @@ exports[`cloudflightAngularConfig applies the expected rules to each file type 1
 @angular-eslint/no-output-rename [ts, mts, cts]: error
 @angular-eslint/no-outputs-metadata-property [ts, mts, cts]: error
 @angular-eslint/no-queries-metadata-property [ts, mts, cts]: error
+@angular-eslint/no-uncalled-signals [ts, mts, cts]: error
 @angular-eslint/prefer-inject [ts, mts, cts]: error
 @angular-eslint/prefer-on-push-component-change-detection [ts, mts, cts]: error [{"allowExplicitOnPush":true}]
+@angular-eslint/prefer-output-emitter-ref [ts, mts, cts]: error
 @angular-eslint/prefer-output-readonly [ts, mts, cts]: error
 @angular-eslint/prefer-signals [ts, mts, cts]: error [{"preferReadonlySignalProperties":true,"preferInputSignals":true,"preferQuerySignals":true,"useTypeChecking":false,"additionalSignalCreationFunctions":[]}]
 @angular-eslint/prefer-standalone [ts, mts, cts]: error
 @angular-eslint/relative-url-prefix [ts, mts, cts]: error
+@angular-eslint/require-lifecycle-on-prototype [ts, mts, cts]: error
 @angular-eslint/template/alt-text [html]: error
 @angular-eslint/template/banana-in-box [html]: error
 @angular-eslint/template/button-has-type [html]: error [{"ignoreWithDirectives":[]}]
 @angular-eslint/template/click-events-have-key-events [html]: error [{"ignoreWithDirectives":[],"requireKeyCode":false,"allowedKeyCodes":[]}]
+@angular-eslint/template/conditional-complexity [html]: error [{"maxComplexity":3}]
+@angular-eslint/template/cyclomatic-complexity [html]: error [{"maxComplexity":5,"variant":"classic"}]
 @angular-eslint/template/elements-content [html]: error [{"allowList":["aria-label","innerHtml","innerHTML","innerText","outerHTML","textContent","title"]}]
+@angular-eslint/template/eqeqeq [html]: error [{"allowNullOrUndefined":true}]
 @angular-eslint/template/interactive-supports-focus [html]: error [{"allowList":["form"]}]
 @angular-eslint/template/mouse-events-have-key-events [html]: error
 @angular-eslint/template/no-any [html]: error
 @angular-eslint/template/no-autofocus [html]: error
 @angular-eslint/template/no-distracting-elements [html]: error
 @angular-eslint/template/no-duplicate-attributes [html]: error [{"allowTwoWayDataBinding":true,"allowStylePrecedenceDuplicates":false,"ignore":[]}]
-@angular-eslint/template/no-inline-styles [html]: error [{"allowNgStyle":false,"allowBindToStyle":false}]
+@angular-eslint/template/no-empty-control-flow [html]: error
+@angular-eslint/template/no-inline-styles [html]: error [{"allowNgStyle":false,"allowBindToStyle":"dynamic"}]
 @angular-eslint/template/no-interpolation-in-attributes [html]: error [{"allowSubstringInterpolation":false}]
 @angular-eslint/template/no-negated-async [html]: error
+@angular-eslint/template/no-nested-tags [html]: error
+@angular-eslint/template/no-non-null-assertion [html]: error
+@angular-eslint/template/no-outerhtml [html]: error
 @angular-eslint/template/no-positive-tabindex [html]: error
+@angular-eslint/template/prefer-class-binding [html]: error
 @angular-eslint/template/prefer-control-flow [html]: error
 @angular-eslint/template/prefer-ngsrc [html]: error
+@angular-eslint/template/prefer-style-binding [html]: error
+@angular-eslint/template/prefer-template-literal [html]: error
 @angular-eslint/template/role-has-required-aria [html]: error
 @angular-eslint/template/table-scope [html]: error
 @angular-eslint/template/valid-aria [html]: error
@@ -303,6 +318,7 @@ yoda [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error ["never",{"exceptRange":false
 exports[`cloudflightAngularFormatConfig applies the expected rules to each file type 1`] = `
 "@angular-eslint/template/attributes-order [html]: error [{"alphabetical":false,"order":["STRUCTURAL_DIRECTIVE","TEMPLATE_REFERENCE","ATTRIBUTE_BINDING","INPUT_BINDING","TWO_WAY_BINDING","OUTPUT_BINDING"]}]
 @angular-eslint/template/prefer-self-closing-tags [html]: error
+@angular-eslint/template/prefer-static-string-properties [html]: error [{}]
 @stylistic/array-bracket-newline [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error ["consistent"]
 @stylistic/array-bracket-spacing [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error ["never"]
 @stylistic/array-element-newline [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"ArrayExpression":"consistent","ArrayPattern":{"minItems":3}}]
