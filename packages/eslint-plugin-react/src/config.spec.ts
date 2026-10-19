@@ -33,6 +33,7 @@ describe('cloudflightReactConfig', () => {
 
     it.each([
         'valid/component.tsx',
+        'valid/component.jsx',
     ])('reports nothing for %s', async (file) => {
         expect(await lintMessages(lintConfig(), file)).toEqual([]);
     });
@@ -43,8 +44,16 @@ describe('cloudflightReactConfig', () => {
         ['accessibility rules', 'invalid/component.tsx', 'jsx-a11y/alt-text'],
         ['typescript-eslint rules with type information', 'invalid/component.tsx', '@typescript-eslint/no-floating-promises'],
         ['jsx security rules', 'invalid/component.tsx', 'react/no-danger'],
+        ['core rules in javascript files', 'invalid/component.jsx', 'no-console'],
+        ['accessibility rules in javascript files', 'invalid/component.jsx', 'jsx-a11y/alt-text'],
     ])('applies the %s', async (_layer, file, rule) => {
         expect(await ruleIds(lintConfig(), file)).toContain(rule);
+    });
+
+    describe('javascript files', () => {
+        it('reports an undefined component named like a browser global', async () => {
+            expect(await ruleIds(lintConfig(), 'javascript/undefined-component.jsx')).toContain('react/jsx-no-undef');
+        });
     });
 });
 

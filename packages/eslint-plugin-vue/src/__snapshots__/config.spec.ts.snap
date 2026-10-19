@@ -14,7 +14,7 @@ exports[`cloudflightVueConfig applies the expected rules to each file type 1`] =
 @typescript-eslint/default-param-last [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 @typescript-eslint/dot-notation [ts, mts, cts, tsx]: error [{"allowIndexSignaturePropertyAccess":false,"allowKeywords":true,"allowPattern":"","allowPrivateClassPropertyAccess":false,"allowProtectedClassPropertyAccess":false}]
 @typescript-eslint/explicit-function-return-type [ts, mts, cts, tsx]: error [{"allowExpressions":true}]
-@typescript-eslint/explicit-member-accessibility [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"accessibility":"explicit"}]
+@typescript-eslint/explicit-member-accessibility [ts, mts, cts, tsx]: error [{"accessibility":"explicit"}]
 @typescript-eslint/member-ordering [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"default":["static-field","field","signature","constructor","static-method","method"]}]
 @typescript-eslint/no-array-constructor [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 @typescript-eslint/no-array-delete [ts, mts, cts, tsx]: error
@@ -46,7 +46,8 @@ exports[`cloudflightVueConfig applies the expected rules to each file type 1`] =
 @typescript-eslint/no-non-null-asserted-optional-chain [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 @typescript-eslint/no-non-null-assertion [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 @typescript-eslint/no-redundant-type-constituents [ts, mts, cts, tsx]: error
-@typescript-eslint/no-require-imports [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
+@typescript-eslint/no-require-imports [cts]: error [{"allowAsImport":true}]
+@typescript-eslint/no-require-imports [ts, mts, tsx, js, mjs, jsx]: error
 @typescript-eslint/no-shadow [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 @typescript-eslint/no-this-alias [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 @typescript-eslint/no-unnecessary-boolean-literal-compare [ts, mts, cts, tsx]: error
@@ -101,6 +102,7 @@ array-callback-return [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"allowImpl
 block-scoped-var [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 camelcase [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"allow":[],"ignoreDestructuring":false,"ignoreGlobals":false,"ignoreImports":false,"properties":"never"}]
 complexity [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"max":20}]
+constructor-super [js, mjs, cjs, jsx]: error
 curly [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error ["all"]
 default-case-last [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 eqeqeq [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error ["always",{"null":"ignore"}]
@@ -128,16 +130,21 @@ no-async-promise-executor [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-bitwise [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"allow":[],"int32Hint":false}]
 no-caller [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-case-declarations [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
+no-class-assign [js, mjs, cjs, jsx]: error
 no-compare-neg-zero [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-cond-assign [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error ["always"]
 no-console [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{}]
+no-const-assign [js, mjs, cjs, jsx]: error
 no-constant-binary-expression [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"checkRelationalComparisons":false}]
 no-constant-condition [ts, mts, cts, tsx, js, mjs, cjs, jsx]: warn [{"checkLoops":"allExceptWhileTrue"}]
 no-constructor-return [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-control-regex [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-debugger [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-delete-var [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
+no-dupe-args [js, mjs, cjs, jsx]: error
+no-dupe-class-members [js, mjs, cjs, jsx]: error
 no-dupe-else-if [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
+no-dupe-keys [js, mjs, cjs, jsx]: error
 no-duplicate-case [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-duplicate-imports [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"includeExports":false,"allowSeparateTypeImports":false}]
 no-else-return [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"allowElseIf":true}]
@@ -151,8 +158,10 @@ no-extend-native [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"exceptions":[]
 no-extra-bind [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-extra-boolean-cast [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{}]
 no-fallthrough [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"allowEmptyCase":false,"reportUnusedFallthroughComment":false}]
+no-func-assign [js, mjs, cjs, jsx]: error
 no-global-assign [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"exceptions":[]}]
 no-implied-eval [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
+no-import-assign [js, mjs, cjs, jsx]: error
 no-inner-declarations [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error ["functions",{"blockScopedFunctions":"allow"}]
 no-invalid-regexp [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{}]
 no-irregular-whitespace [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"skipComments":false,"skipJSXText":false,"skipRegExps":false,"skipStrings":true,"skipTemplates":false}]
@@ -170,14 +179,17 @@ no-multi-str [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-nested-ternary [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-new [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-new-func [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
+no-new-native-nonconstructor [js, mjs, cjs, jsx]: error
 no-new-wrappers [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-nonoctal-decimal-escape [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
+no-obj-calls [js, mjs, cjs, jsx]: error
 no-octal [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-octal-escape [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-param-reassign [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-promise-executor-return [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"allowVoid":false}]
 no-proto [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-prototype-builtins [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
+no-redeclare [js, mjs, cjs, jsx]: error [{"builtinGlobals":true}]
 no-regex-spaces [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-restricted-globals [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"name":"isFinite","message":"Use Number.isFinite instead https://github.com/airbnb/javascript#standard-library--isfinite"},{"name":"isNaN","message":"Use Number.isNaN instead https://github.com/airbnb/javascript#standard-library--isnan"},"addEventListener","blur","close","closed","confirm","defaultStatus","defaultstatus","event","external","find","focus","frameElement","frames","history","innerHeight","innerWidth","length","location","locationbar","menubar","moveBy","moveTo","name","onblur","onerror","onfocus","onload","onresize","onunload","open","opener","opera","outerHeight","outerWidth","pageXOffset","pageYOffset","parent","print","removeEventListener","resizeBy","resizeTo","screen","screenLeft","screenTop","screenX","screenY","scroll","scrollbars","scrollBy","scrollTo","scrollX","scrollY","self","status","statusbar","stop","toolbar","top"]
 no-restricted-properties [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"object":"arguments","property":"callee","message":"arguments.callee is deprecated"},{"object":"global","property":"isFinite","message":"Please use Number.isFinite instead"},{"object":"self","property":"isFinite","message":"Please use Number.isFinite instead"},{"object":"window","property":"isFinite","message":"Please use Number.isFinite instead"},{"object":"global","property":"isNaN","message":"Please use Number.isNaN instead"},{"object":"self","property":"isNaN","message":"Please use Number.isNaN instead"},{"object":"window","property":"isNaN","message":"Please use Number.isNaN instead"},{"property":"__defineGetter__","message":"Please use Object.defineProperty instead."},{"property":"__defineSetter__","message":"Please use Object.defineProperty instead."},{"object":"Math","property":"pow","message":"Use the exponentiation operator (**) instead."},{"property":"bypassSecurityTrustHtml","message":"Bypassing the sanitizer allows XSS, let Angular sanitize the value instead."},{"property":"bypassSecurityTrustStyle","message":"Bypassing the sanitizer allows XSS, let Angular sanitize the value instead."},{"property":"bypassSecurityTrustScript","message":"Bypassing the sanitizer allows XSS, let Angular sanitize the value instead."},{"property":"bypassSecurityTrustUrl","message":"Bypassing the sanitizer allows XSS, let Angular sanitize the value instead."},{"property":"bypassSecurityTrustResourceUrl","message":"Bypassing the sanitizer allows XSS, let Angular sanitize the value instead."}]
@@ -187,15 +199,19 @@ no-script-url [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-self-assign [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"props":true}]
 no-self-compare [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-sequences [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"allowInParentheses":true}]
+no-setter-return [js, mjs, cjs, jsx]: error
 no-shadow-restricted-names [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"reportGlobalThis":true}]
 no-sparse-arrays [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-template-curly-in-string [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
+no-this-before-super [js, mjs, cjs, jsx]: error
 no-throw-literal [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-unassigned-vars [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
+no-undef [js, mjs, cjs, jsx]: error [{"typeof":false}]
 no-undef-init [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-underscore-dangle [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"allow":[],"allowAfterSuper":false,"allowAfterThis":true,"allowAfterThisConstructor":false,"allowFunctionParams":true,"allowInArrayDestructuring":true,"allowInObjectDestructuring":true,"enforceInClassFields":false,"enforceInMethodNames":false}]
 no-unexpected-multiline [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-unneeded-ternary [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"defaultAssignment":false}]
+no-unreachable [js, mjs, cjs, jsx]: error
 no-unreachable-loop [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"ignore":[]}]
 no-unsafe-finally [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-unsafe-negation [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"enforceForOrderingRelations":false}]
@@ -235,7 +251,7 @@ security/detect-bidi-characters [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 security/detect-disable-mustache-escape [ts, mts, cts, tsx, js, mjs, cjs, jsx]: warn
 security/detect-non-literal-regexp [ts, mts, cts, tsx, js, mjs, cjs, jsx]: warn
 security/detect-unsafe-regex [ts, mts, cts, tsx, js, mjs, cjs, jsx]: warn
-strict [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error ["never"]
+strict [ts, mts, cts, tsx, js, mjs, jsx]: error ["never"]
 symbol-description [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 unicode-bom [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error ["never"]
 use-isnan [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"enforceForIndexOf":false,"enforceForSwitchCase":true}]
@@ -599,8 +615,6 @@ exports[`cloudflightVueConfig applies the expected rules to valid/OnlyTemplate.v
 @typescript-eslint/consistent-type-assertions [vue]: error [{"assertionStyle":"never"}]
 @typescript-eslint/consistent-type-definitions [vue]: error
 @typescript-eslint/default-param-last [vue]: error
-@typescript-eslint/explicit-function-return-type [vue]: error [{"allowExpressions":true}]
-@typescript-eslint/explicit-member-accessibility [vue]: error [{"accessibility":"explicit"}]
 @typescript-eslint/member-ordering [vue]: error [{"default":["static-field","field","signature","constructor","static-method","method"]}]
 @typescript-eslint/no-array-constructor [vue]: error
 @typescript-eslint/no-confusing-non-null-assertion [vue]: error
@@ -639,12 +653,14 @@ array-callback-return [vue]: error [{"allowImplicit":true,"checkForEach":false,"
 block-scoped-var [vue]: error
 camelcase [vue]: error [{"allow":[],"ignoreDestructuring":false,"ignoreGlobals":false,"ignoreImports":false,"properties":"never"}]
 complexity [vue]: error [{"max":20}]
+constructor-super [vue]: error
 curly [vue]: error ["all"]
 default-case-last [vue]: error
 eqeqeq [vue]: error ["always",{"null":"ignore"}]
 for-direction [vue]: error
 func-names [vue]: warn ["always",{}]
 func-style [vue]: error ["declaration",{"allowArrowFunctions":false,"allowTypeAnnotation":false,"overrides":{}}]
+getter-return [vue]: error [{"allowImplicit":true}]
 grouped-accessor-pairs [vue]: error ["anyOrder",{"enforceForTSTypes":false}]
 guard-for-in [vue]: error
 max-classes-per-file [vue]: error [1]
@@ -653,16 +669,21 @@ no-async-promise-executor [vue]: error
 no-bitwise [vue]: error [{"allow":[],"int32Hint":false}]
 no-caller [vue]: error
 no-case-declarations [vue]: error
+no-class-assign [vue]: error
 no-compare-neg-zero [vue]: error
 no-cond-assign [vue]: error ["always"]
 no-console [vue]: error [{}]
+no-const-assign [vue]: error
 no-constant-binary-expression [vue]: error [{"checkRelationalComparisons":false}]
 no-constant-condition [vue]: warn [{"checkLoops":"allExceptWhileTrue"}]
 no-constructor-return [vue]: error
 no-control-regex [vue]: error
 no-debugger [vue]: error
 no-delete-var [vue]: error
+no-dupe-args [vue]: error
+no-dupe-class-members [vue]: error
 no-dupe-else-if [vue]: error
+no-dupe-keys [vue]: error
 no-duplicate-case [vue]: error
 no-duplicate-imports [vue]: error [{"includeExports":false,"allowSeparateTypeImports":false}]
 no-else-return [vue]: error [{"allowElseIf":true}]
@@ -676,8 +697,10 @@ no-extend-native [vue]: error [{"exceptions":[]}]
 no-extra-bind [vue]: error
 no-extra-boolean-cast [vue]: error [{}]
 no-fallthrough [vue]: error [{"allowEmptyCase":false,"reportUnusedFallthroughComment":false}]
+no-func-assign [vue]: error
 no-global-assign [vue]: error [{"exceptions":[]}]
 no-implied-eval [vue]: error
+no-import-assign [vue]: error
 no-inner-declarations [vue]: error ["functions",{"blockScopedFunctions":"allow"}]
 no-invalid-regexp [vue]: error [{}]
 no-irregular-whitespace [vue]: error [{"skipComments":false,"skipJSXText":false,"skipRegExps":false,"skipStrings":true,"skipTemplates":false}]
@@ -695,14 +718,17 @@ no-multi-str [vue]: error
 no-nested-ternary [vue]: error
 no-new [vue]: error
 no-new-func [vue]: error
+no-new-native-nonconstructor [vue]: error
 no-new-wrappers [vue]: error
 no-nonoctal-decimal-escape [vue]: error
+no-obj-calls [vue]: error
 no-octal [vue]: error
 no-octal-escape [vue]: error
 no-param-reassign [vue]: error
 no-promise-executor-return [vue]: error [{"allowVoid":false}]
 no-proto [vue]: error
 no-prototype-builtins [vue]: error
+no-redeclare [vue]: error [{"builtinGlobals":true}]
 no-regex-spaces [vue]: error
 no-restricted-globals [vue]: error [{"name":"isFinite","message":"Use Number.isFinite instead https://github.com/airbnb/javascript#standard-library--isfinite"},{"name":"isNaN","message":"Use Number.isNaN instead https://github.com/airbnb/javascript#standard-library--isnan"},"addEventListener","blur","close","closed","confirm","defaultStatus","defaultstatus","event","external","find","focus","frameElement","frames","history","innerHeight","innerWidth","length","location","locationbar","menubar","moveBy","moveTo","name","onblur","onerror","onfocus","onload","onresize","onunload","open","opener","opera","outerHeight","outerWidth","pageXOffset","pageYOffset","parent","print","removeEventListener","resizeBy","resizeTo","screen","screenLeft","screenTop","screenX","screenY","scroll","scrollbars","scrollBy","scrollTo","scrollX","scrollY","self","status","statusbar","stop","toolbar","top"]
 no-restricted-properties [vue]: error [{"object":"arguments","property":"callee","message":"arguments.callee is deprecated"},{"object":"global","property":"isFinite","message":"Please use Number.isFinite instead"},{"object":"self","property":"isFinite","message":"Please use Number.isFinite instead"},{"object":"window","property":"isFinite","message":"Please use Number.isFinite instead"},{"object":"global","property":"isNaN","message":"Please use Number.isNaN instead"},{"object":"self","property":"isNaN","message":"Please use Number.isNaN instead"},{"object":"window","property":"isNaN","message":"Please use Number.isNaN instead"},{"property":"__defineGetter__","message":"Please use Object.defineProperty instead."},{"property":"__defineSetter__","message":"Please use Object.defineProperty instead."},{"object":"Math","property":"pow","message":"Use the exponentiation operator (**) instead."},{"property":"bypassSecurityTrustHtml","message":"Bypassing the sanitizer allows XSS, let Angular sanitize the value instead."},{"property":"bypassSecurityTrustStyle","message":"Bypassing the sanitizer allows XSS, let Angular sanitize the value instead."},{"property":"bypassSecurityTrustScript","message":"Bypassing the sanitizer allows XSS, let Angular sanitize the value instead."},{"property":"bypassSecurityTrustUrl","message":"Bypassing the sanitizer allows XSS, let Angular sanitize the value instead."},{"property":"bypassSecurityTrustResourceUrl","message":"Bypassing the sanitizer allows XSS, let Angular sanitize the value instead."}]
@@ -712,17 +738,22 @@ no-script-url [vue]: error
 no-self-assign [vue]: error [{"props":true}]
 no-self-compare [vue]: error
 no-sequences [vue]: error [{"allowInParentheses":true}]
+no-setter-return [vue]: error
 no-shadow-restricted-names [vue]: error [{"reportGlobalThis":true}]
 no-sparse-arrays [vue]: error
 no-template-curly-in-string [vue]: error
+no-this-before-super [vue]: error
 no-throw-literal [vue]: error
 no-unassigned-vars [vue]: error
+no-undef [vue]: error [{"typeof":false}]
 no-undef-init [vue]: error
 no-underscore-dangle [vue]: error [{"allow":[],"allowAfterSuper":false,"allowAfterThis":true,"allowAfterThisConstructor":false,"allowFunctionParams":true,"allowInArrayDestructuring":true,"allowInObjectDestructuring":true,"enforceInClassFields":false,"enforceInMethodNames":false}]
 no-unexpected-multiline [vue]: error
 no-unneeded-ternary [vue]: error [{"defaultAssignment":false}]
+no-unreachable [vue]: error
 no-unreachable-loop [vue]: error [{"ignore":[]}]
 no-unsafe-finally [vue]: error
+no-unsafe-negation [vue]: error [{"enforceForOrderingRelations":false}]
 no-unsafe-optional-chaining [vue]: error [{"disallowArithmeticOperators":true}]
 no-unsanitized/method [vue]: error
 no-unsanitized/property [vue]: error
@@ -737,6 +768,7 @@ no-useless-escape [vue]: error [{"allowRegexCharacters":[]}]
 no-useless-rename [vue]: error [{"ignoreDestructuring":false,"ignoreImport":false,"ignoreExport":false}]
 no-useless-return [vue]: error
 no-var [vue]: error
+no-with [vue]: error
 object-shorthand [vue]: error ["always"]
 one-var [vue]: error ["never"]
 one-var-declaration-per-line [vue]: error ["always"]

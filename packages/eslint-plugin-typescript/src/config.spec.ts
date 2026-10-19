@@ -46,6 +46,9 @@ describe('cloudflightTypescriptConfig', () => {
 
     it.each([
         'valid/typescript.ts',
+        'valid/javascript.js',
+        'valid/jsx.jsx',
+        'valid/commonjs.cjs',
     ])('reports nothing for %s', async (file) => {
         expect(await lintMessages(lintConfig(), file)).toEqual([]);
     });
@@ -109,6 +112,16 @@ describe('cloudflightTypescriptConfig', () => {
             expect(messages.filter((message) => message.fatal)).toEqual([]);
             expect(messages.map((message) => message.ruleId)).toContain('@typescript-eslint/no-floating-promises');
             expect(messages.map((message) => message.ruleId)).not.toContain('import-x/no-unresolved');
+        });
+    });
+
+    describe('javascript files', () => {
+        it('keeps the core rules that typescript covers', async () => {
+            const rules = await ruleIds(lintConfig(), 'javascript/core-rules.js');
+
+            expect(rules).toContain('no-const-assign');
+            // node and browser globals are declared, only the typo is undefined
+            expect(rules.filter((rule) => rule === 'no-undef')).toHaveLength(1);
         });
     });
 });

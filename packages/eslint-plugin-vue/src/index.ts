@@ -6,6 +6,7 @@ import {
     cloudflightTypedParserOptions,
     cloudflightTypescriptBaseConfig,
     cloudflightTypescriptConfig,
+    cloudflightTypescriptJavascriptRules,
     cloudflightTypescriptSecurityConfig,
 } from '@cloudflight/eslint-plugin-typescript';
 import {TSESLint} from '@typescript-eslint/utils';
@@ -109,6 +110,8 @@ function untypedSfcConfig(rootDirectory: string): FlatConfig.Config {
             .filter((file) => isTypescriptSfc(join(rootDirectory, file)))
             .map((file) => `**/${escapeGlob(file)}`),
         name: 'cloudflight/vue/untyped-sfc',
+        // like javascript files: the core rules instead of the typed ones
+        rules: {...tseslint.configs.disableTypeChecked.rules, ...cloudflightTypescriptJavascriptRules},
     };
 }
 

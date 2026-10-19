@@ -24,6 +24,8 @@ describe('cloudflightNodeConfig', () => {
 
     it.each([
         'valid/typescript.ts',
+        'valid/module.mjs',
+        'valid/commonjs.cjs',
     ])('reports nothing for %s', async (file) => {
         expect(await lintMessages(lintConfig(), file)).toEqual([]);
     });

@@ -37,7 +37,6 @@ export function cloudflightReactConfig(settings: CloudflightEslintPluginSettings
             languageOptions: {
                 parser: tseslint.parser,
                 ecmaVersion: 'latest',
-                sourceType: 'module',
                 parserOptions: {
                     jsxPragma: null,
                     ecmaFeatures: {

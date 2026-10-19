@@ -49,6 +49,13 @@ describe('cloudflightVueConfig', () => {
             expect(await ruleIds(lintConfig(), 'single-file-components/SingleQuote.vue')).toContain('@typescript-eslint/no-floating-promises');
         });
 
+        it('lints an SFC without a typescript script like a javascript file', async () => {
+            const rules = await ruleIds(lintConfig(), 'single-file-components/PlainScript.vue');
+
+            expect(rules).toContain('no-throw-literal');
+            expect(rules).not.toContain('@typescript-eslint/explicit-function-return-type');
+        });
+
         it('lints a javascript SFC that mentions lang="ts" only in a comment', async () => {
             // written before the config, which lists the typescript SFCs when it is created
             const file = join(fixtureDir, 'single-file-components/LangInComment.vue');

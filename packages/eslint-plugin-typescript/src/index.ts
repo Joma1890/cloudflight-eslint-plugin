@@ -8,6 +8,7 @@ import pluginImportX from 'eslint-plugin-import-x';
 import pluginNoUnsanitized from 'eslint-plugin-no-unsanitized';
 import pluginPerfectionist from 'eslint-plugin-perfectionist';
 import pluginSecurity from 'eslint-plugin-security';
+import globals from 'globals';
 import {type Dirent, existsSync, readdirSync} from 'node:fs';
 import {createRequire} from 'node:module';
 import {join, resolve} from 'node:path';
@@ -18,7 +19,7 @@ import {eslintRules} from './configs/eslint';
 import {formatRules} from './configs/format';
 import {importRules} from './configs/import';
 import {securityRules} from './configs/security';
-import {typescriptEslintDisableTypeCheckedRules, typescriptEslintRules} from './configs/typescript-eslint';
+import {javascriptRecommendedRules, typescriptEslintDisableTypeCheckedRules, typescriptEslintRules} from './configs/typescript-eslint';
 import {cloudflightTypescriptPlugin} from './rules';
 
 /**
@@ -100,15 +101,52 @@ function cloudflightTypescriptImportConfig(settings: CloudflightEslintPluginSett
     );
 }
 
+/**
+ * The rules javascript files get on top of typescript-eslint's disableTypeChecked: the core rules instead of the typed ones
+ * and the core rules the compiler covers in TypeScript. For the framework packages, projects use `cloudflightTypescriptConfig`.
+ */
+export const cloudflightTypescriptJavascriptRules: FlatConfig.Rules = {
+    ...javascriptRecommendedRules,
+    ...typescriptEslintDisableTypeCheckedRules,
+};
+
 // eslint-disable-next-line @typescript-eslint/no-deprecated -- tseslint.config is deprecated but defineConfig has type incompatibilities with typescript-eslint
 const cloudflightTypescriptDisableTypeCheckedConfig = tseslint.config({
     files: ['**/*.{js,jsx,mjs,cjs}'],
     extends: [tseslint.configs.disableTypeChecked],
     name: 'cloudflight/typescript/disable-type-checked-rules',
-    rules: {
-        ...typescriptEslintDisableTypeCheckedRules,
+    languageOptions: {
+        // javascript files are tooling or browser scripts, both environments are declared
+        globals: {...globals.node, ...globals.browser},
     },
+    rules: cloudflightTypescriptJavascriptRules,
 });
+
+// .cjs files are commonjs, whatever the package type says
+const cloudflightTypescriptCommonjsConfig: FlatConfig.Config[] = [
+    {
+        files: ['**/*.cjs'],
+        name: 'cloudflight/typescript/commonjs',
+        languageOptions: {
+            sourceType: 'commonjs',
+            // top-level declarations belong to the module, not to the global scope
+            parserOptions: {ecmaFeatures: {globalReturn: true}},
+        },
+        rules: {
+            '@typescript-eslint/no-require-imports': 'off',
+            // in commonjs 'use strict' changes the semantics of the file
+            strict: 'off',
+        },
+    },
+    {
+        files: ['**/*.cts'],
+        name: 'cloudflight/typescript/commonjs-typescript',
+        rules: {
+            // import x = require('x') is how a .cts file imports a commonjs module
+            '@typescript-eslint/no-require-imports': ['error', {allowAsImport: true}],
+        },
+    },
+];
 
 export interface CloudflightEslintPluginSettings {
     /**
@@ -190,7 +228,10 @@ export function cloudflightTypescriptConfig(settings: CloudflightEslintPluginSet
         ...cloudflightTypescriptSecurityConfig,
         ...cloudflightTypescriptImportConfig(settings),
         ...cloudflightTypescriptDisableTypeCheckedConfig,
+        ...cloudflightTypescriptCommonjsConfig,
         {
+            files: ['**/*.{ts,mts,cts,tsx}'],
+            name: 'cloudflight/typescript/typed-parser',
             languageOptions: {
                 parserOptions: cloudflightTypedParserOptions(settings),
             },
