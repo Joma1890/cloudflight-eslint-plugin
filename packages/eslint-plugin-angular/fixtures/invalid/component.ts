@@ -17,6 +17,11 @@ export class InvalidComponent {
         this.load();
     }
 
+    // no-restricted-properties, the value would be inserted without sanitizing
+    public trust(sanitizer: {bypassSecurityTrustHtml(value: string): unknown}, html: string): unknown {
+        return sanitizer.bypassSecurityTrustHtml(html);
+    }
+
     private async load(): Promise<string> {
         return Promise.resolve('data');
     }

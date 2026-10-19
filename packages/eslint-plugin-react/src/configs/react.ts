@@ -19,4 +19,6 @@ export const reactRules: TSESLint.Linter.RulesRecord = {
         },
     ],
     'react/no-array-index-key': 'error',
+    // like innerHTML, which no-unsanitized reports
+    'react/no-danger': 'error',
 };

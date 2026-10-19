@@ -2,9 +2,12 @@ async function fetchData(): Promise<string> {
     return Promise.resolve('data');
 }
 
-export function run(element: HTMLElement): void {
+export function run(element: HTMLElement, userInput: string): void {
     // @typescript-eslint/no-floating-promises, needs type information
     fetchData();
+
+    // no-unsanitized/property
+    element.innerHTML = userInput;
 
     // @cloudflight/typescript/no-on-event-assign
     element.onclick = (): void => {};

@@ -3,8 +3,6 @@ import type {Linter} from 'eslint';
 
 import {CloudflightEslintPluginSettings, cloudflightTypescriptConfig} from '@cloudflight/eslint-plugin-typescript';
 import pluginNode from 'eslint-plugin-n';
-import nounsanitized from 'eslint-plugin-no-unsanitized';
-import pluginSecurity from 'eslint-plugin-security';
 import tseslint from 'typescript-eslint';
 
 import {importRules} from './configs/import';
@@ -19,8 +17,6 @@ export function cloudflightNodeConfig(settings: CloudflightEslintPluginSettings)
             files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
             extends: [
                 pluginNode.configs['flat/recommended'],
-                nounsanitized.configs.recommended,
-                pluginSecurity.configs.recommended,
             ],
             name: 'cloudflight/node/rules',
             rules: {

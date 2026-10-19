@@ -210,7 +210,7 @@ no-proto [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-prototype-builtins [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-regex-spaces [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-restricted-globals [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"name":"isFinite","message":"Use Number.isFinite instead https://github.com/airbnb/javascript#standard-library--isfinite"},{"name":"isNaN","message":"Use Number.isNaN instead https://github.com/airbnb/javascript#standard-library--isnan"},"addEventListener","blur","close","closed","confirm","defaultStatus","defaultstatus","event","external","find","focus","frameElement","frames","history","innerHeight","innerWidth","length","location","locationbar","menubar","moveBy","moveTo","name","onblur","onerror","onfocus","onload","onresize","onunload","open","opener","opera","outerHeight","outerWidth","pageXOffset","pageYOffset","parent","print","removeEventListener","resizeBy","resizeTo","screen","screenLeft","screenTop","screenX","screenY","scroll","scrollbars","scrollBy","scrollTo","scrollX","scrollY","self","status","statusbar","stop","toolbar","top"]
-no-restricted-properties [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"object":"arguments","property":"callee","message":"arguments.callee is deprecated"},{"object":"global","property":"isFinite","message":"Please use Number.isFinite instead"},{"object":"self","property":"isFinite","message":"Please use Number.isFinite instead"},{"object":"window","property":"isFinite","message":"Please use Number.isFinite instead"},{"object":"global","property":"isNaN","message":"Please use Number.isNaN instead"},{"object":"self","property":"isNaN","message":"Please use Number.isNaN instead"},{"object":"window","property":"isNaN","message":"Please use Number.isNaN instead"},{"property":"__defineGetter__","message":"Please use Object.defineProperty instead."},{"property":"__defineSetter__","message":"Please use Object.defineProperty instead."},{"object":"Math","property":"pow","message":"Use the exponentiation operator (**) instead."}]
+no-restricted-properties [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"object":"arguments","property":"callee","message":"arguments.callee is deprecated"},{"object":"global","property":"isFinite","message":"Please use Number.isFinite instead"},{"object":"self","property":"isFinite","message":"Please use Number.isFinite instead"},{"object":"window","property":"isFinite","message":"Please use Number.isFinite instead"},{"object":"global","property":"isNaN","message":"Please use Number.isNaN instead"},{"object":"self","property":"isNaN","message":"Please use Number.isNaN instead"},{"object":"window","property":"isNaN","message":"Please use Number.isNaN instead"},{"property":"__defineGetter__","message":"Please use Object.defineProperty instead."},{"property":"__defineSetter__","message":"Please use Object.defineProperty instead."},{"object":"Math","property":"pow","message":"Use the exponentiation operator (**) instead."},{"property":"bypassSecurityTrustHtml","message":"Bypassing the sanitizer allows XSS, let Angular sanitize the value instead."},{"property":"bypassSecurityTrustStyle","message":"Bypassing the sanitizer allows XSS, let Angular sanitize the value instead."},{"property":"bypassSecurityTrustScript","message":"Bypassing the sanitizer allows XSS, let Angular sanitize the value instead."},{"property":"bypassSecurityTrustUrl","message":"Bypassing the sanitizer allows XSS, let Angular sanitize the value instead."},{"property":"bypassSecurityTrustResourceUrl","message":"Bypassing the sanitizer allows XSS, let Angular sanitize the value instead."}]
 no-restricted-syntax [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"selector":"LabeledStatement","message":"Labels are a form of GOTO; using them makes code confusing and hard to maintain and understand."},{"selector":"WithStatement","message":"\`with\` is disallowed in strict mode because it makes code impossible to predict and optimize."}]
 no-return-assign [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error ["always"]
 no-script-url [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
@@ -229,6 +229,8 @@ no-unreachable-loop [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"ignore":[]}
 no-unsafe-finally [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-unsafe-negation [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"enforceForOrderingRelations":false}]
 no-unsafe-optional-chaining [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"disallowArithmeticOperators":true}]
+no-unsanitized/method [ts, mts, cts, js, mjs, cjs]: error
+no-unsanitized/property [ts, mts, cts, js, mjs, cjs]: error
 no-unused-expressions [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"allowShortCircuit":false,"allowTernary":false,"allowTaggedTemplates":false,"enforceForJSX":true,"ignoreDirectives":false}]
 no-unused-labels [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-unused-private-class-members [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
@@ -283,6 +285,7 @@ react/jsx-no-undef [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 react/jsx-uses-vars [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 react/no-array-index-key [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 react/no-children-prop [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
+react/no-danger [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 react/no-danger-with-children [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 react/no-deprecated [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 react/no-direct-mutation-state [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
@@ -297,6 +300,10 @@ react/require-render-return [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 react/sort-comp [ts, mts, cts, tsx, js, mjs, cjs, jsx]: warn [{"order":["type-annotations","static-variables","instance-variables","lifecycle","static-methods","instance-methods","everything-else","render"]}]
 react/static-property-placement [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error ["static public field"]
 require-yield [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
+security/detect-bidi-characters [ts, mts, cts, js, mjs, cjs]: error
+security/detect-disable-mustache-escape [ts, mts, cts, js, mjs, cjs]: warn
+security/detect-non-literal-regexp [ts, mts, cts, js, mjs, cjs]: warn
+security/detect-unsafe-regex [ts, mts, cts, js, mjs, cjs]: warn
 strict [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error ["never"]
 symbol-description [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 unicode-bom [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error ["never"]

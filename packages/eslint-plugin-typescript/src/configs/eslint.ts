@@ -238,6 +238,27 @@ export const eslintRules: TSESLint.Linter.RulesRecord = {
             property: 'pow',
             message: 'Use the exponentiation operator (**) instead.',
         },
+        // the DomSanitizer bypasses of angular insert the value unsanitized, like innerHTML
+        {
+            property: 'bypassSecurityTrustHtml',
+            message: 'Bypassing the sanitizer allows XSS, let Angular sanitize the value instead.',
+        },
+        {
+            property: 'bypassSecurityTrustStyle',
+            message: 'Bypassing the sanitizer allows XSS, let Angular sanitize the value instead.',
+        },
+        {
+            property: 'bypassSecurityTrustScript',
+            message: 'Bypassing the sanitizer allows XSS, let Angular sanitize the value instead.',
+        },
+        {
+            property: 'bypassSecurityTrustUrl',
+            message: 'Bypassing the sanitizer allows XSS, let Angular sanitize the value instead.',
+        },
+        {
+            property: 'bypassSecurityTrustResourceUrl',
+            message: 'Bypassing the sanitizer allows XSS, let Angular sanitize the value instead.',
+        },
     ],
     'no-labels': [
         'error',

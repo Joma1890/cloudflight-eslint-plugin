@@ -44,6 +44,7 @@ describe('cloudflightAngularConfig', () => {
         ['template rules in inline templates', 'invalid/component.ts', '@angular-eslint/template/button-has-type'],
         ['typescript-eslint rules with type information', 'invalid/component.ts', '@typescript-eslint/no-floating-promises'],
         ['template rules in html files', 'invalid/template.html', '@angular-eslint/template/button-has-type'],
+        ['sanitizer bypass rules', 'invalid/component.ts', 'no-restricted-properties'],
     ])('applies the %s', async (_layer, file, rule) => {
         expect(await ruleIds(lintConfig(), file)).toContain(rule);
     });

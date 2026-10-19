@@ -4,13 +4,16 @@ import type {Linter} from 'eslint';
 import pluginJs from '@eslint/js';
 import pluginStylistic from '@stylistic/eslint-plugin';
 import pluginImportX from 'eslint-plugin-import-x';
+import pluginNoUnsanitized from 'eslint-plugin-no-unsanitized';
 import pluginPerfectionist from 'eslint-plugin-perfectionist';
+import pluginSecurity from 'eslint-plugin-security';
 import tseslint, {InfiniteDepthConfigWithExtends} from 'typescript-eslint';
 
 import {customRules} from './configs/custom';
 import {eslintRules} from './configs/eslint';
 import {formatRules} from './configs/format';
 import {importRules} from './configs/import';
+import {securityRules} from './configs/security';
 import {typescriptEslintDisableTypeCheckedRules, typescriptEslintRules} from './configs/typescript-eslint';
 import {cloudflightTypescriptPlugin} from './rules';
 
@@ -35,6 +38,26 @@ export const cloudflightTypescriptBaseConfig: Linter.Config[] = eslintConfigs(ts
             ...eslintRules,
             ...typescriptEslintRules,
             ...customRules,
+        },
+    },
+));
+
+/**
+ * The rules of eslint-plugin-security and eslint-plugin-no-unsanitized. For the framework packages,
+ * projects use `cloudflightTypescriptConfig`.
+ */
+// eslint-disable-next-line @typescript-eslint/no-deprecated -- tseslint.config is deprecated but defineConfig has type incompatibilities with typescript-eslint
+export const cloudflightTypescriptSecurityConfig: Linter.Config[] = eslintConfigs(tseslint.config(
+    {
+        files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
+        // the rules are listed, a plugin update cannot add one
+        plugins: {
+            'security': pluginSecurity,
+            'no-unsanitized': pluginNoUnsanitized,
+        },
+        name: 'cloudflight/typescript/security-rules',
+        rules: {
+            ...securityRules,
         },
     },
 ));
@@ -105,6 +128,9 @@ export function cloudflightTypescriptFormatConfig(settings: CloudflightEslintPlu
                 '@cloudflight/typescript': cloudflightTypescriptPlugin,
                 '@stylistic': pluginStylistic,
                 'perfectionist': pluginPerfectionist,
+                // no security rules in the format config, but the plugins have to be known for disable comments
+                'security': pluginSecurity,
+                'no-unsanitized': pluginNoUnsanitized,
             },
             languageOptions: {
                 parser: tseslint.parser,
@@ -127,6 +153,7 @@ export function cloudflightTypescriptConfig(settings: CloudflightEslintPluginSet
     return eslintConfigs([
         // eslint-disable-next-line @typescript-eslint/no-deprecated
         ...cloudflightTypescriptBaseConfig,
+        ...cloudflightTypescriptSecurityConfig,
         // eslint-disable-next-line @typescript-eslint/no-deprecated
         ...cloudflightTypescriptImportConfig(settings),
         // eslint-disable-next-line @typescript-eslint/no-deprecated

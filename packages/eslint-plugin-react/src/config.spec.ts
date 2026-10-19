@@ -42,6 +42,7 @@ describe('cloudflightReactConfig', () => {
         ['react hooks rules', 'invalid/component.tsx', 'react-hooks/rules-of-hooks'],
         ['accessibility rules', 'invalid/component.tsx', 'jsx-a11y/alt-text'],
         ['typescript-eslint rules with type information', 'invalid/component.tsx', '@typescript-eslint/no-floating-promises'],
+        ['jsx security rules', 'invalid/component.tsx', 'react/no-danger'],
     ])('applies the %s', async (_layer, file, rule) => {
         expect(await ruleIds(lintConfig(), file)).toContain(rule);
     });

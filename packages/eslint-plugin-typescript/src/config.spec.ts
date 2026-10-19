@@ -53,6 +53,7 @@ describe('cloudflightTypescriptConfig', () => {
         ['core rules', 'invalid/typescript.ts', 'no-var'],
         ['typescript-eslint rules with type information', 'invalid/typescript.ts', '@typescript-eslint/no-floating-promises'],
         ['import rules', 'invalid/typescript.ts', 'import-x/no-mutable-exports'],
+        ['security rules', 'invalid/typescript.ts', 'no-unsanitized/property'],
         ['custom rules', 'invalid/typescript.ts', '@cloudflight/typescript/no-on-event-assign'],
     ])('applies the %s', async (_layer, file, rule) => {
         expect(await ruleIds(lintConfig(), file)).toContain(rule);

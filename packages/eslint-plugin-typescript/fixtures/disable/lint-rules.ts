@@ -4,3 +4,7 @@ export const first = 1;
 export const second = 1;
 // eslint-disable-next-line @cloudflight/typescript/no-on-event-assign
 export const third = 1;
+// eslint-disable-next-line security/detect-unsafe-regex
+export const fourth = 1;
+// eslint-disable-next-line no-unsanitized/property
+export const fifth = 1;

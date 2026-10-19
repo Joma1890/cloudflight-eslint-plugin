@@ -21,6 +21,8 @@ export function BrokenList(props: {items: string[]; eager: boolean}): JSX.Elemen
             {entries}
             {/* jsx-a11y/alt-text: image without alt attribute */}
             <img src="logo.png" />
+            {/* react/no-danger, like innerHTML */}
+            <li dangerouslySetInnerHTML={{__html: ''}} />
         </ul>
     );
 }
