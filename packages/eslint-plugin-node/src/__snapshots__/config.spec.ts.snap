@@ -69,7 +69,6 @@ exports[`cloudflightNodeConfig applies the expected rules to each file type 1`] 
 @typescript-eslint/no-useless-constructor [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 @typescript-eslint/no-useless-default-assignment [ts, mts, cts, tsx]: error
 @typescript-eslint/no-wrapper-object-types [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
-@typescript-eslint/non-nullable-type-assertion-style [ts, mts, cts, tsx]: error
 @typescript-eslint/only-throw-error [ts, mts, cts, tsx]: error
 @typescript-eslint/prefer-as-const [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 @typescript-eslint/prefer-find [ts, mts, cts, tsx]: error
@@ -127,7 +126,7 @@ import-x/no-unresolved [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 import-x/no-useless-path-segments [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 max-classes-per-file [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [1]
 n/global-require [ts, mts, cts, js, mjs, cjs]: error
-n/hashbang [ts, mts, cts, js, mjs, cjs]: error
+n/hashbang [js, mjs, cjs]: error
 n/no-deprecated-api [ts, mts, cts, js, mjs, cjs]: error
 n/no-exports-assign [ts, mts, cts, js, mjs, cjs]: error
 n/no-extraneous-import [ts, mts, cts, js, mjs, cjs]: error

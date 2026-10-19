@@ -70,6 +70,8 @@ Angular 21 and older.
 -   typescript-eslint 8.70 adds `@typescript-eslint/no-generated-empty-object-type` to its strict preset
 -   `no-duplicate-imports` is replaced by `import-x/no-duplicates`, which accepts an `import type` next to a value
     import from the same module
+-   `@typescript-eslint/non-nullable-type-assertion-style` is off, its fix wrote a `!` that `no-non-null-assertion`
+    reports
 -   unused disable comments are no longer reported, in the lint run a comment for a format rule looks unused and
     `--fix` would delete it
 
@@ -99,12 +101,14 @@ Angular 21 and older.
 -   `react-hooks/void-use-memo` is off, the config uses the stable `recommended` preset instead of
     `recommended-latest`
 -   `react/no-danger` reports `dangerouslySetInnerHTML`, like `no-unsanitized` reports `innerHTML`
+-   `react/jsx-fragments` is off, `<>` is allowed
 
 **Node**
 
 -   `n/no-unpublished-bin` is no longer part of the eslint-plugin-n preset
 -   `n/no-sync` is off in JavaScript files, eslint-plugin-n 18 needs type information for it
 -   the `.js` files of a CommonJS package are linted as CommonJS too
+-   `n/hashbang` is off in TypeScript files, its fix deleted the shebang of a CLI
 
 ## Contributing
 

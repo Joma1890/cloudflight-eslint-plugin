@@ -59,6 +59,8 @@ export const typescriptEslintRules: TSESLint.Linter.RulesRecord = {
     '@typescript-eslint/require-await': 'error',
     '@typescript-eslint/strict-boolean-expressions': 'error',
     '@typescript-eslint/switch-exhaustiveness-check': 'error',
+    // its fix writes value!, which no-non-null-assertion forbids
+    '@typescript-eslint/non-nullable-type-assertion-style': 'off',
 };
 
 function restoreCompilerCoveredRules(): TSESLint.Linter.RulesRecord {

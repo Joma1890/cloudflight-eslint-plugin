@@ -38,6 +38,7 @@ describe('cloudflightNodeConfig', () => {
         'valid/commonjs.js',
         'valid/module.mjs',
         'valid/commonjs.cjs',
+        'valid/cli.ts',
     ])('reports nothing for %s', async (file) => {
         expect(await lintMessages(lintConfig(), file)).toEqual([]);
     });

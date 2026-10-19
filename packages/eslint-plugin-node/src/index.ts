@@ -35,6 +35,14 @@ export function cloudflightNodeConfig(settings: CloudflightEslintPluginSettings)
                 'n/no-sync': 'off',
             },
         },
+        {
+            files: ['**/*.{ts,mts,cts}'],
+            name: 'cloudflight/node/typescript-rules',
+            rules: {
+                // the shebang of a typescript cli is for the built file, n/hashbang only sees the source and its fix deletes it
+                'n/hashbang': 'off',
+            },
+        },
         // .cjs and .mjs do not depend on the package type
         {
             files: ['**/*.{cjs,cts}'],

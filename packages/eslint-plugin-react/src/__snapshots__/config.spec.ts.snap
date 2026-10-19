@@ -69,7 +69,6 @@ exports[`cloudflightReactConfig applies the expected rules to each file type 1`]
 @typescript-eslint/no-useless-constructor [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 @typescript-eslint/no-useless-default-assignment [ts, mts, cts, tsx]: error
 @typescript-eslint/no-wrapper-object-types [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
-@typescript-eslint/non-nullable-type-assertion-style [ts, mts, cts, tsx]: error
 @typescript-eslint/only-throw-error [ts, mts, cts, tsx]: error
 @typescript-eslint/prefer-as-const [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 @typescript-eslint/prefer-find [ts, mts, cts, tsx]: error
@@ -293,7 +292,6 @@ react-hooks/static-components [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 react-hooks/unsupported-syntax [ts, mts, cts, tsx, js, mjs, cjs, jsx]: warn
 react-hooks/use-memo [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 react/display-name [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
-react/jsx-fragments [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error ["element"]
 react/jsx-key [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 react/jsx-no-comment-textnodes [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 react/jsx-no-duplicate-props [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error

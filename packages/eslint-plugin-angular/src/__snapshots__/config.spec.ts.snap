@@ -125,7 +125,6 @@ exports[`cloudflightAngularConfig applies the expected rules to each file type 1
 @typescript-eslint/no-useless-constructor [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 @typescript-eslint/no-useless-default-assignment [ts, mts, cts, tsx]: error
 @typescript-eslint/no-wrapper-object-types [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
-@typescript-eslint/non-nullable-type-assertion-style [ts, mts, cts, tsx]: error
 @typescript-eslint/only-throw-error [ts, mts, cts, tsx]: error
 @typescript-eslint/prefer-as-const [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 @typescript-eslint/prefer-find [ts, mts, cts, tsx]: error
