@@ -71,6 +71,7 @@ exports[`cloudflightAngularConfig applies the expected rules to each file type 1
 @typescript-eslint/no-extraneous-class [tsx, js, mjs, cjs, jsx]: error
 @typescript-eslint/no-floating-promises [ts, mts, cts, tsx]: error [{"ignoreVoid":true}]
 @typescript-eslint/no-for-in-array [ts, mts, cts, tsx]: error
+@typescript-eslint/no-generated-empty-object-type [ts, mts, cts, tsx]: error
 @typescript-eslint/no-implied-eval [ts, mts, cts, tsx]: error
 @typescript-eslint/no-inferrable-types [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"ignoreParameters":true}]
 @typescript-eslint/no-invalid-this [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"capIsConstructor":true}]
