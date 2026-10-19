@@ -1,0 +1,72 @@
+import {type ESLint} from 'eslint';
+import {join} from 'node:path';
+
+import {
+    appliedRules,
+    createEslint,
+    fixFile,
+    formatCases,
+    javascriptFiles,
+    lintMessages,
+    readWithUnixLineEndings,
+    ruleIds,
+    typescriptFiles,
+} from '../../../test/eslint-helpers';
+import {cloudflightReactConfig, cloudflightReactFormatConfig} from './index';
+
+const fixtureDir = join(__dirname, '..', 'fixtures');
+const inputDir = join(fixtureDir, 'format', 'input');
+const expectedDir = join(fixtureDir, 'format', 'expected');
+
+function lintConfig(): ESLint {
+    return createEslint(fixtureDir, cloudflightReactConfig({rootDirectory: fixtureDir}));
+}
+
+function formatConfig(fix = false): ESLint {
+    return createEslint(fixtureDir, cloudflightReactFormatConfig({rootDirectory: fixtureDir}), fix);
+}
+
+describe('cloudflightReactConfig', () => {
+    it('applies the expected rules to each file type', async () => {
+        expect(await appliedRules(lintConfig(), fixtureDir, [...typescriptFiles, ...javascriptFiles])).toMatchSnapshot();
+    });
+
+    it.each([
+        'valid/component.tsx',
+    ])('reports nothing for %s', async (file) => {
+        expect(await lintMessages(lintConfig(), file)).toEqual([]);
+    });
+
+    it.each([
+        ['react rules', 'invalid/component.tsx', 'react/jsx-key'],
+        ['react hooks rules', 'invalid/component.tsx', 'react-hooks/rules-of-hooks'],
+        ['accessibility rules', 'invalid/component.tsx', 'jsx-a11y/alt-text'],
+        ['typescript-eslint rules with type information', 'invalid/component.tsx', '@typescript-eslint/no-floating-promises'],
+    ])('applies the %s', async (_layer, file, rule) => {
+        expect(await ruleIds(lintConfig(), file)).toContain(rule);
+    });
+});
+
+describe('cloudflightReactFormatConfig', () => {
+    it('applies the expected rules to each file type', async () => {
+        expect(await appliedRules(formatConfig(), fixtureDir, [...typescriptFiles, ...javascriptFiles])).toMatchSnapshot();
+    });
+
+    it.each(formatCases(inputDir))('formats %s', async (file) => {
+        const result = await fixFile(formatConfig(true), join(inputDir, file));
+
+        expect(result.output).toBe(readWithUnixLineEndings(join(expectedDir, file)));
+        expect(result.messages).toEqual([]);
+    });
+
+    it.each(formatCases(inputDir))('changes nothing in the formatted %s', async (file) => {
+        const result = await fixFile(formatConfig(true), join(expectedDir, file));
+
+        expect(result.output).toBe(readWithUnixLineEndings(join(expectedDir, file)));
+        expect(result.messages).toEqual([]);
+    });
+
+    it.each(formatCases(inputDir))('leaves no lint findings in the formatted %s', async (file) => {
+        expect(await lintMessages(lintConfig(), join(expectedDir, file))).toEqual([]);
+    });
+});
