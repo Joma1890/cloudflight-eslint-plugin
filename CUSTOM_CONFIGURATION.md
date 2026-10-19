@@ -66,6 +66,23 @@ export default [
 ];
 ```
 
+If your code has disable comments for the rules of such a plugin, register the plugin in `eslint.format.mjs` as well, without
+rules. Otherwise the format run fails with `Definition for rule '…' was not found`.
+
+```js
+import {cloudflightTypescriptFormatConfig} from '@cloudflight/eslint-plugin-typescript';
+import storybook from 'eslint-plugin-storybook';
+
+export default [
+    ...cloudflightTypescriptFormatConfig({
+        rootDirectory: import.meta.dirname,
+    }),
+    {
+        plugins: {storybook},
+    },
+];
+```
+
 ## Disabling rules
 
 ```js

@@ -1,7 +1,7 @@
 import type {FlatConfig} from '@typescript-eslint/utils/ts-eslint';
 import type {Linter} from 'eslint';
 
-import {CloudflightEslintPluginSettings, cloudflightTypescriptConfig} from '@cloudflight/eslint-plugin-typescript';
+import {CloudflightEslintPluginSettings, cloudflightTypescriptConfig, cloudflightTypescriptFormatConfig} from '@cloudflight/eslint-plugin-typescript';
 import pluginNode from 'eslint-plugin-n';
 import {existsSync, readFileSync} from 'node:fs';
 import {join} from 'node:path';
@@ -48,6 +48,20 @@ export function cloudflightNodeConfig(settings: CloudflightEslintPluginSettings)
         },
         ...commonjsJavascriptConfig(settings.rootDirectory),
     ));
+}
+
+export function cloudflightNodeFormatConfig(settings: CloudflightEslintPluginSettings): Linter.Config[] {
+    return eslintConfigs([
+        ...cloudflightTypescriptFormatConfig(settings),
+        {
+            files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
+            name: 'cloudflight/node/format-plugins',
+            // no rules, only so that disable comments for the node rules are known in the format run
+            plugins: {
+                n: pluginNode,
+            },
+        },
+    ]);
 }
 
 // typescript-eslint's config type is not accepted by eslint's defineConfig or a typed eslint.config.ts

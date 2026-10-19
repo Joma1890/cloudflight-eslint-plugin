@@ -55,6 +55,15 @@ describe('cloudflightReactConfig', () => {
             expect(await ruleIds(lintConfig(), 'javascript/undefined-component.jsx')).toContain('react/jsx-no-undef');
         });
     });
+
+    describe('disable comments', () => {
+        it('knows the format rules', async () => {
+            const messages = await lintMessages(lintConfig(), 'disable/format-rules.tsx');
+
+            // neither unknown nor reported as unused, lint --fix would delete an unused directive
+            expect(messages).toEqual([]);
+        });
+    });
 });
 
 describe('cloudflightReactFormatConfig', () => {

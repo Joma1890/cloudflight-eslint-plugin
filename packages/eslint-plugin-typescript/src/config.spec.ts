@@ -124,6 +124,15 @@ describe('cloudflightTypescriptConfig', () => {
             expect(rules.filter((rule) => rule === 'no-undef')).toHaveLength(1);
         });
     });
+
+    describe('disable comments', () => {
+        it('knows the format rules', async () => {
+            const messages = await lintMessages(lintConfig(), 'disable/format-rules.ts');
+
+            // neither unknown nor reported as unused, lint --fix would delete an unused directive
+            expect(messages).toEqual([]);
+        });
+    });
 });
 
 describe('cloudflightTypescriptFormatConfig', () => {

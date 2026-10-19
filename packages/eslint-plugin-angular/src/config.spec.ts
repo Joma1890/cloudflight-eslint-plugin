@@ -48,6 +48,15 @@ describe('cloudflightAngularConfig', () => {
     ])('applies the %s', async (_layer, file, rule) => {
         expect(await ruleIds(lintConfig(), file)).toContain(rule);
     });
+
+    describe('disable comments', () => {
+        it('knows the format rules', async () => {
+            const messages = await lintMessages(lintConfig(), 'disable/format-rules.ts');
+
+            // neither unknown nor reported as unused, lint --fix would delete an unused directive
+            expect(messages).toEqual([]);
+        });
+    });
 });
 
 describe('cloudflightAngularFormatConfig', () => {

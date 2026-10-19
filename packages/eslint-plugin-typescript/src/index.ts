@@ -235,6 +235,23 @@ export function cloudflightTypescriptConfig(settings: CloudflightEslintPluginSet
         ...cloudflightTypescriptDisableTypeCheckedConfig,
         ...cloudflightTypescriptCommonjsConfig,
         {
+            files: ['**/*.{js,jsx,mjs,cjs,ts,mts,cts,tsx}'],
+            name: 'cloudflight/typescript/format-plugins',
+            // no rules, only so that disable comments for the format rules are known in the lint run
+            plugins: {
+                '@stylistic': pluginStylistic,
+                'perfectionist': pluginPerfectionist,
+            },
+        },
+        {
+            name: 'cloudflight/typescript/linter-options',
+            linterOptions: {
+                // a disable comment for a format rule suppresses nothing in the lint run,
+                // --fix and the fix-all of an editor would delete it as unused
+                reportUnusedDisableDirectives: 'off',
+            },
+        },
+        {
             files: ['**/*.{ts,mts,cts,tsx}'],
             name: 'cloudflight/typescript/typed-parser',
             languageOptions: {

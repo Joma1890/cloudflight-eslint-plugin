@@ -46,7 +46,7 @@ Angular 21 and older.
 5. If you import `cloudflightTypescriptImportConfig` or `cloudflightTypescriptDisableTypeCheckedConfig`, use
    `cloudflightTypescriptConfig` instead; both are no longer exported.
 6. If your project uses the format config, switch `eslint.format.mjs` to the format config of your framework package;
-   `cloudflightAngularFormatConfig` also formats the templates. Vue and Node have no format config of their own and keep
+   `cloudflightAngularFormatConfig` also formats the templates. Vue has no format config of its own and keeps
    `cloudflightTypescriptFormatConfig`. If your project lists `@cloudflight/eslint-plugin-typescript` itself, update it
    to the same version, otherwise the format run silently stays on the 1.x rules.
 7. Then reformat once with `eslint -c eslint.format.mjs --fix .`: multiline enums get a trailing comma and the `?` and
@@ -70,6 +70,8 @@ Angular 21 and older.
 -   typescript-eslint 8.70 adds `@typescript-eslint/no-generated-empty-object-type` to its strict preset
 -   `no-duplicate-imports` is replaced by `import-x/no-duplicates`, which accepts an `import type` next to a value
     import from the same module
+-   unused disable comments are no longer reported, in the lint run a comment for a format rule looks unused and
+    `--fix` would delete it
 
 **Angular**
 
