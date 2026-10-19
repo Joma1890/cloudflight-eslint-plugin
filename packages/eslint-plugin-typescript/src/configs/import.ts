@@ -11,4 +11,6 @@ export const importRules: TSESLint.Linter.RulesRecord = {
     'import-x/no-duplicates': 'error',
     'import-x/no-self-import': 'error',
     'import-x/export': 'error',
+    // same as the core no-duplicate-imports but understands type imports, the core rule stays on for .vue files
+    'no-duplicate-imports': 'off',
 };

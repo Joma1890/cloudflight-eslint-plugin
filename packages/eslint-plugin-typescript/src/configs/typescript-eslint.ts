@@ -4,6 +4,21 @@ import pluginJs from '@eslint/js';
 import tseslint from 'typescript-eslint';
 
 export const typescriptEslintRules: TSESLint.Linter.RulesRecord = {
+    // turned on in configs/eslint.ts, the presets run the typed replacements and both would report the same problem
+    'no-implied-eval': 'off',
+    'no-throw-literal': 'off',
+    'no-unused-expressions': 'off',
+    'prefer-promise-reject-errors': 'off',
+    // same options as the core rule in configs/eslint.ts
+    '@typescript-eslint/no-unused-expressions': [
+        'error',
+        {
+            allowShortCircuit: false,
+            allowTernary: false,
+            allowTaggedTemplates: false,
+            enforceForJSX: true,
+        },
+    ],
     // generic constructor style is not enforced, both `new Map<string, number>()`
     // and `const map: Map<string, number> = new Map()` are fine
     '@typescript-eslint/consistent-generic-constructors': 'off',
@@ -65,4 +80,10 @@ export const javascriptRecommendedRules: TSESLint.Linter.RulesRecord = restoreCo
 export const typescriptEslintDisableTypeCheckedRules: TSESLint.Linter.RulesRecord = {
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/explicit-member-accessibility': 'off',
+    // javascript files have no type information, the core rules run instead of the typed replacements
+    'dot-notation': 'error',
+    'no-implied-eval': 'error',
+    'no-throw-literal': 'error',
+    'prefer-promise-reject-errors': 'error',
+    'require-await': 'error',
 };

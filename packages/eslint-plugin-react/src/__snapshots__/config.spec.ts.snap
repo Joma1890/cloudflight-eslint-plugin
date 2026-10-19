@@ -64,7 +64,7 @@ exports[`cloudflightReactConfig applies the expected rules to each file type 1`]
 @typescript-eslint/no-unsafe-member-access [ts, mts, cts, tsx]: error
 @typescript-eslint/no-unsafe-return [ts, mts, cts, tsx]: error
 @typescript-eslint/no-unsafe-unary-minus [ts, mts, cts, tsx]: error
-@typescript-eslint/no-unused-expressions [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"allowShortCircuit":false,"allowTaggedTemplates":false,"allowTernary":false}]
+@typescript-eslint/no-unused-expressions [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"allowShortCircuit":false,"allowTaggedTemplates":false,"allowTernary":false,"enforceForJSX":true}]
 @typescript-eslint/no-unused-vars [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"args":"none","ignoreRestSiblings":true}]
 @typescript-eslint/no-useless-constructor [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 @typescript-eslint/no-useless-default-assignment [ts, mts, cts, tsx]: error
@@ -105,6 +105,7 @@ complexity [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"max":20}]
 constructor-super [js, mjs, cjs, jsx]: error
 curly [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error ["all"]
 default-case-last [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
+dot-notation [js, mjs, cjs, jsx]: error [{"allowKeywords":true,"allowPattern":""}]
 eqeqeq [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error ["always",{"null":"ignore"}]
 for-direction [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 func-names [ts, mts, cts, tsx, js, mjs, cjs, jsx]: warn ["always",{}]
@@ -177,7 +178,6 @@ no-dupe-class-members [js, mjs, cjs, jsx]: error
 no-dupe-else-if [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-dupe-keys [js, mjs, cjs, jsx]: error
 no-duplicate-case [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
-no-duplicate-imports [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"includeExports":false,"allowSeparateTypeImports":false}]
 no-else-return [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"allowElseIf":true}]
 no-empty [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"allowEmptyCatch":false}]
 no-empty-character-class [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
@@ -191,7 +191,7 @@ no-extra-boolean-cast [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{}]
 no-fallthrough [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"allowEmptyCase":false,"reportUnusedFallthroughComment":false}]
 no-func-assign [js, mjs, cjs, jsx]: error
 no-global-assign [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"exceptions":[]}]
-no-implied-eval [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
+no-implied-eval [js, mjs, cjs, jsx]: error
 no-import-assign [js, mjs, cjs, jsx]: error
 no-inner-declarations [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error ["functions",{"blockScopedFunctions":"allow"}]
 no-invalid-regexp [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{}]
@@ -235,7 +235,7 @@ no-shadow-restricted-names [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"repo
 no-sparse-arrays [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-template-curly-in-string [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-this-before-super [js, mjs, cjs, jsx]: error
-no-throw-literal [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
+no-throw-literal [js, mjs, cjs, jsx]: error
 no-unassigned-vars [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-undef [js, mjs, cjs, jsx]: error [{"typeof":false}]
 no-undef-init [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
@@ -249,7 +249,6 @@ no-unsafe-negation [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"enforceForOr
 no-unsafe-optional-chaining [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"disallowArithmeticOperators":true}]
 no-unsanitized/method [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-unsanitized/property [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
-no-unused-expressions [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"allowShortCircuit":false,"allowTernary":false,"allowTaggedTemplates":false,"enforceForJSX":true,"ignoreDirectives":false}]
 no-unused-labels [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-unused-private-class-members [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-useless-assignment [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
@@ -270,7 +269,7 @@ prefer-const [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"destructuring":"an
 prefer-exponentiation-operator [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 prefer-numeric-literals [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 prefer-object-spread [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
-prefer-promise-reject-errors [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"allowEmptyReject":false}]
+prefer-promise-reject-errors [js, mjs, cjs, jsx]: error [{"allowEmptyReject":false}]
 prefer-regex-literals [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"disallowRedundantWrapping":true}]
 prefer-rest-params [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 prefer-spread [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
@@ -317,6 +316,7 @@ react/prop-types [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 react/require-render-return [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 react/sort-comp [ts, mts, cts, tsx, js, mjs, cjs, jsx]: warn [{"order":["type-annotations","static-variables","instance-variables","lifecycle","static-methods","instance-methods","everything-else","render"]}]
 react/static-property-placement [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error ["static public field"]
+require-await [js, mjs, cjs, jsx]: error
 require-yield [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 security/detect-bidi-characters [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 security/detect-disable-mustache-escape [ts, mts, cts, tsx, js, mjs, cjs, jsx]: warn
