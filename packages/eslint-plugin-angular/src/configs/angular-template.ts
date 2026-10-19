@@ -18,6 +18,8 @@ export const angularTemplateRules: TSESLint.Linter.RulesRecord = {
     '@angular-eslint/template/no-inline-styles': 'error',
     '@angular-eslint/template/no-interpolation-in-attributes': 'error',
     '@angular-eslint/template/no-positive-tabindex': 'error',
+    // recommended since angular-eslint 22, `ng generate @angular/core:control-flow` migrates a project
+    '@angular-eslint/template/prefer-control-flow': 'error',
     '@angular-eslint/template/prefer-ngsrc': 'error',
     // does not provide any value for primitive types
     // it is fine to not have this automated for now

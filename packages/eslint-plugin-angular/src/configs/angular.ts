@@ -11,7 +11,7 @@ export const angularRules: TSESLint.Linter.RulesRecord = {
     '@angular-eslint/contextual-lifecycle': 'error',
     '@angular-eslint/directive-class-suffix': 'error',
     '@angular-eslint/no-attribute-decorator': 'error',
-    '@angular-eslint/no-conflicting-lifecycle': 'error',
+    // no-conflicting-lifecycle was removed in angular-eslint v22
     '@angular-eslint/no-empty-lifecycle-method': 'error',
     '@angular-eslint/no-input-rename': 'error',
     '@angular-eslint/no-inputs-metadata-property': 'error',
