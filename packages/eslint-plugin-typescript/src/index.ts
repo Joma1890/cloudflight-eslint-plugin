@@ -3,6 +3,7 @@ import type {Linter} from 'eslint';
 
 import pluginJs from '@eslint/js';
 import pluginStylistic from '@stylistic/eslint-plugin';
+import {createTypeScriptImportResolver} from 'eslint-import-resolver-typescript';
 import pluginImportX from 'eslint-plugin-import-x';
 import pluginNoUnsanitized from 'eslint-plugin-no-unsanitized';
 import pluginPerfectionist from 'eslint-plugin-perfectionist';
@@ -182,12 +183,14 @@ function eslintConfigs(configs: FlatConfig.ConfigArray): Linter.Config[] {
 
 function importXSettings(settings: CloudflightEslintPluginSettings): SharedConfigurationSettings {
     return {
-        'import-x/resolver': {
-            typescript: {
+        // as an object, import-x cannot load the resolver by name when npm nests it below this package
+        'import-x/resolver-next': [
+            createTypeScriptImportResolver({
                 alwaysTryTypes: true,
                 project: settings.tsConfigFiles ?? ['tsconfig*(.*).json'],
-                tsconfigRootDir: settings.rootDirectory,
-            },
-        },
+                // the default glob matches every tsconfig*.json on purpose
+                noWarnOnMultipleProjects: true,
+            }),
+        ],
     };
 }
