@@ -272,3 +272,65 @@ use-isnan [ts, mts, cts, js, mjs, cjs]: error [{"enforceForIndexOf":false,"enfor
 valid-typeof [ts, mts, cts, js, mjs, cjs]: error [{"requireStringLiterals":false}]
 yoda [ts, mts, cts, js, mjs, cjs]: error ["never",{"exceptRange":false,"onlyEquality":false}]"
 `;
+
+exports[`cloudflightAngularFormatConfig applies the expected rules to each file type 1`] = `
+"@angular-eslint/template/attributes-order [html]: error
+@angular-eslint/template/prefer-self-closing-tags [html]: error
+@stylistic/array-bracket-newline [ts, mts, cts, js, mjs, cjs]: error ["consistent"]
+@stylistic/array-bracket-spacing [ts, mts, cts, js, mjs, cjs]: error ["never"]
+@stylistic/array-element-newline [ts, mts, cts, js, mjs, cjs]: error [{"ArrayExpression":"consistent","ArrayPattern":{"minItems":3}}]
+@stylistic/arrow-parens [ts, mts, cts, js, mjs, cjs]: error ["always"]
+@stylistic/arrow-spacing [ts, mts, cts, js, mjs, cjs]: error [{"before":true,"after":true}]
+@stylistic/block-spacing [ts, mts, cts, js, mjs, cjs]: error ["always"]
+@stylistic/brace-style [ts, mts, cts, js, mjs, cjs]: error ["stroustrup",{"allowSingleLine":false}]
+@stylistic/comma-dangle [ts, mts, cts, js, mjs, cjs]: error [{"arrays":"always-multiline","objects":"always-multiline","imports":"always-multiline","exports":"always-multiline","functions":"always-multiline"}]
+@stylistic/comma-spacing [ts, mts, cts, js, mjs, cjs]: error [{"before":false,"after":true}]
+@stylistic/comma-style [ts, mts, cts, js, mjs, cjs]: error ["last",{"exceptions":{"ArrayExpression":false,"ArrayPattern":false,"ArrowFunctionExpression":false,"CallExpression":false,"FunctionDeclaration":false,"FunctionExpression":false,"ImportDeclaration":false,"ObjectExpression":false,"ObjectPattern":false,"VariableDeclaration":false,"NewExpression":false}}]
+@stylistic/computed-property-spacing [ts, mts, cts, js, mjs, cjs]: error ["never"]
+@stylistic/dot-location [ts, mts, cts, js, mjs, cjs]: error ["property"]
+@stylistic/eol-last [ts, mts, cts, js, mjs, cjs]: error ["always"]
+@stylistic/function-call-argument-newline [ts, mts, cts, js, mjs, cjs]: error ["consistent"]
+@stylistic/function-call-spacing [ts, mts, cts, js, mjs, cjs]: error ["never"]
+@stylistic/function-paren-newline [ts, mts, cts, js, mjs, cjs]: error ["multiline-arguments"]
+@stylistic/generator-star-spacing [ts, mts, cts, js, mjs, cjs]: error [{"before":false,"after":true}]
+@stylistic/implicit-arrow-linebreak [ts, mts, cts, js, mjs, cjs]: error ["beside"]
+@stylistic/indent [ts, mts, cts, js, mjs, cjs]: error [4,{"SwitchCase":1,"VariableDeclarator":1,"outerIIFEBody":1,"FunctionDeclaration":{"parameters":1,"body":1},"FunctionExpression":{"parameters":1,"body":1},"CallExpression":{"arguments":1},"ArrayExpression":1,"ObjectExpression":1,"ImportDeclaration":1,"flatTernaryExpressions":false,"ignoredNodes":["JSXElement","JSXElement > *","JSXAttribute","JSXIdentifier","JSXNamespacedName","JSXMemberExpression","JSXSpreadAttribute","JSXExpressionContainer","JSXOpeningElement","JSXClosingElement","JSXFragment","JSXOpeningFragment","JSXClosingFragment","JSXText","JSXEmptyExpression","JSXSpreadChild","FunctionExpression > .params[decorators.length > 0]","FunctionExpression > .params > :matches(Decorator, :not(:first-child))","ClassBody.body > PropertyDefinition[decorators.length > 0] > .key"],"ignoreComments":false,"offsetTernaryExpressions":false,"MemberExpression":1,"tabLength":4}]
+@stylistic/jsx-quotes [ts, mts, cts, js, mjs, cjs]: error ["prefer-double"]
+@stylistic/key-spacing [ts, mts, cts, js, mjs, cjs]: error [{"beforeColon":false,"afterColon":true}]
+@stylistic/keyword-spacing [ts, mts, cts, js, mjs, cjs]: error [{"before":true,"after":true,"overrides":{"return":{"after":true},"throw":{"after":true},"case":{"after":true}}}]
+@stylistic/lines-between-class-members [ts, mts, cts, js, mjs, cjs]: error ["always",{"exceptAfterSingleLine":false,"exceptAfterOverload":true}]
+@stylistic/max-len [ts, mts, cts, js, mjs, cjs]: error [{"ignorePattern":"^(import|export) [^,]+ from","ignoreRegExpLiterals":true,"ignoreTemplateLiterals":true,"ignoreComments":true,"code":280}]
+@stylistic/member-delimiter-style [ts, mts, cts, js, mjs, cjs]: error [{"multiline":{"delimiter":"semi","requireLast":true},"singleline":{"delimiter":"semi","requireLast":false}}]
+@stylistic/newline-per-chained-call [ts, mts, cts, js, mjs, cjs]: error [{"ignoreChainWithDepth":4}]
+@stylistic/no-extra-semi [ts, mts, cts, js, mjs, cjs]: error
+@stylistic/no-mixed-spaces-and-tabs [ts, mts, cts, js, mjs, cjs]: error
+@stylistic/no-multi-spaces [ts, mts, cts, js, mjs, cjs]: error [{"ignoreEOLComments":false,"includeTabs":true}]
+@stylistic/no-multiple-empty-lines [ts, mts, cts, js, mjs, cjs]: error [{"max":1,"maxBOF":0,"maxEOF":0}]
+@stylistic/no-trailing-spaces [ts, mts, cts, js, mjs, cjs]: error [{"skipBlankLines":false,"ignoreComments":false}]
+@stylistic/no-whitespace-before-property [ts, mts, cts, js, mjs, cjs]: error
+@stylistic/object-curly-newline [ts, mts, cts, js, mjs, cjs]: error [{"consistent":true}]
+@stylistic/object-curly-spacing [ts, mts, cts, js, mjs, cjs]: error ["never"]
+@stylistic/object-property-newline [ts, mts, cts, js, mjs, cjs]: error [{"allowAllPropertiesOnSameLine":true}]
+@stylistic/operator-linebreak [ts, mts, cts, js, mjs, cjs]: error ["after"]
+@stylistic/padded-blocks [ts, mts, cts, js, mjs, cjs]: error [{"blocks":"never","classes":"never","switches":"never"},{"allowSingleLineBlocks":true}]
+@stylistic/padding-line-between-statements [ts, mts, cts, js, mjs, cjs]: error [{"blankLine":"always","prev":"*","next":"return"},{"blankLine":"always","prev":"const","next":"*"},{"blankLine":"any","prev":"const","next":["const","let","var"]},{"blankLine":"always","prev":"block","next":"*"}]
+@stylistic/quotes [ts, mts, cts, js, mjs, cjs]: error ["single",{"avoidEscape":true,"allowTemplateLiterals":"always"}]
+@stylistic/rest-spread-spacing [ts, mts, cts, js, mjs, cjs]: error ["never"]
+@stylistic/semi [ts, mts, cts, js, mjs, cjs]: error
+@stylistic/semi-spacing [ts, mts, cts, js, mjs, cjs]: error [{"before":false,"after":true}]
+@stylistic/space-before-blocks [ts, mts, cts, js, mjs, cjs]: error
+@stylistic/space-before-function-paren [ts, mts, cts, js, mjs, cjs]: error [{"anonymous":"always","named":"never","asyncArrow":"always"}]
+@stylistic/space-in-parens [ts, mts, cts, js, mjs, cjs]: error ["never"]
+@stylistic/space-infix-ops [ts, mts, cts, js, mjs, cjs]: error
+@stylistic/space-unary-ops [ts, mts, cts, js, mjs, cjs]: error [{"words":true,"nonwords":false,"overrides":{}}]
+@stylistic/spaced-comment [ts, mts, cts, js, mjs, cjs]: error ["always",{"line":{"exceptions":["-","+"],"markers":["=","!","/"]},"block":{"exceptions":["-","+"],"markers":["=","!",":","::"],"balanced":true}}]
+@stylistic/switch-colon-spacing [ts, mts, cts, js, mjs, cjs]: error [{"after":true,"before":false}]
+@stylistic/template-curly-spacing [ts, mts, cts, js, mjs, cjs]: error ["never"]
+@stylistic/template-tag-spacing [ts, mts, cts, js, mjs, cjs]: error ["never"]
+@stylistic/type-annotation-spacing [ts, mts, cts, js, mjs, cjs]: error
+import-x/newline-after-import [ts, mts, cts, js, mjs, cjs]: error
+perfectionist/sort-exports [ts, mts, cts, js, mjs, cjs]: error [{"type":"natural","order":"asc"}]
+perfectionist/sort-imports [ts, mts, cts, js, mjs, cjs]: error [{"type":"natural","order":"asc"}]
+perfectionist/sort-named-exports [ts, mts, cts, js, mjs, cjs]: error [{"type":"natural","order":"asc"}]
+perfectionist/sort-named-imports [ts, mts, cts, js, mjs, cjs]: error [{"type":"natural","order":"asc"}]"
+`;
