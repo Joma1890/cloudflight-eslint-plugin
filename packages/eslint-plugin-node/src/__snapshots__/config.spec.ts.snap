@@ -134,7 +134,6 @@ n/no-new-require [ts, mts, cts, js, mjs, cjs]: error
 n/no-path-concat [ts, mts, cts, js, mjs, cjs]: error
 n/no-process-exit [ts, mts, cts, js, mjs, cjs]: error
 n/no-sync [ts, mts, cts, js, mjs, cjs]: error
-n/no-unpublished-bin [ts, mts, cts, js, mjs, cjs]: error
 n/no-unpublished-import [ts, mts, cts, js, mjs, cjs]: error
 n/no-unpublished-require [ts, mts, cts, js, mjs, cjs]: error
 n/no-unsupported-features/es-builtins [ts, mts, cts, js, mjs, cjs]: error
