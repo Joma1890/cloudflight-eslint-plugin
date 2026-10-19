@@ -1,13 +1,16 @@
-import {AST_NODE_TYPES, TSESLint} from '@typescript-eslint/utils';
+import {RuleTester} from '@typescript-eslint/rule-tester';
+import {AST_NODE_TYPES} from '@typescript-eslint/utils';
 
 import {NoOnEventAssign, NoOnEventAssignName} from './no-on-event-assign';
 
-const ruleTester = new TSESLint.RuleTester({
-    parser: require.resolve('@typescript-eslint/parser'),
-});
+const ruleTester = new RuleTester();
 
 ruleTester.run(NoOnEventAssignName, NoOnEventAssign, {
-    valid: ["target.addEventlistener('click', () => {})"],
+    valid: [
+        "target.addEventListener('click', () => {})",
+        'count = 1',
+        'target.title = "no event"',
+    ],
     invalid: [
         {
             code: 'target.onclick = function(){}',

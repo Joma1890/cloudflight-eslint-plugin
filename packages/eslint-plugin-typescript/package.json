@@ -24,7 +24,7 @@
     },
     "scripts": {
         "build-package": "tsc",
-        "test-packagex": "jest"
+        "test-package": "NODE_OPTIONS=--experimental-vm-modules yarn run -T jest"
     },
     "dependencies": {
         "@eslint/js": "^9.39.2",

@@ -4,4 +4,7 @@ export const baseJestConfig: Config = {
     preset: 'ts-jest/presets/default',
     testEnvironment: 'node',
     roots: ['./src/'],
+    setupFiles: ['<rootDir>/../../jest.setup.ts'],
+    // the config tests start a type-aware eslint, 5s is not enough
+    testTimeout: 60_000,
 };
