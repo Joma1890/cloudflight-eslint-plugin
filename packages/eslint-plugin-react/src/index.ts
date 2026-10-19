@@ -13,6 +13,7 @@ import * as pluginReactHooks from 'eslint-plugin-react-hooks';
 import tseslint from 'typescript-eslint';
 
 import {reactRules} from './configs/react';
+import {reactFormatRules} from './configs/react-format';
 
 const relevantFiles = ['**/*.{js,jsx,mjs,cjs,ts,mts,cts,tsx}'];
 
@@ -89,6 +90,13 @@ export function cloudflightReactFormatConfig(settings: CloudflightEslintPluginSe
                 react: {
                     version: 'detect',
                 },
+            },
+        },
+        {
+            files: relevantFiles,
+            name: 'cloudflight/react/format-rules',
+            rules: {
+                ...reactFormatRules,
             },
         },
     ]);

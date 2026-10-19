@@ -46,14 +46,16 @@ Angular 21 and older.
 5. If you import `cloudflightTypescriptImportConfig` or `cloudflightTypescriptDisableTypeCheckedConfig`, use
    `cloudflightTypescriptConfig` instead; both are no longer exported.
 6. If your project uses the format config, switch `eslint.format.mjs` to the format config of your framework package;
-   `cloudflightAngularFormatConfig` also formats the templates. Vue has no format config of its own and keeps
-   `cloudflightTypescriptFormatConfig`. If your project lists `@cloudflight/eslint-plugin-typescript` itself, update it
-   to the same version, otherwise the format run silently stays on the 1.x rules.
-7. Then reformat once with `eslint -c eslint.format.mjs --fix .`: multiline enums get a trailing comma and the `?` and
-   `:` of multiline conditionals start the line. Imports are sorted by import-x/order now: type imports first, then
-   packages, aliases and relative imports, with a blank line between the groups and `./` before `../`. An import that
-   would have to move across a side-effect import such as a polyfill or a stylesheet is reported instead, move it by
-   hand. Move comments that sit between an operator and its operand above the line first, the fixer cannot handle them.
+   `cloudflightAngularFormatConfig` also formats the templates and `cloudflightReactFormatConfig` the JSX. Vue has no
+   format config of its own and keeps `cloudflightTypescriptFormatConfig`. If your project lists
+   `@cloudflight/eslint-plugin-typescript` itself, update it to the same version, otherwise the format run silently
+   stays on the 1.x rules.
+7. Then reformat once with `eslint -c eslint.format.mjs --fix .`: multiline enums get a trailing comma, the `?` and `:`
+   of multiline conditionals start the line and React projects get their JSX formatted. Imports are sorted by
+   import-x/order now: type imports first, then packages, aliases and relative imports, with a blank line between the
+   groups and `./` before `../`. An import that would have to move across a side-effect import such as a polyfill or a
+   stylesheet is reported instead, move it by hand. Move comments that sit between an operator and its operand above the
+   line first, the fixer cannot handle them.
 
 ### Rule changes
 
