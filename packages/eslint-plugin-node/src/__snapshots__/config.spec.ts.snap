@@ -47,7 +47,7 @@ exports[`cloudflightNodeConfig applies the expected rules to each file type 1`] 
 @typescript-eslint/no-non-null-assertion [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 @typescript-eslint/no-redundant-type-constituents [ts, mts, cts, tsx]: error
 @typescript-eslint/no-require-imports [cts]: error [{"allowAsImport":true}]
-@typescript-eslint/no-require-imports [ts, mts, tsx, js, mjs, jsx]: error
+@typescript-eslint/no-require-imports [ts, mts, tsx, mjs, jsx]: error
 @typescript-eslint/no-shadow [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 @typescript-eslint/no-this-alias [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 @typescript-eslint/no-unnecessary-boolean-literal-compare [ts, mts, cts, tsx]: error
@@ -280,7 +280,7 @@ security/detect-possible-timing-attacks [ts, mts, cts, js, mjs, cjs]: error
 security/detect-pseudoRandomBytes [ts, mts, cts, js, mjs, cjs]: error
 security/detect-unsafe-regex [ts, mts, cts, js, mjs, cjs]: error
 security/detect-unsafe-regex [tsx, jsx]: warn
-strict [ts, mts, cts, tsx, js, mjs, jsx]: error ["never"]
+strict [ts, mts, cts, tsx, mjs, jsx]: error ["never"]
 symbol-description [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 unicode-bom [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error ["never"]
 use-isnan [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"enforceForIndexOf":false,"enforceForSwitchCase":true}]

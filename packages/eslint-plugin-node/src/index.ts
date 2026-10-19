@@ -3,6 +3,8 @@ import type {Linter} from 'eslint';
 
 import {CloudflightEslintPluginSettings, cloudflightTypescriptConfig} from '@cloudflight/eslint-plugin-typescript';
 import pluginNode from 'eslint-plugin-n';
+import {existsSync, readFileSync} from 'node:fs';
+import {join} from 'node:path';
 import tseslint from 'typescript-eslint';
 
 import {importRules} from './configs/import';
@@ -16,7 +18,7 @@ export function cloudflightNodeConfig(settings: CloudflightEslintPluginSettings)
         {
             files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
             extends: [
-                pluginNode.configs['flat/recommended'],
+                nodeRecommendedConfig(settings.rootDirectory),
             ],
             name: 'cloudflight/node/rules',
             rules: {
@@ -33,6 +35,18 @@ export function cloudflightNodeConfig(settings: CloudflightEslintPluginSettings)
                 'n/no-sync': 'off',
             },
         },
+        // .cjs and .mjs do not depend on the package type
+        {
+            files: ['**/*.{cjs,cts}'],
+            name: 'cloudflight/node/commonjs',
+            languageOptions: {...pluginNode.configs['flat/recommended-script'].languageOptions},
+        },
+        {
+            files: ['**/*.{mjs,mts}'],
+            name: 'cloudflight/node/module',
+            languageOptions: {...pluginNode.configs['flat/recommended-module'].languageOptions},
+        },
+        ...commonjsJavascriptConfig(settings.rootDirectory),
     ));
 }
 
@@ -40,4 +54,38 @@ export function cloudflightNodeConfig(settings: CloudflightEslintPluginSettings)
 function eslintConfigs(configs: FlatConfig.ConfigArray): Linter.Config[] {
     // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
     return configs as Linter.Config[];
+}
+
+// eslint-plugin-n picks its module or script preset by the package.json of the working directory,
+// the project's own package.json decides here
+function nodeRecommendedConfig(rootDirectory: string): typeof pluginNode.configs['flat/recommended-script'] {
+    return isModulePackage(rootDirectory) ? pluginNode.configs['flat/recommended-module'] : pluginNode.configs['flat/recommended-script'];
+}
+
+// the .js files of a commonjs package are commonjs too, like .cjs in the base config
+function commonjsJavascriptConfig(rootDirectory: string): FlatConfig.ConfigArray {
+    if (isModulePackage(rootDirectory)) {
+        return [];
+    }
+
+    return [
+        {
+            files: ['**/*.js'],
+            name: 'cloudflight/node/commonjs-javascript',
+            languageOptions: {
+                parserOptions: {ecmaFeatures: {globalReturn: true}},
+            },
+            rules: {
+                '@typescript-eslint/no-require-imports': 'off',
+                strict: 'off',
+            },
+        },
+    ];
+}
+
+function isModulePackage(rootDirectory: string): boolean {
+    const manifestPath = join(rootDirectory, 'package.json');
+    const manifest: unknown = existsSync(manifestPath) ? JSON.parse(readFileSync(manifestPath, 'utf8')) : undefined;
+
+    return typeof manifest === 'object' && manifest !== null && Reflect.get(manifest, 'type') === 'module';
 }
