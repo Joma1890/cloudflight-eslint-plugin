@@ -1047,7 +1047,6 @@ __metadata:
     "@eslint/compat": "npm:1.4.1"
     "@eslint/js": "npm:9.39.2"
     "@stylistic/eslint-plugin": "npm:5.10.0"
-    "@types/eslint": "npm:9.6.1"
     "@types/estree": "npm:1.0.9"
     "@types/jest": "npm:30.0.0"
     "@types/node": "npm:24.13.3"
@@ -1060,7 +1059,6 @@ __metadata:
     eslint: "npm:9.39.2"
     eslint-import-resolver-typescript: "npm:4.4.5"
     eslint-plugin-import-x: "npm:4.17.1"
-    eslint-plugin-json-es: "npm:1.6.0"
     eslint-plugin-jsx-a11y: "npm:6.10.2"
     eslint-plugin-n: "npm:18.3.0"
     eslint-plugin-no-unsanitized: "npm:4.1.5"
@@ -2116,36 +2114,20 @@ __metadata:
 "@types/eslint-plugin-jsx-a11y@workspace:*, @types/eslint-plugin-jsx-a11y@workspace:packages/types-eslint-plugin-jsx-a11y":
   version: 0.0.0-use.local
   resolution: "@types/eslint-plugin-jsx-a11y@workspace:packages/types-eslint-plugin-jsx-a11y"
-  dependencies:
-    "@types/eslint": "npm:9.6.1"
   languageName: unknown
   linkType: soft
 
 "@types/eslint-plugin-no-unsanitized@workspace:*, @types/eslint-plugin-no-unsanitized@workspace:packages/types-eslint-plugin-no-unsanitized":
   version: 0.0.0-use.local
   resolution: "@types/eslint-plugin-no-unsanitized@workspace:packages/types-eslint-plugin-no-unsanitized"
-  dependencies:
-    "@types/eslint": "npm:9.6.1"
   languageName: unknown
   linkType: soft
 
 "@types/eslint-plugin-security@workspace:*, @types/eslint-plugin-security@workspace:packages/types-eslint-plugin-security":
   version: 0.0.0-use.local
   resolution: "@types/eslint-plugin-security@workspace:packages/types-eslint-plugin-security"
-  dependencies:
-    "@types/eslint": "npm:9.6.1"
   languageName: unknown
   linkType: soft
-
-"@types/eslint@npm:9.6.1":
-  version: 9.6.1
-  resolution: "@types/eslint@npm:9.6.1"
-  dependencies:
-    "@types/estree": "npm:*"
-    "@types/json-schema": "npm:*"
-  checksum: 10c0/69ba24fee600d1e4c5abe0df086c1a4d798abf13792d8cfab912d76817fe1a894359a1518557d21237fbaf6eda93c5ab9309143dee4c59ef54336d1b3570420e
-  languageName: node
-  linkType: hard
 
 "@types/esrecurse@npm:^4.3.1":
   version: 4.3.1
@@ -2154,17 +2136,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/estree@npm:*, @types/estree@npm:^1.0.6":
-  version: 1.0.7
-  resolution: "@types/estree@npm:1.0.7"
-  checksum: 10c0/be815254316882f7c40847336cd484c3bc1c3e34f710d197160d455dc9d6d050ffbf4c3bc76585dba86f737f020ab20bdb137ebe0e9116b0c86c7c0342221b8c
-  languageName: node
-  linkType: hard
-
 "@types/estree@npm:1.0.9, @types/estree@npm:^1.0.8":
   version: 1.0.9
   resolution: "@types/estree@npm:1.0.9"
   checksum: 10c0/3ad3286ca2988cd550dafb8f2ad599c8474868e954fa601a36655bdfefd8039f7c714b8c1c7f2ae219ffbd58bd4660e66fa7479a0120fc02d4777057d4865387
+  languageName: node
+  linkType: hard
+
+"@types/estree@npm:^1.0.6":
+  version: 1.0.7
+  resolution: "@types/estree@npm:1.0.7"
+  checksum: 10c0/be815254316882f7c40847336cd484c3bc1c3e34f710d197160d455dc9d6d050ffbf4c3bc76585dba86f737f020ab20bdb137ebe0e9116b0c86c7c0342221b8c
   languageName: node
   linkType: hard
 
@@ -2210,7 +2192,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/json-schema@npm:*, @types/json-schema@npm:^7.0.15":
+"@types/json-schema@npm:^7.0.15":
   version: 7.0.15
   resolution: "@types/json-schema@npm:7.0.15"
   checksum: 10c0/a996a745e6c5d60292f36731dd41341339d4eeed8180bb09226e5c8d23759067692b1d88e5d91d72ee83dfc00d3aca8e7bd43ea120516c17922cbcb7c3e252db
@@ -2755,7 +2737,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"acorn@npm:^8.14.0, acorn@npm:^8.4.1, acorn@npm:^8.9.0":
+"acorn@npm:^8.14.0, acorn@npm:^8.4.1":
   version: 8.14.1
   resolution: "acorn@npm:8.14.1"
   bin:
@@ -4198,18 +4180,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-json-es@npm:1.6.0":
-  version: 1.6.0
-  resolution: "eslint-plugin-json-es@npm:1.6.0"
-  dependencies:
-    eslint-visitor-keys: "npm:^3.3.0"
-    espree: "npm:^9.3.1"
-  peerDependencies:
-    eslint: ">= 7"
-  checksum: 10c0/05340c04ad8c5737a0f080c89c6a5169c144d0ad9785afcab1857fca0124c917f2e74d4ffcfb0b5b3d448a51ade32f7da290d07f218a880606557fd13b808d55
-  languageName: node
-  linkType: hard
-
 "eslint-plugin-jsx-a11y@npm:6.10.2":
   version: 6.10.2
   resolution: "eslint-plugin-jsx-a11y@npm:6.10.2"
@@ -4379,7 +4349,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-visitor-keys@npm:^3.3.0, eslint-visitor-keys@npm:^3.4.1, eslint-visitor-keys@npm:^3.4.3":
+"eslint-visitor-keys@npm:^3.4.3":
   version: 3.4.3
   resolution: "eslint-visitor-keys@npm:3.4.3"
   checksum: 10c0/92708e882c0a5ffd88c23c0b404ac1628cf20104a108c745f240a13c332a11aac54f49a22d5762efbffc18ecbc9a580d1b7ad034bf5f3cc3307e5cbff2ec9820
@@ -4486,17 +4456,6 @@ __metadata:
     acorn-jsx: "npm:^5.3.2"
     eslint-visitor-keys: "npm:^4.2.1"
   checksum: 10c0/c63fe06131c26c8157b4083313cb02a9a54720a08e21543300e55288c40e06c3fc284bdecf108d3a1372c5934a0a88644c98714f38b6ae8ed272b40d9ea08d6b
-  languageName: node
-  linkType: hard
-
-"espree@npm:^9.3.1":
-  version: 9.6.1
-  resolution: "espree@npm:9.6.1"
-  dependencies:
-    acorn: "npm:^8.9.0"
-    acorn-jsx: "npm:^5.3.2"
-    eslint-visitor-keys: "npm:^3.4.1"
-  checksum: 10c0/1a2e9b4699b715347f62330bcc76aee224390c28bb02b31a3752e9d07549c473f5f986720483c6469cf3cfb3c9d05df612ffc69eb1ee94b54b739e67de9bb460
   languageName: node
   linkType: hard
 
