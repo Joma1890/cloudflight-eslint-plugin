@@ -278,7 +278,7 @@ exports[`cloudflightTypescriptFormatConfig applies the expected rules to each fi
 @stylistic/function-paren-newline [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error ["multiline-arguments"]
 @stylistic/generator-star-spacing [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"before":false,"after":true}]
 @stylistic/implicit-arrow-linebreak [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error ["beside"]
-@stylistic/indent [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [4,{"SwitchCase":1,"flatTernaryExpressions":false,"ignoredNodes":["JSXElement","JSXElement > *","JSXAttribute","JSXIdentifier","JSXNamespacedName","JSXMemberExpression","JSXSpreadAttribute","JSXExpressionContainer","JSXOpeningElement","JSXClosingElement","JSXFragment","JSXOpeningFragment","JSXClosingFragment","JSXText","JSXEmptyExpression","JSXSpreadChild","FunctionExpression > .params[decorators.length > 0]","FunctionExpression > .params > :matches(Decorator, :not(:first-child))","ClassBody.body > PropertyDefinition[decorators.length > 0] > .key"],"VariableDeclarator":1,"outerIIFEBody":1,"FunctionDeclaration":{"parameters":1,"body":1},"FunctionExpression":{"parameters":1,"body":1},"CallExpression":{"arguments":1},"ArrayExpression":1,"ObjectExpression":1,"ImportDeclaration":1,"ignoreComments":false,"offsetTernaryExpressions":false,"MemberExpression":1}]
+@stylistic/indent [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [4,{"SwitchCase":1,"flatTernaryExpressions":false,"ignoredNodes":["JSXElement","JSXElement > *","JSXAttribute","JSXIdentifier","JSXNamespacedName","JSXMemberExpression","JSXSpreadAttribute","JSXExpressionContainer","JSXOpeningElement","JSXClosingElement","JSXFragment","JSXOpeningFragment","JSXClosingFragment","JSXText","JSXEmptyExpression","JSXSpreadChild"],"VariableDeclarator":1,"outerIIFEBody":1,"FunctionDeclaration":{"parameters":1,"body":1},"FunctionExpression":{"parameters":1,"body":1},"CallExpression":{"arguments":1},"ArrayExpression":1,"ObjectExpression":1,"ImportDeclaration":1,"ignoreComments":false,"offsetTernaryExpressions":false,"MemberExpression":1}]
 @stylistic/jsx-quotes [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error ["prefer-double"]
 @stylistic/key-spacing [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"beforeColon":false,"afterColon":true}]
 @stylistic/keyword-spacing [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"before":true,"after":true,"overrides":{"return":{"after":true},"throw":{"after":true},"case":{"after":true}}}]
@@ -314,8 +314,8 @@ exports[`cloudflightTypescriptFormatConfig applies the expected rules to each fi
 @stylistic/template-tag-spacing [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error ["never"]
 @stylistic/type-annotation-spacing [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{}]
 import-x/newline-after-import [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
+import-x/order [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"groups":["type",["builtin","external"],"internal",["parent","sibling","index"]],"newlines-between":"always","alphabetize":{"order":"asc","caseInsensitive":true,"orderImportKind":"ignore"},"distinctGroup":true,"sortTypesGroup":false,"named":false,"warnOnUnassignedImports":false}]
 perfectionist/sort-exports [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"type":"natural","order":"asc"}]
-perfectionist/sort-imports [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"type":"natural","order":"asc"}]
 perfectionist/sort-named-exports [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"type":"natural","order":"asc"}]
 perfectionist/sort-named-imports [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"type":"natural","order":"asc"}]"
 `;

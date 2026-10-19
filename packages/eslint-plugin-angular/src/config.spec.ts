@@ -1,6 +1,7 @@
 import {type ESLint} from 'eslint';
 import {join} from 'node:path';
 
+import {cloudflightAngularConfig, cloudflightAngularFormatConfig} from './index';
 import {
     appliedRules,
     createEslint,
@@ -12,7 +13,6 @@ import {
     ruleIds,
     typescriptFiles,
 } from '../../../test/eslint-helpers';
-import {cloudflightAngularConfig, cloudflightAngularFormatConfig} from './index';
 
 const fixtureDir = join(__dirname, '..', 'fixtures');
 const inputDir = join(fixtureDir, 'format', 'input');

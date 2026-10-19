@@ -1,7 +1,8 @@
-import {cloudflightTypescriptConfig} from '@cloudflight/eslint-plugin-typescript';
 import {defineConfig, includeIgnoreFile} from 'eslint/config';
 import {dirname, normalize, resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
+
+import {cloudflightTypescriptConfig} from '@cloudflight/eslint-plugin-typescript';
 
 const directory = dirname(fileURLToPath(import.meta.url));
 const gitignorePath = normalize(resolve(directory, '.gitignore'));

@@ -2,8 +2,8 @@ import {type ESLint} from 'eslint';
 import {rmSync, writeFileSync} from 'node:fs';
 import {join} from 'node:path';
 
-import {appliedRules, createEslint, javascriptFiles, lintMessages, ruleIds, typescriptFiles} from '../../../test/eslint-helpers';
 import {cloudflightVueConfig} from './index';
+import {appliedRules, createEslint, javascriptFiles, lintMessages, ruleIds, typescriptFiles} from '../../../test/eslint-helpers';
 
 const fixtureDir = join(__dirname, '..', 'fixtures');
 

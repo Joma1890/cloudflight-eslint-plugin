@@ -50,8 +50,10 @@ Angular 21 and older.
    `cloudflightTypescriptFormatConfig`. If your project lists `@cloudflight/eslint-plugin-typescript` itself, update it
    to the same version, otherwise the format run silently stays on the 1.x rules.
 7. Then reformat once with `eslint -c eslint.format.mjs --fix .`: multiline enums get a trailing comma and the `?` and
-   `:` of multiline conditionals start the line. Move comments that sit between an operator and its operand above the
-   line first, the fixer cannot handle them.
+   `:` of multiline conditionals start the line. Imports are sorted by import-x/order now: type imports first, then
+   packages, aliases and relative imports, with a blank line between the groups and `./` before `../`. An import that
+   would have to move across a side-effect import such as a polyfill or a stylesheet is reported instead, move it by
+   hand. Move comments that sit between an operator and its operand above the line first, the fixer cannot handle them.
 
 ### Rule changes
 

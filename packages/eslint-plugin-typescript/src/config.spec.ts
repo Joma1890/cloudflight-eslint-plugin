@@ -3,6 +3,9 @@ import {defineConfig} from 'eslint/config';
 import {readFileSync} from 'node:fs';
 import {join} from 'node:path';
 
+import {cloudflightTypescriptConfig, cloudflightTypescriptFormatConfig} from './index';
+import {cloudflightTypescriptPlugin} from './rules';
+import {NoOnEventAssign} from './rules/typescript/no-on-event-assign';
 import {
     appliedRules,
     createEslint,
@@ -14,9 +17,6 @@ import {
     ruleIds,
     typescriptFiles,
 } from '../../../test/eslint-helpers';
-import {cloudflightTypescriptConfig, cloudflightTypescriptFormatConfig} from './index';
-import {cloudflightTypescriptPlugin} from './rules';
-import {NoOnEventAssign} from './rules/typescript/no-on-event-assign';
 
 const fixtureDir = join(__dirname, '..', 'fixtures');
 const inputDir = join(fixtureDir, 'format', 'input');
@@ -155,6 +155,23 @@ describe('cloudflightTypescriptFormatConfig', () => {
 
             expect(result.output).toBe(readWithUnixLineEndings(join(fixtureDir, 'disable/lint-rules.ts')));
             expect(result.messages).toEqual([]);
+        });
+    });
+
+    describe('nested projects', () => {
+        it('groups the aliases of a nested project with the internal imports', async () => {
+            const result = await fixFile(formatConfig(true), join(fixtureDir, 'nested-project/src/order.ts'));
+
+            expect(result.output).toBe("import {join} from 'node:path';\n\nimport {work} from '@nested/util';\n\nexport const value = join(String(work));\n");
+        });
+    });
+
+    describe('side-effect imports', () => {
+        it('reports an import that belongs in front of a side-effect import instead of moving it', async () => {
+            const result = await fixFile(formatConfig(true), join(fixtureDir, 'imports/side-effect-order.ts'));
+
+            expect(result.output).toBe(readWithUnixLineEndings(join(fixtureDir, 'imports/side-effect-order.ts')));
+            expect(result.messages.map((message) => message.ruleId)).toEqual(['import-x/order']);
         });
     });
 });

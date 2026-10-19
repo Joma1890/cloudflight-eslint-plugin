@@ -3,6 +3,7 @@ import {mkdtempSync, rmSync, writeFileSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 
+import {cloudflightNodeConfig} from './index';
 import {
     appliedRules,
     createEslint,
@@ -11,7 +12,6 @@ import {
     ruleIds,
     typescriptFiles,
 } from '../../../test/eslint-helpers';
-import {cloudflightNodeConfig} from './index';
 
 const fixtureDir = join(__dirname, '..', 'fixtures');
 

@@ -289,9 +289,6 @@ export const formatRules: TSESLint.Linter.RulesRecord = {
                 'JSXText',
                 'JSXEmptyExpression',
                 'JSXSpreadChild',
-                'FunctionExpression > .params[decorators.length > 0]',
-                'FunctionExpression > .params > :matches(Decorator, :not(:first-child))',
-                'ClassBody.body > PropertyDefinition[decorators.length > 0] > .key',
             ],
             ignoreComments: false,
             offsetTernaryExpressions: false,
@@ -317,11 +314,13 @@ export const formatRules: TSESLint.Linter.RulesRecord = {
     ],
     // ? and : start the line, in ternaries and in conditional types, like prettier
     '@stylistic/operator-linebreak': ['error', 'after', {overrides: {'?': 'before', ':': 'before'}}],
-    'perfectionist/sort-imports': [
+    // a polyfill or stylesheet import keeps its place, an import that would have to move across it is reported
+    'import-x/order': [
         'error',
         {
-            type: 'natural',
-            order: 'asc',
+            'groups': ['type', ['builtin', 'external'], 'internal', ['parent', 'sibling', 'index']],
+            'newlines-between': 'always',
+            'alphabetize': {order: 'asc', caseInsensitive: true},
         },
     ],
     'perfectionist/sort-exports': [
