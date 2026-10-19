@@ -23,7 +23,8 @@
         "access": "public"
     },
     "scripts": {
-        "build-package": "tsc"
+        "build-package": "tsc",
+        "test-package": "NODE_OPTIONS=--experimental-vm-modules yarn run -T jest"
     },
     "dependencies": {
         "@cloudflight/eslint-plugin-typescript": "workspace:*",
