@@ -49,6 +49,7 @@ describe('cloudflightTypescriptConfig', () => {
         'valid/javascript.js',
         'valid/jsx.jsx',
         'valid/commonjs.cjs',
+        'valid/magic-numbers.ts',
     ])('reports nothing for %s', async (file) => {
         expect(await lintMessages(lintConfig(), file)).toEqual([]);
     });

@@ -177,6 +177,10 @@ export const eslintRules: TSESLint.Linter.RulesRecord = {
             ignoreArrayIndexes: true,
             enforceConst: true,
             detectObjects: false,
+            ignoreEnums: true,
+            ignoreNumericLiteralTypes: true,
+            ignoreReadonlyClassProperties: true,
+            ignoreTypeIndexes: true,
         },
     ],
     'no-unused-expressions': [

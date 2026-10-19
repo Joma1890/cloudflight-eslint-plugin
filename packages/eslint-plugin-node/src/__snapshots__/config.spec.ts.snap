@@ -187,7 +187,7 @@ no-lone-blocks [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-lonely-if [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-loop-func [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-loss-of-precision [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
-no-magic-numbers [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"detectObjects":false,"enforceConst":true,"ignore":[-1,0,1,2,10,1000],"ignoreArrayIndexes":true,"ignoreDefaultValues":true,"ignoreClassFieldInitialValues":false,"ignoreEnums":false,"ignoreNumericLiteralTypes":false,"ignoreReadonlyClassProperties":false,"ignoreTypeIndexes":false}]
+no-magic-numbers [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"detectObjects":false,"enforceConst":true,"ignore":[-1,0,1,2,10,1000],"ignoreArrayIndexes":true,"ignoreDefaultValues":true,"ignoreClassFieldInitialValues":false,"ignoreEnums":true,"ignoreNumericLiteralTypes":true,"ignoreReadonlyClassProperties":true,"ignoreTypeIndexes":true}]
 no-misleading-character-class [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"allowEscape":false}]
 no-multi-assign [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"ignoreNonDeclaration":false}]
 no-multi-str [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error

@@ -72,6 +72,7 @@ Angular 21 and older.
     import from the same module
 -   `@typescript-eslint/non-nullable-type-assertion-style` is off, its fix wrote a `!` that `no-non-null-assertion`
     reports
+-   `no-magic-numbers` ignores enum values, numeric literal types, readonly class properties and type indexes
 -   unused disable comments are no longer reported, in the lint run a comment for a format rule looks unused and
     `--fix` would delete it
 
