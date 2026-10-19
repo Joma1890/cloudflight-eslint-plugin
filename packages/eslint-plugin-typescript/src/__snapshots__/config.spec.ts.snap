@@ -295,6 +295,7 @@ exports[`cloudflightTypescriptFormatConfig applies the expected rules to each fi
 @stylistic/object-curly-newline [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"consistent":true}]
 @stylistic/object-curly-spacing [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error ["never"]
 @stylistic/object-property-newline [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"allowAllPropertiesOnSameLine":true}]
+@stylistic/one-var-declaration-per-line [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error ["always"]
 @stylistic/operator-linebreak [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error ["after",{"overrides":{"?":"before",":":"before"}}]
 @stylistic/padded-blocks [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"blocks":"never","classes":"never","switches":"never"},{"allowSingleLineBlocks":true}]
 @stylistic/padding-line-between-statements [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"blankLine":"always","prev":"*","next":"return"},{"blankLine":"always","prev":"const","next":"*"},{"blankLine":"any","prev":"const","next":["const","let","var"]},{"blankLine":"always","prev":"block","next":"*"}]
