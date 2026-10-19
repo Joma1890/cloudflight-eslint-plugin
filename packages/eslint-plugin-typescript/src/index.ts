@@ -163,6 +163,11 @@ export interface CloudflightEslintPluginSettings {
     tsConfigFiles?: string[];
 }
 
+/**
+ * Typed parser options for TypeScript files: the project service when `tsConfigFiles` is omitted,
+ * otherwise `parserOptions.project`. Used by the Cloudflight framework packages; project configs get
+ * them through `cloudflightTypescriptConfig`.
+ */
 export function cloudflightTypedParserOptions(settings: CloudflightEslintPluginSettings): FlatConfig.ParserOptions {
     // both set explicitly, a later block like the vue helper must not leave both on
     if (settings.tsConfigFiles == null) {

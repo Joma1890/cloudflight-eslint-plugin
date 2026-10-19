@@ -15,6 +15,8 @@ The following dependencies are required:
 
 Node.js must satisfy `^22.22.3 || ^24.15.0 || >=26.0.0`.
 
+Upgrading from 1.x? See [Upgrading from 1.x](https://github.com/cloudflightio/cloudflight-eslint-plugin#upgrading-from-1x).
+
 This version requires Angular 22; stay on 1.3.3 for Angular 21 and older. Angular 22 applications must use TypeScript 6.0.x; the wider TypeScript peer covers the configuration library, not the Angular compiler.
 
 ## Usage
@@ -40,17 +42,13 @@ The plugin provides 2 different main configurations (linting and formatting):
 
 Now open your `eslint.config.mjs` and add one of the configurations:
 
-```ts
-import { cloudflightAngularConfig } from '@cloudflight/eslint-plugin-angular';
-import { includeIgnoreFile } from '@eslint/compat';
-import { dirname, normalize, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
-
-const directory = dirname(fileURLToPath(import.meta.url));
-const gitignorePath = normalize(resolve(directory, '.gitignore'));
+```js
+import {cloudflightAngularConfig} from '@cloudflight/eslint-plugin-angular';
+import {includeIgnoreFile} from '@eslint/compat';
+import {resolve} from 'node:path';
 
 export default [
-    includeIgnoreFile(gitignorePath),
+    includeIgnoreFile(resolve(import.meta.dirname, '.gitignore')),
     ...cloudflightAngularConfig({
         rootDirectory: import.meta.dirname,
     }),
@@ -62,17 +60,13 @@ See [Custom Configuration](../../CUSTOM_CONFIGURATION.md) for more complicated p
 
 Create a new file called `eslint.format.mjs` and add the following:
 
-```ts
-import { cloudflightAngularFormatConfig } from '@cloudflight/eslint-plugin-angular';
-import { includeIgnoreFile } from '@eslint/compat';
-import { dirname, normalize, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
-
-const directory = dirname(fileURLToPath(import.meta.url));
-const gitignorePath = normalize(resolve(directory, '.gitignore'));
+```js
+import {cloudflightAngularFormatConfig} from '@cloudflight/eslint-plugin-angular';
+import {includeIgnoreFile} from '@eslint/compat';
+import {resolve} from 'node:path';
 
 export default [
-    includeIgnoreFile(gitignorePath),
+    includeIgnoreFile(resolve(import.meta.dirname, '.gitignore')),
     ...cloudflightAngularFormatConfig({
         rootDirectory: import.meta.dirname,
     }),
@@ -85,13 +79,13 @@ With the command `eslint -c eslint.format.mjs .` your project can be checked for
 
 The reason we created another eslint config file just for formatting instead of adding it to the existing one is to separate between linting and formatting, which are two different concerns. Furthermore, with the separation we also gain the ability to fix the formatting automatically before commit. Automatically fixing linting bugs with `eslint --fix` is not recommended, since it changes the intent of the code.
 
-To automatically format your code before committing, set up [husky](https://typicode.github.io/husky/) and [lint-staged](https://github.com/okonet/lint-staged) with the following content in your `package.json`.
+To automatically format your code before committing, set up [husky](https://typicode.github.io/husky/) and [lint-staged](https://github.com/lint-staged/lint-staged) with the following content in your `package.json`.
 
 ```json
 {
     // ...
     "lint-staged": {
-        "*.{ts,html}": "eslint -c eslint.format.mjs --fix"
+        "*.{js,jsx,mjs,cjs,ts,mts,cts,tsx,html}": "eslint -c eslint.format.mjs --fix"
     }
 }
 ```
