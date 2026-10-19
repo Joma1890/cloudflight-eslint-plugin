@@ -131,7 +131,7 @@ no-case-declarations [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-compare-neg-zero [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-cond-assign [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error ["always"]
 no-console [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{}]
-no-constant-binary-expression [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
+no-constant-binary-expression [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"checkRelationalComparisons":false}]
 no-constant-condition [ts, mts, cts, tsx, js, mjs, cjs, jsx]: warn [{"checkLoops":"allExceptWhileTrue"}]
 no-constructor-return [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-control-regex [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
@@ -163,7 +163,7 @@ no-lone-blocks [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-lonely-if [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-loop-func [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-loss-of-precision [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
-no-magic-numbers [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"ignore":[-1,0,1,2,10,1000],"ignoreDefaultValues":true,"ignoreArrayIndexes":true,"enforceConst":true,"detectObjects":false,"ignoreClassFieldInitialValues":false,"ignoreEnums":false,"ignoreNumericLiteralTypes":false,"ignoreReadonlyClassProperties":false,"ignoreTypeIndexes":false}]
+no-magic-numbers [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"detectObjects":false,"enforceConst":true,"ignore":[-1,0,1,2,10,1000],"ignoreArrayIndexes":true,"ignoreDefaultValues":true,"ignoreClassFieldInitialValues":false,"ignoreEnums":false,"ignoreNumericLiteralTypes":false,"ignoreReadonlyClassProperties":false,"ignoreTypeIndexes":false}]
 no-misleading-character-class [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"allowEscape":false}]
 no-multi-assign [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"ignoreNonDeclaration":false}]
 no-multi-str [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
@@ -187,10 +187,11 @@ no-script-url [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-self-assign [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"props":true}]
 no-self-compare [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-sequences [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"allowInParentheses":true}]
-no-shadow-restricted-names [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"reportGlobalThis":false}]
+no-shadow-restricted-names [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"reportGlobalThis":true}]
 no-sparse-arrays [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-template-curly-in-string [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-throw-literal [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
+no-unassigned-vars [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-undef-init [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-underscore-dangle [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"allow":[],"allowAfterSuper":false,"allowAfterThis":true,"allowAfterThisConstructor":false,"allowFunctionParams":true,"allowInArrayDestructuring":true,"allowInObjectDestructuring":true,"enforceInClassFields":false,"enforceInMethodNames":false}]
 no-unexpected-multiline [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
@@ -204,6 +205,7 @@ no-unsanitized/property [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-unused-expressions [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"allowShortCircuit":false,"allowTernary":false,"allowTaggedTemplates":false,"enforceForJSX":true,"ignoreDirectives":false}]
 no-unused-labels [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-unused-private-class-members [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
+no-useless-assignment [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-useless-backreference [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-useless-catch [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-useless-computed-key [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"enforceForClassMembers":true}]
@@ -213,7 +215,7 @@ no-useless-rename [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"ignoreDestruc
 no-useless-return [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-var [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-with [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
-object-shorthand [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
+object-shorthand [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error ["always"]
 one-var [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error ["never"]
 one-var-declaration-per-line [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error ["always"]
 prefer-arrow-callback [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"allowNamedFunctions":false,"allowUnboundThis":true}]
@@ -226,7 +228,8 @@ prefer-regex-literals [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"disallowR
 prefer-rest-params [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 prefer-spread [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 prefer-template [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
-radix [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error ["always"]
+preserve-caught-error [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"requireCatchParameter":false,"errorClassNames":[]}]
+radix [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 require-yield [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 security/detect-bidi-characters [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 security/detect-disable-mustache-escape [ts, mts, cts, tsx, js, mjs, cjs, jsx]: warn

@@ -9,7 +9,7 @@ You can find the directory of all rules including their reasoning [here](src/con
 The following dependencies are required:
 
 ```
-"eslint": ">=9.0.0 < 10.0.0"
+"eslint": "^10.0.0"
 ```
 
 Node.js must satisfy `^22.22.3 || ^24.15.0 || >=26.0.0`.
