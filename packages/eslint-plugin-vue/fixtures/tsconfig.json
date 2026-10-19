@@ -7,5 +7,7 @@
         "strict": true,
         "types": []
     },
-    "include": ["**/*.ts", "**/*.vue"]
+    "include": ["**/*.ts", "**/*.vue"],
+    // the explicit-tsconfig project is only reachable through tsConfigFiles
+    "exclude": ["explicit-tsconfig"]
 }
