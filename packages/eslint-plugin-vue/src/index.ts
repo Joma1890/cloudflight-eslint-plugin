@@ -55,9 +55,9 @@ export function cloudflightVueConfig(settings: CloudflightEslintPluginSettings):
     const typescriptPlugin = cloudflightTypescriptBaseConfig.find((config) => config.plugins?.['@typescript-eslint'])?.plugins?.['@typescript-eslint'];
     const sharedPluginConfigs = configs
         .filter((config) => !isHelperUntypedSfcConfig(config))
-        .map((config) => config.plugins?.['@typescript-eslint'] && typescriptPlugin ?
-            {...config, plugins: {...config.plugins, '@typescript-eslint': typescriptPlugin}} :
-            config)
+        .map((config) => config.plugins?.['@typescript-eslint'] && typescriptPlugin
+            ? {...config, plugins: {...config.plugins, '@typescript-eslint': typescriptPlugin}}
+            : config)
         .map(withTypescriptParser);
 
     return eslintConfigs([
