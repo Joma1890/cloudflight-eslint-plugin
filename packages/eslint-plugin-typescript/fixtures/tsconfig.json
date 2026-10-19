@@ -7,5 +7,5 @@
         "strict": true,
         "types": []
     },
-    "include": ["**/*.ts"]
+    "include": ["**/*.ts", "**/*.tsx"]
 }

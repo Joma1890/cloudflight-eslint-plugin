@@ -18,13 +18,13 @@ import {typescriptEslintDisableTypeCheckedRules, typescriptEslintRules} from './
 import {cloudflightTypescriptPlugin} from './rules';
 
 /**
- * @deprecated Use `cloudflightTypescriptConfig` instead
- * This is only for internal use only
+ * Only the ESLint and typescript-eslint rules, without import rules, security rules and parser options.
+ * For the framework packages, projects use `cloudflightTypescriptConfig`.
  */
 // eslint-disable-next-line @typescript-eslint/no-deprecated -- tseslint.config is deprecated but defineConfig has type incompatibilities with typescript-eslint
 export const cloudflightTypescriptBaseConfig: Linter.Config[] = eslintConfigs(tseslint.config(
     {
-        files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
+        files: ['**/*.{js,jsx,mjs,cjs,ts,mts,cts,tsx}'],
         plugins: {
             '@cloudflight/typescript': cloudflightTypescriptPlugin,
         },
@@ -49,7 +49,7 @@ export const cloudflightTypescriptBaseConfig: Linter.Config[] = eslintConfigs(ts
 // eslint-disable-next-line @typescript-eslint/no-deprecated -- tseslint.config is deprecated but defineConfig has type incompatibilities with typescript-eslint
 export const cloudflightTypescriptSecurityConfig: Linter.Config[] = eslintConfigs(tseslint.config(
     {
-        files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
+        files: ['**/*.{js,jsx,mjs,cjs,ts,mts,cts,tsx}'],
         // the rules are listed, a plugin update cannot add one
         plugins: {
             'security': pluginSecurity,
@@ -62,14 +62,10 @@ export const cloudflightTypescriptSecurityConfig: Linter.Config[] = eslintConfig
     },
 ));
 
-/**
- * @deprecated Use `cloudflightTypescriptConfig` instead
- * This is only for internal use only
- */
-export function cloudflightTypescriptImportConfig(settings: CloudflightEslintPluginSettings): Linter.Config[] {
+function cloudflightTypescriptImportConfig(settings: CloudflightEslintPluginSettings): FlatConfig.ConfigArray {
     // eslint-disable-next-line @typescript-eslint/no-deprecated -- tseslint.config is deprecated but defineConfig has type incompatibilities with typescript-eslint
-    return eslintConfigs(tseslint.config({
-        files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
+    return tseslint.config({
+        files: ['**/*.{js,jsx,mjs,cjs,ts,mts,cts,tsx}'],
         extends: [
             // https://github.com/typescript-eslint/typescript-eslint/issues/10395
             // typescript-eslint broke backwards compatibility when they added TS 5.7 support.
@@ -88,22 +84,18 @@ export function cloudflightTypescriptImportConfig(settings: CloudflightEslintPlu
             ...importRules,
         },
         settings: importXSettings(settings),
-    }));
+    });
 }
 
-/**
- * @deprecated Use `cloudflightTypescriptConfig` instead
- * This is only for internal use only
- */
 // eslint-disable-next-line @typescript-eslint/no-deprecated -- tseslint.config is deprecated but defineConfig has type incompatibilities with typescript-eslint
-export const cloudflightTypescriptDisableTypeCheckedConfig: Linter.Config[] = eslintConfigs(tseslint.config({
-    files: ['**/*.{js,mjs,cjs}'],
+const cloudflightTypescriptDisableTypeCheckedConfig = tseslint.config({
+    files: ['**/*.{js,jsx,mjs,cjs}'],
     extends: [tseslint.configs.disableTypeChecked],
     name: 'cloudflight/typescript/disable-type-checked-rules',
     rules: {
         ...typescriptEslintDisableTypeCheckedRules,
     },
-}));
+});
 
 export interface CloudflightEslintPluginSettings {
     rootDirectory: string;
@@ -121,7 +113,7 @@ export function cloudflightTypescriptFormatConfig(settings: CloudflightEslintPlu
             ignores: ['.yarn/**'],
         },
         {
-            files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
+            files: ['**/*.{js,jsx,mjs,cjs,ts,mts,cts,tsx}'],
             plugins: {
                 '@typescript-eslint': tseslint.plugin,
                 'import-x': pluginImportX,
@@ -146,17 +138,22 @@ export function cloudflightTypescriptFormatConfig(settings: CloudflightEslintPlu
             },
             settings: importXSettings(settings),
         },
+        {
+            files: ['**/*.tsx'],
+            name: 'cloudflight/typescript/format-tsx',
+            languageOptions: {
+                // comma-dangle keeps the comma of <T,> only when it knows the file has jsx
+                parserOptions: {ecmaFeatures: {jsx: true}},
+            },
+        },
     ]);
 }
 
 export function cloudflightTypescriptConfig(settings: CloudflightEslintPluginSettings): Linter.Config[] {
     return eslintConfigs([
-        // eslint-disable-next-line @typescript-eslint/no-deprecated
         ...cloudflightTypescriptBaseConfig,
         ...cloudflightTypescriptSecurityConfig,
-        // eslint-disable-next-line @typescript-eslint/no-deprecated
         ...cloudflightTypescriptImportConfig(settings),
-        // eslint-disable-next-line @typescript-eslint/no-deprecated
         ...cloudflightTypescriptDisableTypeCheckedConfig,
         {
             languageOptions: {

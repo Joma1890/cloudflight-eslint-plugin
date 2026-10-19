@@ -4,7 +4,7 @@ exports[`cloudflightReactConfig applies the expected rules to each file type 1`]
 "@cloudflight/typescript/no-on-event-assign [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 @typescript-eslint/adjacent-overload-signatures [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 @typescript-eslint/array-type [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
-@typescript-eslint/await-thenable [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
+@typescript-eslint/await-thenable [ts, mts, cts, tsx]: error
 @typescript-eslint/ban-ts-comment [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"minimumDescriptionLength":10}]
 @typescript-eslint/ban-tslint-comment [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 @typescript-eslint/class-literal-property-style [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
@@ -12,90 +12,90 @@ exports[`cloudflightReactConfig applies the expected rules to each file type 1`]
 @typescript-eslint/consistent-type-assertions [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"assertionStyle":"never"}]
 @typescript-eslint/consistent-type-definitions [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 @typescript-eslint/default-param-last [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
-@typescript-eslint/dot-notation [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"allowIndexSignaturePropertyAccess":false,"allowKeywords":true,"allowPattern":"","allowPrivateClassPropertyAccess":false,"allowProtectedClassPropertyAccess":false}]
-@typescript-eslint/explicit-function-return-type [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"allowExpressions":true}]
+@typescript-eslint/dot-notation [ts, mts, cts, tsx]: error [{"allowIndexSignaturePropertyAccess":false,"allowKeywords":true,"allowPattern":"","allowPrivateClassPropertyAccess":false,"allowProtectedClassPropertyAccess":false}]
+@typescript-eslint/explicit-function-return-type [ts, mts, cts, tsx]: error [{"allowExpressions":true}]
 @typescript-eslint/explicit-member-accessibility [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"accessibility":"explicit"}]
 @typescript-eslint/member-ordering [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"default":["static-field","field","signature","constructor","static-method","method"]}]
 @typescript-eslint/no-array-constructor [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
-@typescript-eslint/no-array-delete [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
-@typescript-eslint/no-base-to-string [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
+@typescript-eslint/no-array-delete [ts, mts, cts, tsx]: error
+@typescript-eslint/no-base-to-string [ts, mts, cts, tsx]: error
 @typescript-eslint/no-confusing-non-null-assertion [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
-@typescript-eslint/no-deprecated [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
+@typescript-eslint/no-deprecated [ts, mts, cts, tsx]: error
 @typescript-eslint/no-duplicate-enum-values [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
-@typescript-eslint/no-duplicate-type-constituents [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
+@typescript-eslint/no-duplicate-type-constituents [ts, mts, cts, tsx]: error
 @typescript-eslint/no-dynamic-delete [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 @typescript-eslint/no-empty-function [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"allow":[]}]
 @typescript-eslint/no-empty-object-type [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 @typescript-eslint/no-explicit-any [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 @typescript-eslint/no-extra-non-null-assertion [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 @typescript-eslint/no-extraneous-class [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
-@typescript-eslint/no-floating-promises [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"ignoreVoid":true}]
-@typescript-eslint/no-for-in-array [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
-@typescript-eslint/no-implied-eval [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
+@typescript-eslint/no-floating-promises [ts, mts, cts, tsx]: error [{"ignoreVoid":true}]
+@typescript-eslint/no-for-in-array [ts, mts, cts, tsx]: error
+@typescript-eslint/no-implied-eval [ts, mts, cts, tsx]: error
 @typescript-eslint/no-inferrable-types [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"ignoreParameters":true}]
 @typescript-eslint/no-invalid-this [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"capIsConstructor":true}]
 @typescript-eslint/no-invalid-void-type [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"allowInGenericTypeArguments":true,"allowAsThisParameter":true}]
-@typescript-eslint/no-meaningless-void-operator [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
+@typescript-eslint/no-meaningless-void-operator [ts, mts, cts, tsx]: error
 @typescript-eslint/no-misused-new [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
-@typescript-eslint/no-misused-promises [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
-@typescript-eslint/no-misused-spread [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
-@typescript-eslint/no-mixed-enums [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
+@typescript-eslint/no-misused-promises [ts, mts, cts, tsx]: error
+@typescript-eslint/no-misused-spread [ts, mts, cts, tsx]: error
+@typescript-eslint/no-mixed-enums [ts, mts, cts, tsx]: error
 @typescript-eslint/no-namespace [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 @typescript-eslint/no-non-null-asserted-nullish-coalescing [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 @typescript-eslint/no-non-null-asserted-optional-chain [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 @typescript-eslint/no-non-null-assertion [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
-@typescript-eslint/no-redundant-type-constituents [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
+@typescript-eslint/no-redundant-type-constituents [ts, mts, cts, tsx]: error
 @typescript-eslint/no-require-imports [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 @typescript-eslint/no-shadow [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 @typescript-eslint/no-this-alias [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
-@typescript-eslint/no-unnecessary-boolean-literal-compare [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
-@typescript-eslint/no-unnecessary-template-expression [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
-@typescript-eslint/no-unnecessary-type-arguments [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
-@typescript-eslint/no-unnecessary-type-assertion [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
+@typescript-eslint/no-unnecessary-boolean-literal-compare [ts, mts, cts, tsx]: error
+@typescript-eslint/no-unnecessary-template-expression [ts, mts, cts, tsx]: error
+@typescript-eslint/no-unnecessary-type-arguments [ts, mts, cts, tsx]: error
+@typescript-eslint/no-unnecessary-type-assertion [ts, mts, cts, tsx]: error
 @typescript-eslint/no-unnecessary-type-constraint [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
-@typescript-eslint/no-unnecessary-type-conversion [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
-@typescript-eslint/no-unnecessary-type-parameters [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
-@typescript-eslint/no-unsafe-assignment [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
-@typescript-eslint/no-unsafe-call [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
+@typescript-eslint/no-unnecessary-type-conversion [ts, mts, cts, tsx]: error
+@typescript-eslint/no-unnecessary-type-parameters [ts, mts, cts, tsx]: error
+@typescript-eslint/no-unsafe-assignment [ts, mts, cts, tsx]: error
+@typescript-eslint/no-unsafe-call [ts, mts, cts, tsx]: error
 @typescript-eslint/no-unsafe-declaration-merging [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 @typescript-eslint/no-unsafe-function-type [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
-@typescript-eslint/no-unsafe-member-access [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
-@typescript-eslint/no-unsafe-return [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
-@typescript-eslint/no-unsafe-unary-minus [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
+@typescript-eslint/no-unsafe-member-access [ts, mts, cts, tsx]: error
+@typescript-eslint/no-unsafe-return [ts, mts, cts, tsx]: error
+@typescript-eslint/no-unsafe-unary-minus [ts, mts, cts, tsx]: error
 @typescript-eslint/no-unused-expressions [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"allowShortCircuit":false,"allowTaggedTemplates":false,"allowTernary":false}]
 @typescript-eslint/no-unused-vars [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"args":"none","ignoreRestSiblings":true}]
 @typescript-eslint/no-useless-constructor [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
-@typescript-eslint/no-useless-default-assignment [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
+@typescript-eslint/no-useless-default-assignment [ts, mts, cts, tsx]: error
 @typescript-eslint/no-wrapper-object-types [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
-@typescript-eslint/non-nullable-type-assertion-style [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
-@typescript-eslint/only-throw-error [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
+@typescript-eslint/non-nullable-type-assertion-style [ts, mts, cts, tsx]: error
+@typescript-eslint/only-throw-error [ts, mts, cts, tsx]: error
 @typescript-eslint/prefer-as-const [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
-@typescript-eslint/prefer-find [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
+@typescript-eslint/prefer-find [ts, mts, cts, tsx]: error
 @typescript-eslint/prefer-for-of [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 @typescript-eslint/prefer-function-type [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
-@typescript-eslint/prefer-includes [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
+@typescript-eslint/prefer-includes [ts, mts, cts, tsx]: error
 @typescript-eslint/prefer-literal-enum-member [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 @typescript-eslint/prefer-namespace-keyword [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
-@typescript-eslint/prefer-nullish-coalescing [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
-@typescript-eslint/prefer-optional-chain [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
-@typescript-eslint/prefer-promise-reject-errors [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
-@typescript-eslint/prefer-reduce-type-parameter [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
-@typescript-eslint/prefer-regexp-exec [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
-@typescript-eslint/prefer-return-this-type [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
-@typescript-eslint/prefer-string-starts-ends-with [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
-@typescript-eslint/promise-function-async [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
-@typescript-eslint/related-getter-setter-pairs [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
-@typescript-eslint/require-array-sort-compare [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
-@typescript-eslint/require-await [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
-@typescript-eslint/restrict-plus-operands [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"allowAny":false,"allowBoolean":false,"allowNullish":false,"allowNumberAndString":false,"allowRegExp":false}]
-@typescript-eslint/restrict-template-expressions [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"allowAny":false,"allowBoolean":false,"allowNever":false,"allowNullish":false,"allowNumber":false,"allowRegExp":false}]
-@typescript-eslint/return-await [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error ["error-handling-correctness-only"]
-@typescript-eslint/strict-boolean-expressions [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
-@typescript-eslint/switch-exhaustiveness-check [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
+@typescript-eslint/prefer-nullish-coalescing [ts, mts, cts, tsx]: error
+@typescript-eslint/prefer-optional-chain [ts, mts, cts, tsx]: error
+@typescript-eslint/prefer-promise-reject-errors [ts, mts, cts, tsx]: error
+@typescript-eslint/prefer-reduce-type-parameter [ts, mts, cts, tsx]: error
+@typescript-eslint/prefer-regexp-exec [ts, mts, cts, tsx]: error
+@typescript-eslint/prefer-return-this-type [ts, mts, cts, tsx]: error
+@typescript-eslint/prefer-string-starts-ends-with [ts, mts, cts, tsx]: error
+@typescript-eslint/promise-function-async [ts, mts, cts, tsx]: error
+@typescript-eslint/related-getter-setter-pairs [ts, mts, cts, tsx]: error
+@typescript-eslint/require-array-sort-compare [ts, mts, cts, tsx]: error
+@typescript-eslint/require-await [ts, mts, cts, tsx]: error
+@typescript-eslint/restrict-plus-operands [ts, mts, cts, tsx]: error [{"allowAny":false,"allowBoolean":false,"allowNullish":false,"allowNumberAndString":false,"allowRegExp":false}]
+@typescript-eslint/restrict-template-expressions [ts, mts, cts, tsx]: error [{"allowAny":false,"allowBoolean":false,"allowNever":false,"allowNullish":false,"allowNumber":false,"allowRegExp":false}]
+@typescript-eslint/return-await [ts, mts, cts, tsx]: error ["error-handling-correctness-only"]
+@typescript-eslint/strict-boolean-expressions [ts, mts, cts, tsx]: error
+@typescript-eslint/switch-exhaustiveness-check [ts, mts, cts, tsx]: error
 @typescript-eslint/triple-slash-reference [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
-@typescript-eslint/unbound-method [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
+@typescript-eslint/unbound-method [ts, mts, cts, tsx]: error
 @typescript-eslint/unified-signatures [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
-@typescript-eslint/use-unknown-in-catch-callback-variable [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
+@typescript-eslint/use-unknown-in-catch-callback-variable [ts, mts, cts, tsx]: error
 array-callback-return [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"allowImplicit":true,"checkForEach":false,"allowVoid":false}]
 block-scoped-var [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 camelcase [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"allow":[],"ignoreDestructuring":false,"ignoreGlobals":false,"ignoreImports":false,"properties":"never"}]
@@ -229,8 +229,8 @@ no-unreachable-loop [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"ignore":[]}
 no-unsafe-finally [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-unsafe-negation [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"enforceForOrderingRelations":false}]
 no-unsafe-optional-chaining [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"disallowArithmeticOperators":true}]
-no-unsanitized/method [ts, mts, cts, js, mjs, cjs]: error
-no-unsanitized/property [ts, mts, cts, js, mjs, cjs]: error
+no-unsanitized/method [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
+no-unsanitized/property [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-unused-expressions [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error [{"allowShortCircuit":false,"allowTernary":false,"allowTaggedTemplates":false,"enforceForJSX":true,"ignoreDirectives":false}]
 no-unused-labels [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 no-unused-private-class-members [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
@@ -300,10 +300,10 @@ react/require-render-return [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 react/sort-comp [ts, mts, cts, tsx, js, mjs, cjs, jsx]: warn [{"order":["type-annotations","static-variables","instance-variables","lifecycle","static-methods","instance-methods","everything-else","render"]}]
 react/static-property-placement [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error ["static public field"]
 require-yield [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
-security/detect-bidi-characters [ts, mts, cts, js, mjs, cjs]: error
-security/detect-disable-mustache-escape [ts, mts, cts, js, mjs, cjs]: warn
-security/detect-non-literal-regexp [ts, mts, cts, js, mjs, cjs]: warn
-security/detect-unsafe-regex [ts, mts, cts, js, mjs, cjs]: warn
+security/detect-bidi-characters [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
+security/detect-disable-mustache-escape [ts, mts, cts, tsx, js, mjs, cjs, jsx]: warn
+security/detect-non-literal-regexp [ts, mts, cts, tsx, js, mjs, cjs, jsx]: warn
+security/detect-unsafe-regex [ts, mts, cts, tsx, js, mjs, cjs, jsx]: warn
 strict [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error ["never"]
 symbol-description [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error
 unicode-bom [ts, mts, cts, tsx, js, mjs, cjs, jsx]: error ["never"]
